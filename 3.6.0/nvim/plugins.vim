@@ -1,125 +1,80 @@
-
-" testitexn"
-" Neovim settings
-" Language:	Vim
-" Last Change:	07 Jun 2018
-
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Colorschemes
-Plug 'morhetz/gruvbox'
-Plug 'sickill/vim-monokai'
-Plug 'ajh17/Spacegray.vim'
-Plug 'icymind/NeoSolarized'
-Plug 'mhartington/oceanic-next'
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'arcticicestudio/nord-vim'
-" Plug 'MaxSt/FlatColor'
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
-Plug 'joshdick/onedark.vim'
-Plug 'nightsense/vim-crunchbang'
-Plug 'exitface/synthwave.vim'
-Plug 'YorickPeterse/happy_hacking.vim'
-Plug 'gilgigilgil/anderson.vim'
-Plug 'jdkanani/vim-material-theme'
-Plug 'jeetsukumaran/vim-nefertiti'
-Plug 'dracula/vim'
-Plug 'mhinz/vim-janah'
-Plug 'jdsimcoe/abstract.vim'
-Plug 'AlessandroYorba/Alduin'
-Plug 'zacanger/angr.vim'
-Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'w0ng/vim-hybrid'
-Plug 'nanotech/jellybeans.vim'
-Plug 'cseelus/vim-colors-lucid'
-Plug 'rakr/vim-one'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'jacoborus/tender.vim'
-Plug 'rakr/vim-two-firewatch'
-Plug 'roosta/srcery'
-Plug 'nightsense/stellarized'
-Plug 'ajmwagar/vim-deus'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'chriskempson/base16-vim'
-Plug 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+" EXPLORE FOLDER AND DOCUMENTS
+Plug 'ctrlpvim/ctrlp.vim'              , {'commit': '2e773fd'}  " find files
+Plug 'scrooloose/nerdtree'             , {'commit': '67fa9b3'}  " folder manager
+Plug 'junegunn/fzf'                    , {'commit': '430e819',
+      \ 'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf.vim'                , {'commit': 'ac4e7bf'}  " fuzzy matching
 
-" Explore folder and documents
-Plug 'ctrlpvim/ctrlp.vim' " find files
-Plug 'scrooloose/nerdtree' " explore your filesystem and to open files
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim' " fuzzy matching
+" DEVELOPMENT ENVIRONMENT TOOLS
+Plug 'jalvesaq/vimcmdline'             , {'commit': '17275ab'}  " command line
+Plug 'hkupty/iron.nvim'                , {'commit': 'c3542c2'}  " repls over neovim
+Plug 'SirVer/ultisnips'                , {'commit': '1a99766'}  " snippets
+Plug 'honza/vim-snippets'              , {'commit': '7ade68c'}  " snippets scripts
+Plug 'christoomey/vim-tmux-navigator'  , {'commit': '4e1a877'}  " tmux ctrl navigation
+Plug 'autozimu/LanguageClient-neovim'  , {'commit': '41c948e',
+      \ 'branch': 'next', 'do': 'bash install.sh'}
+Plug 'Shougo/deoplete.nvim'            , {'commit': '9d4e88f', 'do': ':UpdateRemotePlugins'}
 
-" Development environment tools
-" Plug 'epeli/slimux' " not using with r but maybe with python
-" Plug 'kassio/neoterm' " use terminal
-Plug 'jalvesaq/vimcmdline' " command line
-Plug 'hkupty/iron.nvim' " Interactive Repls Over Neovim
-Plug 'SirVer/ultisnips' " snippets
-Plug 'honza/vim-snippets' " snippets scripts
-" Plug 'roxma/nvim-completion-manager'
-Plug 'Shougo/deoplete.nvim', {'commit': '3e3b762', 'do': ':UpdateRemotePlugins' } " completion
+" VISUAL IMPROVEMENT
+Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " status and tab lines
+Plug 'edkolev/tmuxline.vim'            , {'commit': '1142333'}  " tmux status and tab lines
+Plug 'ryanoasis/vim-devicons'          , {'commit': 'cdc08fd'}  " filetype icons
+Plug 'kshenoy/vim-signature'           , {'commit': '6bc3dd1'}  " display and navigate marks
+Plug 'mhinz/vim-signify'               , {'commit': 'f34fea0'}  " show differences
+Plug 'majutsushi/tagbar'               , {'commit': '387bbad'}  " display tags
+Plug 'ntpeters/vim-better-whitespace'  , {'commit': 'f5726c4'}  " whitespace
+Plug 'ap/vim-css-color'                , {'commit': '10eae53'}  " TODO: closes rmd chunk
 
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-
-if !exists("g:gui_oni")
-  " Plug 'vim-airline/vim-airline' " status and tab lines
-  " Plug 'vim-airline/vim-airline-themes'
-endif
-Plug 'itchyny/lightline.vim' " status and tab lines
-Plug 'ryanoasis/vim-devicons' " filetype icons
-Plug 'kshenoy/vim-signature' " display marks
-Plug 'majutsushi/tagbar' " display tags
-" Plug 'ap/vim-css-color' " TODO: closes rmd chunk when sent to R
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'edkolev/tmuxline.vim'
-" Plug 'weihanglo/tmuxline.vim'
-" Plug 'CPWeaver/tmuxline.vim'
-Plug 'christoomey/vim-tmux-navigator'
-
-" Programs
-Plug 'vimwiki/vimwiki' " vimwiki: notes and agenda
-Plug 'lervag/vimtex' " latex
-" Plug 'vim-pandoc/vim-pandoc-syntax' " markdown: great works with nvim-r
-Plug 'ErickChacon/vim-pandoc-syntax' " markdown: great works with nvim-r
-Plug 'vim-pandoc/vim-pandoc' " markdown: really nice for markdown
-function! BuildComposer(info) " markdown preview
-  if a:info.status != 'unchanged' || a:info.force
-    !cargo build --release
-  endif
-endfunction
-" Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-Plug 'cespare/vim-toml' " toml: syntax highlight
-Plug 'jalvesaq/Nvim-R' " R: run code, rmarkdown, help and more
-" Plug 'jalvesaq/Nvim-R', {'commit': '511ac10'} " R: run code, rmarkdown, help and more
-Plug 'tpope/vim-fugitive' " git: wrapper
-Plug 'airblade/vim-gitgutter' " git: shows added and remove lines of git
-Plug 'mhinz/vim-signify'
-" Plug 'ivanov/vim-ipython' " Python: two-way integration with ipython
-" Plug 'bfredl/nvim-ipy' " Python: jupyter front-end for neovim
-" Plug 'zchee/deoplete-jedi' " Python: autocomplete
-Plug 'vim-python/python-syntax' " Python: syntax highlighting
-" Plug 'coyotebush/vim-pweave'
-" Plug 'KeitaNakamura/highlighter.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'JuliaEditorSupport/julia-vim'
-" Plug 'JuliaEditorSupport/deoplete-julia' " initialize problem
-" Plug 'mattpenney89/vimify' " Spotify
-" Plug 'HendrikPetertje/vimify' " Spotify
+" PROGRAMS
+Plug 'vimwiki/vimwiki'                 , {'commit': 'be793e2'}  " vimwiki: notes and agenda
+Plug 'lervag/vimtex'                   , {'commit': 'ef428bb'}  " latex: compile
+Plug 'vim-pandoc/vim-pandoc'           , {'commit': '2e342ac'}  " pandoc: integration
+Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': 'e557ade'}  " pandoc: syntax
+Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax highlight
+Plug 'jalvesaq/Nvim-R'                 , {'commit': 'e7f4df0'}  " R: support
+Plug 'tpope/vim-fugitive'              , {'commit': '5d99841'}  " git: wrapper
+Plug 'airblade/vim-gitgutter'          , {'commit': '7eeea63'}  " git: shows changes
+Plug 'vim-python/python-syntax'        , {'commit': '1df5e5a'}  " python: syntax
+Plug 'octol/vim-cpp-enhanced-highlight', {'commit': '3aa9562'}  " cpp: better syntax
+Plug 'JuliaEditorSupport/julia-vim'    , {'commit': '386371f'}  " julia: support
 
 " Motions
-Plug 'tpope/vim-surround' " sorround
-Plug 'kana/vim-textobj-indent' " copy indented block
-Plug 'kana/vim-textobj-user' " custom text object
-" Plug 'tpope/vim-commentary' " easy comment and uncomment: slow for rmd
-Plug 'tomtom/tcomment_vim' " easy comment: nice for rmd
-" Plug 'scrooloose/nerdcommenter'
-Plug 'godlygeek/tabular'
+Plug 'tpope/vim-surround'              , {'commit': 'ca58a2d'}  " sorround
+Plug 'kana/vim-textobj-indent'         , {'commit': 'deb7686'}  " copy indented block
+Plug 'kana/vim-textobj-user'           , {'commit': '074ce25'}  " custom text object
+Plug 'tomtom/tcomment_vim'             , {'commit': '622cc05'}  " easy comment: nice for rmd
+Plug 'godlygeek/tabular'               , {'commit': '339091a'}  " format as table
 
-" Terminal file manager
-" Plug 'francoiscabrol/ranger.vim'
-" Plug 'rbgrouleff/bclose.vim'
+" Colorschemes
+Plug 'morhetz/gruvbox'                 , {'commit': 'cb4e7a5'}
+Plug 'sickill/vim-monokai'             , {'commit': 'ae77538'}
+Plug 'ajh17/Spacegray.vim'             , {'commit': '69e8fef'}
+Plug 'icymind/NeoSolarized'            , {'commit': '1af4bf6'}
+Plug 'mhartington/oceanic-next'        , {'commit': '08158ee'}
+Plug 'KeitaNakamura/neodark.vim'       , {'commit': 'e95e924'}
+Plug 'arcticicestudio/nord-vim'        , {'commit': 'de24841'}
+Plug 'challenger-deep-theme/vim'       , {'commit': '927720e', 'as': 'challenger-deep' }
+Plug 'joshdick/onedark.vim'            , {'commit': '7f36f83'}
+Plug 'nightsense/vim-crunchbang'       , {'commit': '448e75e'}
+Plug 'exitface/synthwave.vim'          , {'commit': 'a19772b'}
+Plug 'jdkanani/vim-material-theme'     , {'commit': '33bd4bf'}
+Plug 'dracula/vim'                     , {'commit': 'b68c4fd'}
+Plug 'mhinz/vim-janah'                 , {'commit': '3b8ae97'}
+Plug 'jdsimcoe/abstract.vim'           , {'commit': '16d0131'}
+Plug 'AlessandroYorba/Alduin'          , {'commit': '379418b'}
+Plug 'tyrannicaltoucan/vim-deep-space' , {'commit': '126d52f'}
+Plug 'w0ng/vim-hybrid'                 , {'commit': 'cc58baa'}
+Plug 'nanotech/jellybeans.vim'         , {'commit': 'ddf78cf'}
+Plug 'cseelus/vim-colors-lucid'        , {'commit': 'a2bc8f6'}
+Plug 'rakr/vim-one'                    , {'commit': '6695e13'}
+Plug 'liuchengxu/space-vim-dark'       , {'commit': 'f707a39'}
+Plug 'jacoborus/tender.vim'            , {'commit': '6b0497a'}
+Plug 'rakr/vim-two-firewatch'          , {'commit': 'efa0689'}
+Plug 'ajmwagar/vim-deus'               , {'commit': 'c6200a1'}
+Plug 'sonph/onehalf'                   , {'commit': 'c0f08a2', 'rtp': 'vim/'}
+Plug 'chriskempson/base16-vim'         , {'commit': '2073e2d'}
+Plug 'chriskempson/tomorrow-theme'     , {'commit': '0e0d35a', 'rtp': 'vim/'}
 
 call plug#end()

@@ -66,8 +66,16 @@ RUN \
   apt-get install -y ruby ruby-dev && \
   gem install neovim && \
   apt-get install -y exuberant-ctags && \
+  # apt-get -t stretch-backports -y install neovim
+  # requirements to build from source
+  apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake \
+  g++ pkg-config  && \
+  curl -sL https://github.com/neovim/neovim/archive/v0.3.3.tar.gz | \
+  tar xz && \
+  cd neovim-0.3.3 && \
   # install
-  apt-get -t stretch-backports -y install "neovim"
+  make CMAKE_BUILD_TYPE=Release && \
+  make install
 
 # Complementary software for R {{{1
 

@@ -15,7 +15,8 @@ Plug 'honza/vim-snippets'              , {'commit': '7ade68c'}  " snippets scrip
 Plug 'christoomey/vim-tmux-navigator'  , {'commit': '4e1a877'}  " tmux ctrl navigation
 Plug 'autozimu/LanguageClient-neovim'  , {'commit': '41c948e',
       \ 'branch': 'next', 'do': 'bash install.sh'}
-Plug 'Shougo/deoplete.nvim'            , {'commit': '9d4e88f', 'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/deoplete.nvim'            , {'commit': '3e3b762',
+      \ 'do': ':UpdateRemotePlugins' }
 
 " VISUAL IMPROVEMENT
 Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " status and tab lines

@@ -1,21 +1,18 @@
-setlocal foldmethod=expr
-setlocal foldlevel=0
-" setlocal conceallevel=0
 
+" local config
 setlocal spell
-map <C-c>r :exe "SlimuxShellRun source('" . expand("%:p") . "')"<CR>
 
-" nvim-r mapping
+" Mapping and nvim-r
 inoremap <buffer> >> <Esc>:normal! a%>%<CR>a
 inoremap <buffer> __ <Esc>:normal! a<-<CR>a
 inoremap <leader>, <C-x><C-o>
-" inoremap <Nul> <C-x><C-o>
-" imap <leader>. <Plug>RCompleteArgs
-" imap <C-space> <Plug>RCompleteArgs
 nmap <LocalLeader>ll <Plug>RSendLine
 
-" r folding
-function! RFold()
+" folding
+setlocal foldmethod=expr
+setlocal foldlevel=0
+setlocal foldexpr=RFold()
+function! RFold() " {{{
   let this_line = getline(v:lnum)
 
   if match(this_line, '}') >= 0
@@ -31,6 +28,4 @@ function! RFold()
     return '>1'
   endif
   return '='
-endfunction
-
-setlocal foldexpr=RFold()
+endfunction " }}}

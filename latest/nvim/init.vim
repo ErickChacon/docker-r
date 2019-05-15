@@ -1,8 +1,6 @@
-" testitexn"
 " Neovim settings
-" Language:	Vim
-" Last Change:	22 Jun 2017
-" /usr/share/nvim/runtime/
+" Language:     Neovim
+" Last Change:  12 May 2019
 "
 " PLUGINS {{{
 
@@ -11,440 +9,194 @@ so ~/.config/nvim/plugins.vim
 " }}}
 " GENERAL SETTING {{{
 
-" syntax enable
-" let mapleader = " " " Leader - ( Spacebar ) \ by default
-let maplocalleader = "\\"
-set backspace=2 " Backspace deletes like most programs in insert mode
-set nobackup " avoid create backup automatically
-set nowritebackup " save: avoid new-delete-rename
-set history=50 " history of the last commands
-set ruler " row and column position
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set autowrite     " Automatically :write before running commands
-set autoread      " Reload files changed outside vim
-au FocusGained,BufEnter * :silent! " Check if file has changed externally
-set showmatch " Show matching brackets just for a moment.
-set title " window title
+" MAPPING AND KEYBOARD
+let mapleader = "\\"                         " map leader as backslash (default)
+let maplocalleader = "\\"                    " map localleader as backslash
+set backspace=indent,eol,start               " use backspace to delete in insert mode
 
-if exists("g:gui_oni")
-  " Turn off statusbar, because it is externalized
-  set noruler
-  set laststatus=0 " 2: Always display the status line
-  set noshowcmd
-  set noshowmode " hide the default status mode
-else
-  set laststatus=2 " 2: Always display the status line
-endif
+" MODIFICATIONS
+set autowrite                                " save before running commands
+au FocusGained,BufEnter * :silent!           " update file when entering buffer
+set history=50                               " history of the last commands ':'
 
-set number " show line number
-set numberwidth=4
-set relativenumber
+" MOUSE AND CLIPBOARD USAGE
+set mouse=a                                  " allow use of mouse
+set clipboard+=unnamedplus                   " copy to clipboard
 
-set hlsearch "highlight searches
-set incsearch    " search as characters are entered
-set ignorecase    " case insensitive searching (unless specified)
-set smartcase
-nnoremap <silent> <leader>, :noh<cr> " Stop highlight after searching
+" SEARCHES
+set hlsearch                                 " highlight searches
+set incsearch                                " search as characters are entered
+set ignorecase                               " case insensitive searching
+set smartcase                                " override ignorecase when upper characters
+nnoremap <silent> <leader>, :noh<cr>         " stop highlight after searching
 
-set shiftwidth=2
-set softtabstop=2   " number of spaces in tab when editing
-set expandtab       " tabs are spaces
-" set showcmd         " show incomplete command in bottom bar
-set cursorline      " highlight current line
-set visualbell      " stop the annoying beeping
-filetype indent on  " load filetype-specific indent files R,
-filetype plugin on " for markdown preview
-set wildmenu        " nice visual autocomplete for command menu
-set wildmode=list:longest,full " full menu
-set lazyredraw          " redraw only when we need to.
-" set showmatch           " highlight matching [{()}]
-set clipboard=unnamedplus " copy to clipboard
+" INDENTATION
+set shiftwidth=2                             " indentation size
+set softtabstop=2                            " number of spaces per tab
+set expandtab                                " tabs are spaces
 
-"Allow usage of mouse in iTerm
-set ttyfast
-set mouse=a
+" ROW NUMBERS FORMAT
+set number                                   " show line number
+set numberwidth=4                            " width
+set relativenumber                           " relative
 
-" Make it obvious where 100 characters is
-set textwidth=85
-set formatoptions=cqt " text wraping: it changes depending of the filetype
-" set wrapmargin=0
-" set formatoptions=cq
-" set formatoptions=qrn1
-" set wrapmargin=0
-set colorcolumn=+1
-" let &colorcolumn="10,".join(range(70,999),",")
-let &colorcolumn="".join(range(91,999),",")
-" let &colorcolumn=range(86,999)
-" highlight ColorColumn ctermbg=0 guibg=lightgrey
-" augroup vimrc_autocmds
-"   autocmd BufEnter * highlight OverLength ctermbg=darkgrey guibg=#592929
-"   autocmd BufEnter * match OverLength /\%50v.*/
-" augroup END
-" Highlight long lines (>80)
+" TEXTWIDTH AND WRAPING
+set textwidth=85                             " textwidth
+set formatoptions=cqt                        " text wraping
+set colorcolumn=+1                           " color column after textwidth
+let &colorcolumn="".join(range(91,999),",")  " color column after textwidth
+
+" VISUAL SETTINGS
+set title                                       " window title
+set showmatch                                   " show matching brackets for a moment
+set cursorline                                  " highlight current line
+set fillchars+=vert:\│                          " split separator
+hi VertSplit guibg=NONE guifg=#1d2021 gui=none  " split separator color
+
+" MENU OPTIONS
+set wildmenu                                 " nice visual autocomplete for command menu
+set wildmode=list:longest,full               " full menu
+
+" UPDATE WINDOW AND ERROR SOUND
+set lazyredraw                               " redraw only when we need to
+set visualbell                               " stop the annoying beeping
+
+
 " }}}
 " ADDITIONAL NVIM SETTING {{{
-" to get out of terminal insert mode
-tnoremap jk <C-\><C-n>
 
-" Go to the last cursor location when a file is opened, unless this is a
-" git commit (in which case it's annoying)
+" Go to the last cursor location when a file is opened
 au BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") && &filetype != "gitcommit" |
       \ execute("normal `\"") |
   \ endif
 
+" Forcing vimdiff to wrap lines
+autocmd FilterWritePre * if &diff | setlocal wrap< | endif
 
-" ino " ""<left>
-" autocmd FileType r,python inoremap ' ''<left>
-ino ( ()<left>
-ino [ []<left>
-ino { {}<left>
-" autocmd FileType tex,pandoc inoremap $ $$<left>
-" ino {<CR> {<CR>}<ESC>O
+" Mapping jk to get out of insert, visual and terminal mode
+inoremap jk <Esc>
+inoremap <esc> <nop>
+vnoremap jk <Esc>
+vnoremap <esc> <nop>
+tnoremap jk <C-\><C-n>
 
+" Mapping to close brackets
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
 
-" Disable Arrow keys in Escape mode
+" Disable Arrow keys in nomal, visual, operator-pending and insert mode
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-
-" Disable Arrow keys in Insert mode
 imap <up> <nop>
 imap <down> <nop>
 imap <left> <nop>
+imap <right> <nop>
 
-" Mapping esc to jk and disable the old key
-inoremap jk <Esc>
-inoremap <esc> <nop>
-
-vnoremap jk <Esc>
-" vnoremap jk <Esc>gV
-" inoremap jk <Esc>
-" inoremap <esc> <nop>
-
-" Use ctrl-[hjkl] to select the active split!
-" nmap <silent> <c-k> :wincmd k<CR>
-" nmap <silent> <c-j> :wincmd j<CR>
-" nmap <silent> <c-h> :wincmd h<CR>
-" nmap <silent> <c-l> :wincmd l<CR>
+" Mapping g-[hjkl] to select split in normal mode
 nmap <silent> gk :wincmd k<CR>
 nmap <silent> gj :wincmd j<CR>
 nmap <silent> gh :wincmd h<CR>
 nmap <silent> gl :wincmd l<CR>
 
-" Forcing vimdiff to wrap lines
-autocmd FilterWritePre * if &diff | setlocal wrap< | endif
-
 " }}}
 " COLORSCHEME {{{
-" Colorscheme vim options
-set termguicolors
-syntax enable " allow syntax colors
 
-if exists("g:gui_oni")
-  " set background=light " incompatible with colorscheme
-  set background=dark " incompatible with colorscheme
-else
-  set background=dark " incompatible with colorscheme
-endif
-" set background=light " incompatible with colorscheme
-
-" Gruvbox colorscheme
-let g:gruvbox_italic = 1
-let g:gruvbox_italicize_strings = 1
-let g:gruvbox_italicize_comments = 1
-let g:gruvbox_contrast_dark = "soft"
-let g:gruvbox_contrast_light = "soft"
-" let g:gruvbox_color_column = "bg2"
-" let g:gruvbox_vert_split='dark0_hard'
-" let g:gruvbox_number_column = "red"
-" let g:gruvbox_invert_signs = 1
-
-" Nord colorscheme
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_comment_brightness = 20
-let g:nord_statusline_uniform = 0
-
-" Deus colorscheme
-let g:deus_bold=0
-let g:deus_italic=1
-
-" Neodark colorscheme
-" let g:neodark#use_256color = 1
-let g:neodark#italics = 1
-
-" spelling problem
-" let g:spacegray_low_contrast = 1
-" colorscheme spacegray
-" guifg=#8be9fd gui=none
-" colorscheme synthwave
-" colorscheme hybrid
-" colorscheme alduin
-" colorscheme janah
-" colorscheme angr
-
-" high contrast
-" colorscheme base16-tomorrow-night
-" colorscheme OceanicNext
-" colorscheme base16-default-dark
-" colorscheme monokai
-" colorscheme srcery
-" colorscheme lucid
-" colorscheme happy_hacking
-" let g:deepspace_italics=1
-" colorscheme deep-space
-" colorscheme jellybeans
-" colorscheme abstract
-" colorscheme tender
-
-" low contrast
-" colorscheme Tomorrow-Night
-" let g:neosolarized_contrast = "high"
-" let g:neosolarized_bold = 1
-" let g:neosolarized_underline = 1
-" let g:neosolarized_italic = 1
-" colorscheme NeoSolarized
-" colorscheme stellarized_dark
-" colorscheme anderson
-" colorscheme crunchbang
-" colorscheme two-firewatch
-" let g:airline_theme='twofirewatch'
-" colorscheme nefertiti
-
-" let g:nvim_active_file = $HOME.'/Documents/.nvim_active.vim'
-let g:nvim_active_file = '/tmp/local/.nvim_active.vim'
-" let g:nvim_active_file = '/tmp/.nvim_active.vim'
-
-" function! WriteActive()
-"   let nr_nvim = str2nr(system('pgrep -x nvim | wc -l')) - 1
-"   let nvim_id = repeat([readfile(g:nvim_active_file, '', 1)[0]], nr_nvim)
-"   call writefile(nvim_id, g:nvim_active_file)
-" endfunction
-"
-" autocmd VimLeave * call WriteActive()
-
-autocmd VimLeave * call
-      \ system('head ' . g:nvim_active_file . ' -n -1 > temp.vim; ' .
-      \ 'mv temp.vim ' . g:nvim_active_file)
-
-let g:nvim_id = system("pgrep -x nvim | sed -n 1p")
-call writefile([g:nvim_id], g:nvim_active_file, 'a')
-let g:nvim_id1 = readfile(g:nvim_active_file, '', 1)[0]
-
-function! Random()
-python3 << EOF
-import random
-import vim
-random.seed(int(vim.eval("g:nvim_id1")))
-freq = [4, 4, 1, 1, 1, 2, 1, 1]
-total = sum(freq)
-ids_freq = [[i+1] * freq[i] for i in range(len(freq))]
-ids_freq = [item for sublist in ids_freq for item in sublist]
-value = random.randrange(1, total)
-value = ids_freq[value]
-vim.command("let g:random_number = %s"% value)
-EOF
-endfunction
-
-call Random()
-" echo g:random_number
-"
-
-let g:path_palname = $HOME.'/.palette-name.vim'
+" Allow true colors and read palette name
+set termguicolors                                  " true colors
+let g:path_palname = $HOME.'/.palette-name.vim'    " file to read palette name
 let g:scheme_name = substitute(readfile(g:path_palname, '', 1)[0], ".vim$", "", "")
 
-
-" if exists("g:gui_oni")
-"   colorscheme nord
-"   " colorscheme material-theme
-"   " colorscheme gruvbox
-" else
-"   if g:random_number == 1
-"     colorscheme nord
-"     hi Conceal guibg=NONE guifg=#8be9fd gui=none
-"     hi Folded gui=none guibg=#3b4252 guifg=#7b88a1
-"     hi Title gui=bold guifg=#d8dee9
-"   elseif g:random_number == 2
-"     colorscheme gruvbox
-"     hi link Function GruvboxAqua
-"   elseif g:random_number == 3
-"     colorscheme material-theme
-"     hi Conceal guibg=NONE guifg=#F77669 gui=none
-"   elseif g:random_number == 4
-"     colorscheme deus
-"     hi texBeginEnd gui=bold,italic guifg=#ffffff
-"   elseif g:random_number == 5
-"     let g:one_allow_italics = 1
-"     colorscheme one
-"     call one#highlight('Folded', '5c6370', '2c323c', 'italic')
-"     " call one#highlight('Conceal', '5c6370', '2c323c')
-"     hi Conceal guibg=NONE guifg=#e5c07b gui=none
-"   elseif g:random_number == 6
-"     colorscheme dracula
-"     hi Conceal guibg=NONE guifg=#8be9fd gui=none
-"     hi Folded guibg=#333333 guifg=#6272a4 gui=none
-"   elseif g:random_number == 7
-"     colorscheme neodark
-"     hi SpellBad guibg=none guifg=none gui=underline
-"     hi Folded guibg=#263a45 guifg=#658595
-"   elseif g:random_number == 8
-"     colorscheme space-vim-dark
-"     hi Conceal guibg=none guifg=#2aa1ae
-"     hi SpellBad guibg=none guifg=none gui=underline
-"     hi Function gui=none
-"     hi Folded gui=none
-"     hi Comment gui=italic guifg=#2A6B74
-"   " elseif g:random_number == 9
-"     " colorscheme challenger_deep
-"     " hi Conceal guibg=none guifg=#ff5458
-"     " hi Folded gui=none guibg=#100e23 guifg=#767676
-"     " hi SpellBad guibg=none guifg=none gui=underline
-"   endif
-" endif
-
-if exists("g:gui_oni")
+" Set selected colorscheme
+if g:scheme_name == "nord"
   colorscheme nord
-  " colorscheme material-theme
-  " colorscheme gruvbox
+  let g:nord_italic = 1
+  let g:nord_italic_comments = 1
+  let g:nord_comment_brightness = 20
+  let g:nord_statusline_uniform = 0
+  hi Conceal guibg=NONE guifg=#8be9fd gui=none
+  hi Folded gui=none guibg=#3b4252 guifg=#7b88a1
+  hi Title gui=bold guifg=#d8dee9
+elseif g:scheme_name == "gruvbox"
+  let g:gruvbox_italic = 1
+  let g:gruvbox_italicize_strings = 1
+  let g:gruvbox_italicize_comments = 1
+  let g:gruvbox_contrast_dark = "soft"
+  let g:gruvbox_contrast_light = "soft"
+  colorscheme gruvbox
+  hi link Function GruvboxAqua
+elseif g:scheme_name == "material-theme"
+  colorscheme material-theme
+  hi Conceal guibg=NONE guifg=#F77669 gui=none
+elseif g:scheme_name == "deus"
+  let g:deus_bold=0
+  let g:deus_italic=1
+  colorscheme deus
+  hi texBeginEnd gui=bold,italic guifg=#ffffff
+elseif g:scheme_name == "one"
+  let g:one_allow_italics = 1
+  colorscheme one
+  call one#highlight('Folded', '5c6370', '2c323c', 'italic')
+  " call one#highlight('Conceal', '5c6370', '2c323c')
+  hi Conceal guibg=NONE guifg=#e5c07b gui=none
+elseif g:scheme_name == "dracula"
+  colorscheme dracula
+  hi Conceal guibg=NONE guifg=#8be9fd gui=none
+  hi Folded guibg=#333333 guifg=#6272a4 gui=none
+elseif g:scheme_name == "neodark"
+  let g:neodark#use_256color = 1
+  let g:neodark#italics = 1
+  colorscheme neodark
+  hi SpellBad guibg=none guifg=none gui=underline
+  hi Folded guibg=#263a45 guifg=#658595
+elseif g:scheme_name == "space-vim-dark"
+  colorscheme space-vim-dark
+  hi Conceal guibg=none guifg=#2aa1ae
+  hi SpellBad guibg=none guifg=none gui=underline
+  hi Function gui=none
+  hi Folded gui=none
+  hi Comment gui=italic guifg=#2A6B74
 else
-  if g:scheme_name == "nord"
-    colorscheme nord
-    hi Conceal guibg=NONE guifg=#8be9fd gui=none
-    hi Folded gui=none guibg=#3b4252 guifg=#7b88a1
-    hi Title gui=bold guifg=#d8dee9
-  elseif g:scheme_name == "gruvbox"
-    colorscheme gruvbox
-    hi link Function GruvboxAqua
-  elseif g:scheme_name == "material-theme"
-    colorscheme material-theme
-    hi Conceal guibg=NONE guifg=#F77669 gui=none
-  elseif g:scheme_name == "deus"
-    colorscheme deus
-    hi texBeginEnd gui=bold,italic guifg=#ffffff
-  elseif g:scheme_name == "one"
-    let g:one_allow_italics = 1
-    colorscheme one
-    call one#highlight('Folded', '5c6370', '2c323c', 'italic')
-    " call one#highlight('Conceal', '5c6370', '2c323c')
-    hi Conceal guibg=NONE guifg=#e5c07b gui=none
-  elseif g:scheme_name == "dracula"
-    colorscheme dracula
-    hi Conceal guibg=NONE guifg=#8be9fd gui=none
-    hi Folded guibg=#333333 guifg=#6272a4 gui=none
-  elseif g:scheme_name == "neodark"
-    colorscheme neodark
-    hi SpellBad guibg=none guifg=none gui=underline
-    hi Folded guibg=#263a45 guifg=#658595
-  elseif g:scheme_name == "space-vim-dark"
-    colorscheme space-vim-dark
-    hi Conceal guibg=none guifg=#2aa1ae
-    hi SpellBad guibg=none guifg=none gui=underline
-    hi Function gui=none
-    hi Folded gui=none
-    hi Comment gui=italic guifg=#2A6B74
-  " elseif g:random_number == 9
-    " colorscheme challenger_deep
-    " hi Conceal guibg=none guifg=#ff5458
-    " hi Folded gui=none guibg=#100e23 guifg=#767676
-    " hi SpellBad guibg=none guifg=none gui=underline
-  endif
+  execute 'colorscheme ' . g:scheme_name
+" elseif g:random_number == 9
+  " colorscheme challenger_deep
+  " hi Conceal guibg=none guifg=#ff5458
+  " hi Folded gui=none guibg=#100e23 guifg=#767676
+  " hi SpellBad guibg=none guifg=none gui=underline
 endif
 
-
+" Create palette colors
 let g:nvim_background = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')
 let g:nvim_foreground = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')
-
 let g:COLOR_01 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
-" let g:COLOR_02 = synIDattr(synIDtrans(hlID('WarningMsg')), 'fg', 'gui')
-" let g:COLOR_02 = synIDattr(synIDtrans(hlID('WarningMsg')), 'bg', 'gui')
-" let g:COLOR_02 = synIDattr(synIDtrans(hlID('Statement')), 'fg', 'gui')
-" let g:COLOR_02 = synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui')
 let g:COLOR_02 = synIDattr(synIDtrans(hlID('String')), 'fg', 'gui')
 let g:COLOR_03 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Statement')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Keyword')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui') " Precision
-" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Conceal')), 'fg', 'gui') " Precision
-" let g:COLOR_04 = synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui')
-" let g:COLOR_04 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui')
 let g:COLOR_04 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')
-" let g:COLOR_05 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui')
 let g:COLOR_05 = synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
 let g:COLOR_06 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')
-" let g:COLOR_07 = synIDattr(synIDtrans(hlID('DiffAdd')), 'fg', 'gui')
 let g:COLOR_07 = synIDattr(synIDtrans(hlID('Function')), 'fg', 'gui')
 let g:COLOR_08 = synIDattr(synIDtrans(hlID('Special')), 'fg', 'gui')
-" "
-" let g:COLOR_09 = synIDattr(synIDtrans(hlID('MatchParen')), 'bg', 'gui')
 let g:COLOR_09 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
 let g:COLOR_10 = synIDattr(synIDtrans(hlID('Statement')), 'fg', 'gui')
-" let g:COLOR_10 = synIDattr(synIDtrans(hlID('WarningMsg')), 'bg', 'gui')
-" let g:COLOR_10 = synIDattr(synIDtrans(hlID('Todo')), 'fg', 'gui')
-" let g:COLOR_10 = synIDattr(synIDtrans(hlID('ErrorMsg')), 'fg', 'gui')
-" let g:COLOR_10 = synIDattr(synIDtrans(hlID('ErrorMsg')), 'fg', 'gui')
-" if g:COLOR_10[0:5] == g:nvim_foreground[0:5]
-"   let g:COLOR_10 = synIDattr(synIDtrans(hlID('ErrorMsg')), 'bg', 'gui')
-" endif
-" let g:COLOR_10 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui')
-" let g:COLOR_11 = synIDattr(synIDtrans(hlID('PreProc')), 'fg', 'gui') " chaconmo
-" let g:COLOR_11 = synIDattr(synIDtrans(hlID('Structure')), 'fg', 'gui') " chaconmo
-" let g:COLOR_11 = synIDattr(synIDtrans(hlID('Include')), 'fg', 'gui') " chaconmo
 let g:COLOR_11 = synIDattr(synIDtrans(hlID('Define')), 'fg', 'gui') " chaconmo
-" let g:COLOR_11 = synIDattr(synIDtrans(hlID('Function')), 'fg', 'gui') " chaconmo
-" let g:COLOR_12 = synIDattr(synIDtrans(hlID('DiffText')), 'fg', 'gui')
 let g:COLOR_12 = synIDattr(synIDtrans(hlID('CursorLineNr')), 'fg', 'gui')
-" let g:COLOR_12 = synIDattr(synIDtrans(hlID('Search')), 'fg', 'gui')
 let g:COLOR_13 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui')
-" let g:COLOR_14 = synIDattr(synIDtrans(hlID('DiffChange')), 'fg', 'gui')
 let g:COLOR_14 = synIDattr(synIDtrans(hlID('String')), 'fg', 'gui')
 let g:COLOR_15 = synIDattr(synIDtrans(hlID('Function')), 'fg', 'gui')
 let g:COLOR_16 = synIDattr(synIDtrans(hlID('TypeDef')), 'fg', 'gui')
-
-
-" let g:COLOR_01 = "#ffffff"
-" let g:COLOR_02 = "#ffffff" " na and git files
-" let g:COLOR_03 = "#ffffff" " R normal text
-" let g:COLOR_04 = "#ffffff" " R numbers
-" let g:COLOR_05 = "#ffffff"
-
-" let g:COLOR_06 = "#ffffff"
-" let g:COLOR_07 = "#ffffff" " R string
-" let g:COLOR_08 = "#ffffff"
-
-" let g:COLOR_09 = "#ffffff"
-" let g:COLOR_10 = "#ffffff" " error message in R
-
-" let g:COLOR_11 = "#ffffff"
-" let g:COLOR_12 = "#ffffff"
-" let g:COLOR_13 = "#ffffff"
-" let g:COLOR_14 = "#ffffff"
-" let g:COLOR_15 = "#ffffff"
-" let g:COLOR_16 = "#ffffff"
-
 let g:my_colors = [g:nvim_background, g:nvim_foreground, g:COLOR_01, g:COLOR_02, g:COLOR_03,
       \ g:COLOR_04, g:COLOR_05, g:COLOR_06, g:COLOR_07, g:COLOR_08, g:COLOR_09, g:COLOR_10,
       \ g:COLOR_11, g:COLOR_12, g:COLOR_13, g:COLOR_14, g:COLOR_15, g:COLOR_16]
 
-" let g:nvim_colors_file = $HOME . '/Documents/.nvim_colors.vim'
-" let g:nvim_colors_file = '/tmp/.nvim_colors.vim'
+" Export palette colors
 let g:nvim_colors_file = '/tmp/local/.nvim_colors.vim'
-
 call system('touch ' . g:nvim_colors_file)
 call writefile(g:my_colors, g:nvim_colors_file, 'b')
 
-" Toggle background colors
-" nnoremap <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR> \| :hi! link FoldColumn GruvboxRed<CR> \| :hi! link Folded GruvboxYellowSign<CR>
-nnoremap <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR> \| :hi! link FoldColumn GruvboxRed<CR>
-" }}}
-" NVIM TERMINAL {{{
-" Neovim terminal emulator colors, based on gruvbox
-" let g:terminal_color_0 = '#665c54'
-" let g:terminal_color_0 = g:COLOR_16
+" Nvim terminal colors
 let g:terminal_color_1 = g:COLOR_02
 let g:terminal_color_2 = g:COLOR_03
 let g:terminal_color_3 = g:COLOR_04
@@ -460,112 +212,57 @@ let g:terminal_color_12 = g:COLOR_13
 let g:terminal_color_13 = g:COLOR_14
 let g:terminal_color_14 = g:COLOR_15
 let g:terminal_color_15 = g:COLOR_16
-" let g:terminal_color_16 = g:COLOR_16
-" BACKGROUND_COLOR="#282828"  # Background Color
-" FOREGROUND_COLOR="#ebdbb2" # Text
+
 " }}}
 " FOLDING {{{
+
+" Custom fold text
 function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-    let nucolwidth = &fdc + &number * &numberwidth
-    " let windowwidth = winwidth(0) - nucolwidth - 12
-    "
-     if g:gitgutter_enabled "g:gitgutter_sign_column_always
-       " exists('g:loaded_gitgutter') "&cp has('signs')
-       let plop = 2
-     else
-       let plop = 0
-     endif
+  let line = getline(v:foldstart)
+  let nucolwidth = &fdc + &number * &numberwidth
+   if g:gitgutter_enabled
+     let wider = 2
+   else
+     let wider = 0
+   endif
 
-    let windowwidth = winwidth(0) - nucolwidth - 12 - plop
-    let foldedlinecount = v:foldend - v:foldstart
+  let windowwidth = winwidth(0) - nucolwidth - 12 - wider
+  let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+  let onetab = strpart('          ', 0, &tabstop)
+  let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . ' ' . repeat(" ",fillcharcount) . '  ➜ ' . foldedlinecount . ' lines ' . '✤ ' "⤵
+  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  return line . ' ' . repeat(" ",fillcharcount) . '  ➜ ' . foldedlinecount . ' lines ' . '✤ '
 endfunction " }}}
 
-set foldmethod=marker " for vim
-" set foldmethod=syntax
-" set foldmethod=expr
-set foldtext=MyFoldText()
-set foldlevel=1
-set foldcolumn=2
-" set foldcolumn=1
-hi! link FoldColumn Statement
-" hi! link FoldColumn GruvboxRed
-" hi! link Folded GruvboxYellowSign
-" hi! link Folded VimCommentTitle
+" Folding setting
+set foldmethod=marker                        " marker to fold
+set foldtext=MyFoldText()                    " custom fold text
+set foldlevel=1                              " fold always
+set foldcolumn=2                             " fold column
+hi! link FoldColumn Statement                " fold column color
+
 " }}}
-" IDE: AIRLINE PLUGIN STATUS AND TAB LINES {{{
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#right_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#right_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_section_x = '%{&filetype}' " to no truncate filetype
-let g:airline#extensions#default#section_truncate_width = {
-      \ 'b': 60,
-      \ 'y': 80,
-      \ 'warning': 100,
-      \ 'error': 100,
-\ }
+" IDE: LIGHTLINE PLUGIN STATUS AND TAB LINES {{{
 
-" let g:airline_left_sep=''
-"  let g:airline_right_sep=''
+" Lightline custom functions
 
-" b: branch
-" x: filetype
-" y: encoding
-" z: number line details
-" let g:airline#extensions#default#section_truncate_width = {
-"       \ 'b': 79,
-"       \ 'x': 20,
-"       \ 'y': 20,
-"       \ 'z': 45,
-"       \ 'warning': 100,
-"       \ 'error': 100,
-" \ }
-" let g:airline_theme='solarized'
-" let g:airline_theme='bubblegum'
-" let g:airline_theme='base16'
-" let g:airline_theme='jellybeans'
-" let g:airline_theme='sol'
-"
-let g:lightline = {}
-let g:lightline.colorscheme = 'yourcolorscheme'
-
-function! MyFiletype()
+function! MyFiletype() " {{{
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! MyFiletypeIcon(n)
+endfunction " }}}
+function! MyFiletypeIcon(n) " {{{
   return winwidth(0) > 70 ? (strlen(&filetype) ?  WebDevIconsGetFileTypeSymbol() : '') : ''
-endfunction
-
-function! MyFileformat()
+endfunction " }}}
+function! MyFileformat() " {{{
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 function! Lightlinegit()
     let l:branch = fugitive#head()
     return l:branch ==# '' ? '' : "\uE0A0" . " " . l:branch
-endfunction
-
-" function! LightLineGitGutter()
-"   if exists('*GitGutterGetHunkSummary')
-"     let [ added, modified, removed ] = GitGutterGetHunkSummary()
-"     return printf('+%d ~%d -%d', added, modified, removed)
-"   endif
-"   return ''
-" endfunction
-
-function! Sy_stats_wrapper()
+  endfunction " }}}
+function! Sy_stats_wrapper() " {{{
   let symbols = ['+', '-', '~']
   let [added, modified, removed] = sy#repo#get_stats()
   let stats = [added, removed, modified]  " reorder
@@ -582,8 +279,11 @@ function! Sy_stats_wrapper()
   endif
 
   return hunkline
-endfunction
+endfunction " }}}
 
+" Lightline format
+let g:lightline = {}
+let g:lightline.colorscheme = 'yourcolorscheme'
 let g:lightline.component = {
       \ 'empty': '',
       \ 'filepath': '%F'}
@@ -593,11 +293,6 @@ let g:lightline.component_function = {
       \ 'filetype': 'MyFiletype',
       \ 'fileformat': 'MyFileformat',
       \ }
-      " \ 'gitbranch': 'Lightlinegit',
-      " \ 'gitbranch': 'fugitive#statusline',
-      " \ 'gitbranch': '%{fugitive#statusline()}',
-
-
 let g:lightline.tab_component_function = {
       \ 'filetypeicon': 'MyFiletypeIcon',
       \ }
@@ -620,6 +315,7 @@ let g:lightline.tab = {
 let g:lightline.separator = { 'left': "\ue0b0", 'right': '' }
 let g:lightline.subseparator = { 'left': '|', 'right': '' }
 
+" Lightline colors
 let s:fg_focus = [ '#ffffff' , "NONE" ]
 let s:bg_focus = ["#665C54", "NONE"]
 let s:fg_hard = [ '#dfdbd2', "NONE"]
@@ -669,7 +365,6 @@ if g:colors_name == 'material-theme'
   let s:fg_inactive = [ '#7986CB' , "NONE" ]
   let s:none = [ 'NONE' , 'NONE' ]
 endif
-
 
 if g:colors_name == 'deus'
   let s:fg_focus = [ '#ebdbb2' , "NONE" ]
@@ -749,9 +444,7 @@ if g:colors_name == 'challenger_deep'
   let s:none        = [ 'NONE'    , 'NONE' ]
 endif
 
-
-
-
+" Define colorscheme
 let s:p = {'normal': {}, 'tabline': {}, 'insert':{}, 'visual':{}, 'inactive':{}}
 let s:p.normal.left = [
       \ [ s:fg_focus, s:bg_focus, 'bold' ],
@@ -782,19 +475,17 @@ let s:p.visual.right = [
       \ [ s:fg_focus, s:bg_visual, 'bold' ],
       \ [ s:fg_hard, s:bg_hard ]
       \ ]
-let s:p.inactive.left = [ [ s:fg_inactive, s:bg_soft, 'italic' ], [ s:fg_inactive, s:bg_soft ] ]
+let s:p.inactive.left = [[ s:fg_inactive, s:bg_soft, 'italic' ], [ s:fg_inactive, s:bg_soft ]]
 let s:p.inactive.right = [ [ s:fg_inactive, s:bg_soft], [ s:fg_inactive, s:bg_soft ] ]
 let s:p.inactive.middle = [ [ s:fg_inactive, s:bg_soft ] ]
 
+" Lightline assign colorscheme
 let g:lightline#colorscheme#yourcolorscheme#palette = lightline#colorscheme#flatten(s:p)
 
 " }}}
 " IDE: TMUXLINE {{{
 
-" Tmuxline does not work automatically without airline.
-" let g:airline#extensions#tmuxline#enabled = 0
-" Preset can be configure with:
-" let g:tmuxline_powerline_separators = 0
+" Tmuxline presets
 let g:tmuxline_separators = {
     \ 'left' : '',
     \ 'left_alt': '',
@@ -809,8 +500,6 @@ let g:tmuxline_preset = {
       \'y'    : '',
       \'z'    : ['\uF080' . ' '],
       \'options' : {'status-justify' : 'left'}}
-      " \'y'    : ['%Y-%m-%d'],
-      " \'z'    : ['$USER' . '\uF080' . ' '],
 let g:tmuxline_theme = {
       \'a'    : [ s:fg_focus[0], s:bg_focus[0], 'bold'],
       \'b'    : [ s:fg_soft[0], s:bg_soft[0] ],
@@ -821,70 +510,46 @@ let g:tmuxline_theme = {
       \'x'   : [ s:fg_soft[0], s:bg_soft[0] ],
       \'y'   : [ s:fg_hard[0], s:bg_hard[0] ],
       \'z'    : [ s:fg_focus[0], s:bg_focus[0], 'bold'] }
-"  It can be activated with:
+
+" Active tmuxline
 if exists('$TMUX')
     autocmd VimEnter * call tmuxline#set_statusline()
 endif
+
 " }}}
 " IDE: NERDTREE PLUGIN {{{
-" :nmap \n :NERDTreeToggle<CR>
+
 set splitright
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeMapOpenInTab='T'
 let NERDTreeMapOpenInTabSilent='t'
-" hi def link NERDTreeOpenable Directory
+
 " }}}
 " IDE: DEOPLETE PLUGIN {{{
+
 let g:deoplete#enable_at_startup = 1
-" let g:deoplete#complete_method = "omnifunc"
-" let g:deoplete#sources = {}
-" let g:deoplete#sources._ = ['buffer', 'member', 'tag', 'file', 'omni', 'dictionary', 'around']
+
 " }}}
 " IDE: ULTISNIPPETS PLUGIN {{{
-" If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsEditSplit="context"
-" let g:UltiSnipsSnippetsDir=$HOME.'/Documents/Nvim/UltiSnips' " where to create my snippets
-let g:UltiSnipsSnippetsDir=$HOME.'/Documents/Repositories/dotfiles-ubuntu-18/UltiSnips' " where to create my snippets
-let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/Documents/Repositories/dotfiles-ubuntu-18/UltiSnips'] " It is necessary to define defaults snippets and your directory
-" Add markdown snippets to vimwiki buffer
-" inoremap <silent><buffer> <expr><Right> pumvisible() ? deoplete#close_popup() : "<CR>"
+
+let g:UltiSnipsSnippetsDir=$HOME.'/Documents/Repositories/dotfiles-ubuntu-18/UltiSnips' "
+let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/Documents/Repositories/dotfiles-ubuntu-18/UltiSnips']
 let g:UltiSnipsExpandTrigger="nop"
+let g:UltiSnipsEditSplit="context"
 function! s:expand_snippet_or_key(key) abort
   let g:ulti_expand_or_jump_res = 0
   let snippet = UltiSnips#ExpandSnippetOrJump()
-  " return snippet
   return (g:ulti_expand_or_jump_res > 0) ? snippet : a:key
 endfunction
-inoremap <silent> <expr> <CR> pumvisible() ? "<C-y><C-R>=UltiSnips#ExpandSnippet()<CR>" : "\<CR>"
-inoremap <silent> <expr> <TAB> pumvisible() ? "\<C-n>" : "<C-R>=<SID>expand_snippet_or_key(\"\t\")<CR>"
-
-" inoremap <silent><expr> <TAB>
-" 		\ pumvisible() ? "\<C-n>" :
-" 		\ <SID>check_back_space() ? "\<TAB>" :
-" 		\ deoplete#mappings#manual_complete()
-" 		function! s:check_back_space() abort "{{{
-" 		let col = col('.') - 1
-" 		return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction"}}}
+inoremap <silent> <expr> <CR> pumvisible() ?
+      \ "<C-y><C-R>=UltiSnips#ExpandSnippet()<CR>" : "\<CR>"
+inoremap <silent> <expr> <TAB> pumvisible() ?
+      \ "\<C-n>" : "<C-R>=<SID>expand_snippet_or_key(\"\t\")<CR>"
 au FileType vimwiki :UltiSnipsAddFiletypes markdown
-au FileType vimwiki set syntax=pandoc
+
 " }}}
-" IDE: SLIMUX PLUGIN {{{
-" nmap <C-c><C-c> :SlimuxREPLSendBuffer<CR>
-" nmap <C-j> V:SlimuxREPLSendLine<CR>j
-" vmap <C-j> :SlimuxREPLSendLine<CR>
-" cmap <C-j> SlimuxREPLSendLine<cr> " console
-" vmap <C-s> :SlimuxREPLSendSelection<CR>
-" " map <C-c>r :exe "SlimuxShellRun source('" . expand("%:p") . "')"<CR>
-" " map \fn <C-R>=expand("%:t:r")<CR>
-" " '+ exe ":normal i" . expand("%:t")'
-" " map <C-c>r :SlimuxShellRun ls() . expand("%:h")<CR>
-" " doeswork = expand("%:h") . ".bak"
-" "
-" " }}}
 " IDE: TAGS {{{
-" tags
+
 let g:tagbar_type_r = {
     \ 'ctagstype' : 'r',
     \ 'kinds'     : [
@@ -893,18 +558,18 @@ let g:tagbar_type_r = {
         \ 'v:FunctionVariables',
     \ ]
 \ }
+
 " }}}
 " IDE: VIMCMDLINE {{{
+
 let cmdline_app           = {}
 let cmdline_app["python"] = "ipython"
 let cmdline_in_buffer          = 0      " Start the interpreter in a Neovim buffer
-" let cmdline_external_term_cmd = "gnome-terminal -e '%s'"
-" let cmdline_external_term_cmd = "xterm -e '%s' &"
+
 " }}}
 " IDE: LANGUAGE SERVER PROTOCOL {{{
+
 set hidden
-"     " \ 'r': ['R', '--quiet', '--slave', '-e', 'languageserver::run()'],
-"     " \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['javascript-typescript-stdio'],
@@ -915,155 +580,50 @@ let g:LanguageClient_serverCommands = {
     \ 'rmd': ['R', '--quiet', '--slave', '-e', 'languageserver::run()'],
     \ }
 let g:LanguageClient_autoStart = 1
-" let g:LanguageClient_trace = 'verbose'
-" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-" let g:LanguageClient_loggingLevel = 'DEBUG'
+
 " " }}}
 " VISUAL: DEVICONS {{{
-" vim-devisons
+
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 16
-" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 14
-" set guifont=Ubuntu\ Mono \derivative\ Powerline\ 16
-" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['r'] = '★'
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['r'] = 'Ⓡ'
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['r'] = 'ℝ'
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['r'] = '☯'
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['stan'] = 'Ⓢ'
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['r'] = '★ ♨ ☢ '
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['r'] = ''
+
 " }}}
 " VISUAL: INDENTLINE PLUGIN {{{
-" indentline to exclude tex files
-let g:indentLine_fileTypeExclude = ['tex', 'markdown', 'pandoc']
-" }}}
-" VISUAL: NEOVIM ADDITIONAL OPTIONS {{{
-
-" Change the vertical split appareance
-" hi LineNr guibg=bg
-" set foldcolumn=2
-" hi foldcolumn guibg=bg
-" hi VertSplit guibg=bg3 guifg=bg3
-set fillchars+=vert:\│
-" hi clear VertSplit
-" hi! link VertSplit Comment
-" hi VertSplit guibg=NONE
-" hi VertSplit guibg=NONE guifg=black
-hi VertSplit guibg=NONE guifg=#1d2021 gui=none
-" hi VertSplit	guibg=black guifg=grey50 gui=none
-" hi VertSplit guibg=NONE guifg=['#1d2021', 234]
-" let g:gruvbox_vert_split='faded_red'
-" hi VertSplit guibg=none
-" hi VertSplit guifg=none
-" hi! link VertSplit GruvboxPurpleSign
-" guifg=GruvboxPurple guibg=GruvboxPurple
 "
+" exclude tex files
+let g:indentLine_fileTypeExclude = ['tex', 'markdown', 'pandoc']
 
-
-" }}}
-" EXPLORE: CONTROL-P PLUGIN {{{
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'ra'
 " }}}
 " EXPLORE: NERDTREE {{{
+
 " NERDTress File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg)
 exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guifg='. a:guifg
 exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-" call NERDTreeHighlightFile('R', 'none', 'none', '#fb4934')
-" call NERDTreeHighlightFile('rmd', 'blue', 'none', '#458588', '#458588')
-" call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-" call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-" " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-" call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-" call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-" call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-" call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-" call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', '#151515')
-" call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
-" call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
-" call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
-" call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
 " }}}
 " PROGRAMS: R {{{
-" let r_syntax_folding = 1 " need improves foolding
-" to highlight r code in rmd
-" let rrst_syn_hl_chunk = 1
-" let rmd_syn_hl_chunk = 1 " to highlight the fisrt line
-" let g:rmd_syn_langs = ["r", "python", "c"]
-" It is only required if vim-pandoc is not installed
-" augroup pandoc_syntax
-"       au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-" augroup END
-" augroup pandoc_syntax
-"       au! BufNewFile,BufFilePre,BufRead *.rmd set filetype=markdown.pandoc
-" augroup END
-" let g:pandoc#syntax#codeblocks#embeds#langs = ["cpp", "r", "bash=sh", "python"]
-" let g:pandoc#folding#fold_fenced_codeblocks = 1
-" let g:pandoc#folding#fdc = 0
-" let g:pandoc#syntax#conceal#urls = 1
-" let g:pandoc#syntax#style#underline_special = 0
-" let g:pandoc#syntax#conceal#use = 1 " pretty highlight
-" autocmd FileType * setlocal conceallevel=0
-" let g:pandoc#keyboard#blacklist_submodule_mappings =  ["lists", "references", "styles", "sections", "links"]
-" let g:pandoc#keyboard#blacklist_submodule_mappings =  ["references"]
 
-" let g:pandoc#hypertext#use_default_mappings=0
-" let g:pandoc#filetypes#pandoc_markdown=0
+" R configuration
+let R_source = '~/.local/share/nvim/plugged/Nvim-R/R/tmux_split.vim'
+let R_tmux_title = "automatic"                              " tmux window names
+let R_objbr_place = "script,right"                          " object split
+let R_assign = 0                                            " remove chunck mapping
+let R_rconsole_height = 10                                  " console height
+let R_args_in_stline = 1                                    " arguments on status line
+let R_openhtml = 1                                          " open in html
+let R_pdfviewer = "evince"                                  " pdf viewer
+" let r_syntax_folding = 1
 
-" let g:pandoc#modules#disabled = ["folding"]
-" let g:pandoc#folding#mode = ["relative"]
-
-" let hostname = substitute(system('hostname'), '\n', '', '')
-" if hostname == "chaconmo-ThinkPad-L470-W10DG"
-  " let R_in_buffer = 0 " 0 to not open in an nvim external terminal emulator
-" elseif hostname == "chaconmo-Precision-5510"
-  " if exists("g:gui_oni")
-  "   let R_in_buffer = 1 " 0 to not open in an nvim external terminal emulator
-  " else
-  "   let R_in_buffer = 0 " 0 to not open in an nvim external terminal emulator
-  " endif
-  " Open R in a tmux split
-  let R_source = '~/.local/share/nvim/plugged/Nvim-R/R/tmux_split.vim'
-  " let R_applescript = 0
-  " let R_tmux_split = 1
-" endif
-
-" Open R in an external tmux terminal
-" let R_in_buffer = 0 " 0 to not open in an nvim external terminal emulator
-" Other tmux options
-let R_tmux_title = "automatic" " tmux window names
-let R_objbr_place = "script,right"
-" Shortcuts
-let R_assign = 0
-" Splits distribution
-" let R_editor_w = 30
-" let R_rconsole_width = 86
-let R_rconsole_height = 10
-" let R_rconsole_width = 0
-" Functions arguments
-" let R_show_args = 1 " show arguments in a new pane after omnicompletion
-" let R_show_arg_help = 1 " show arguments help after completion
-let R_args_in_stline = 1 " show arguments on the status line
-" Markdown options
-let R_openhtml = 1
-let R_pdfviewer = "evince"
-" Highlighting
-" let R_start_libs = "base,stats,graphics,grDevices,utils,methods"
-" let R_hi_fun = 0 " 0 to not Highlight functions, problem with ROnJobStdout
-" let R_hi_fun_paren = 1 " only highlight if ( is typed: do not use, too slow
+" Rmd configuration
+let g:rmd_syn_langs = ["r", "python", "c"] " engines for chunks
+let g:pandoc#syntax#codeblocks#embeds#langs = ["cpp", "r", "bash=sh", "python"]
+let g:pandoc#syntax#conceal#urls = 1
+let g:pandoc#syntax#conceal#use = 1 " pretty highlight
+let g:pandoc#hypertext#use_default_mappings = 0
 
 " }}}
 " PROGRAMS: LATEX {{{
@@ -1098,6 +658,8 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 let g:vimtex_view_general_options_latexmk = '--unique'
 " }}}
 " PROGRAMS: VIMWIKI {{{
+
+au FileType vimwiki set syntax=pandoc
 " Vimkiwi setup
 let g:vimwiki_list = [{'path':'$HOME/Documents/Nvim/Vimwiki',
                      \ 'syntax': 'markdown', 'ext': '.wiki'}]
@@ -1173,6 +735,3 @@ let python_highlight_all = 1
 " PROGRAMS: JULIA {{{
 let g:default_julia_version = "current"
 " }}}
-" PROGRAMS: SPOTITY {{{
-
-" let g:spotify_token='NWU0MDJhNDg2Yjk4NDUzODkxNjY2Y2NlMDFkYjE3Y2U6ZDc5OTc5OGYwODg5NDFjMzk3MzQ5OTgwNmQwMDZmNTY='

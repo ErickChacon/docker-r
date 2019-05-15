@@ -8,21 +8,22 @@ RUN apt-get install -y git curl wget
 
 # CPP tools {{{1
 
-# lvm-toolchain for c++ language server protocol
-RUN echo "\ndeb http://apt.llvm.org/stretch/ llvm-toolchain-stretch-6.0 main" | \
+# llvm-toolchain for c++ language server protocol
+ARG ll_v="7"
+RUN echo "\ndeb http://apt.llvm.org/stretch/ llvm-toolchain-stretch-${ll_v} main" | \
   tee -a /etc/apt/sources.list && \
-  echo "deb-src http://apt.llvm.org/stretch/ llvm-toolchain-stretch-6.0 main" | \
+  echo "deb-src http://apt.llvm.org/stretch/ llvm-toolchain-stretch-${ll_v} main" | \
   tee -a /etc/apt/sources.list && \
   apt-get install -y gnupg && \
   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
   apt-get update && \
-  apt-get install -y clang-6.0 lldb-6.0 lld-6.0 clang-tools-6.0 && \
-  update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 200 && \
-  update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 200 && \
-  update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-6.0 200
+  apt-get install -y clang-${ll_v} lldb-${ll_v} lld-${ll_v} clang-tools-${ll_v} && \
+  update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${ll_v} 200 && \
+  update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${ll_v} 200 && \
+  update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-${ll_v} 200
 
 # armadillo c++ library
-ARG arma_version=armadillo-9.100.5
+ARG arma_version="armadillo-9.400.3"
 RUN apt-get install -y cmake libopenblas-dev liblapack-dev libarpack2-dev && \
   wget http://sourceforge.net/projects/arma/files/${arma_version}.tar.xz && \
   tar -xvf ${arma_version}.tar.xz && \
@@ -30,44 +31,55 @@ RUN apt-get install -y cmake libopenblas-dev liblapack-dev libarpack2-dev && \
   cmake . && \
   make && \
   make install && \
+  # remove files
   cd .. && \
   rm -rf ${arma_version}.tar.xz ${arma_version}
 
 # Tmux {{{1
 
+COPY xterm-256color-italic.terminfo .
+ARG tmux_v="2.9"
 RUN apt-get install -y \
   # dependencies
   libevent-dev libncurses-dev build-essential && \
   # install
-  curl -sL https://github.com/tmux/tmux/releases/download/2.7/tmux-2.7.tar.gz | \
+  curl -sL \
+  https://github.com/tmux/tmux/releases/download/${tmux_v}/tmux-${tmux_v}.tar.gz | \
   tar xz && \
-  cd tmux-2.7 && \
+  cd tmux-${tmux_v} && \
   ./configure && make && \
   make install && \
+  # remove files
   cd .. && \
-  rm -rf tmux-2.7 && \
+  rm -rf tmux-${tmux_v} && \
   # italic and true color
-  curl -OL \
-  https://github.com/ErickChacon/dotfiles-ubuntu-18/raw/master/docker/xterm-256color-italic.terminfo && \
   tic xterm-256color-italic.terminfo && \
   rm xterm-256color-italic.terminfo
 
 # Neovim {{{1
 
+ARG neovim_version="stable"
 RUN \
-  # backport mirror for neovim > 2.0.0
-  echo "deb http://ftp.debian.org/debian stretch-backports main" | \
-  tee -a /etc/apt/sources.list && \
   # requirements
-  apt-get update && \
   apt-get install -y python-pip python3-pip && \
   pip2 install neovim && \
   pip3 install neovim && \
   apt-get install -y ruby ruby-dev && \
   gem install neovim && \
   apt-get install -y exuberant-ctags && \
+  # apt-get -t stretch-backports -y install neovim
+  # requirements to build from source
+  apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake \
+  g++ pkg-config  && \
+  curl -sL https://github.com/neovim/neovim/archive/v${neovim_version}.tar.gz | \
+  tar xz && \
+  cd neovim-${neovim_version} && \
   # install
-  apt-get -t stretch-backports -y install "neovim"
+  make CMAKE_BUILD_TYPE=Release && \
+  make install && \
+  # remove files
+  cd .. && \
+  rm -rf neovim-${neovim_version}
 
 # Complementary software for R {{{1
 
@@ -77,16 +89,13 @@ RUN sudo apt-get install -y \
   # rstan requirements
   build-essential g++ libssl-dev
 
-
 # Terminal software {{{1
 
 RUN apt-get install -y silversearcher-ag
-# RUN apt-get install -y ranger
-
 
 # Latex packages {{{1
 
-RUN tlmgr update --self && \
+RUN \
   # researchnotes
   tlmgr install fancyhdr titlesec pgf xcolor tcolorbox environ trimspaces float \
   doublestroke algorithms algorithmicx appendix multirow ctable tablefootnote xifthen \
@@ -104,31 +113,38 @@ RUN tlmgr update --self && \
   tlmgr install tocloft breakcites adjustbox collectbox babel-english && \
   # unithesis
   tlmgr install collectbox blindtext && \
-  tlmgr update --self -all && \
-  tlmgr path add && \
-  fmtutil-sys -all
+  # bibliography styles
+  tlmgr install cite chicago && \
+  # author
+  tlmgr install preprint && \
+  # import
+  tlmgr install import && \
+  tlmgr path add
 
 # Additional R packages {{{1
 
 RUN \
   # gui tools
-  installGithub.r jalvesaq/colorout r-lib/styler && \
-  install2.r --error --deps TRUE languageserver && \
+  installGithub.r jalvesaq/colorout && \
+  install2.r --error --deps TRUE r-lib/styler languageserver && \
   # tidyverse related
   install2.r --error --deps TRUE purrrlyr && \
   # cpp and benchmark
   install2.r --error --deps TRUE RcppArmadillo rbenchmark && \
   # visualization
-  installGithub.r ggobi/ggally clauswilke/ggridges thomasp85/patchwork && \
-  install2.r --error --deps TRUE ggrepel ggmap corrplot && \
+  installGithub.r thomasp85/patchwork && \
+  install2.r --error --deps TRUE GGally ggridges ggrepel ggmap corrplot && \
   # visualization categorical data
   install2.r --error --deps TRUE vcd && \
+  # visualization maps
+  install2.r --error --deps TRUE OpenStreetMap osmdata osmplotr && \
   # spatial
   install2.r --error --deps TRUE pdist fields && \
-  # modelling
+  # regression
   install2.r --error --deps TRUE lme4 gamlss R2BayesX coda MBA spam spBayes && \
   install2.r --error --deps TRUE --repos http://R-Forge.R-project.org bamlss && \
   install2.r -e -d TRUE -r https://inla.r-inla-download.org/R/stable INLA && \
+  # factorial
   install2.r -e -d TRUE psych && \
   # networks, dags
   install2.r --error --deps TRUE shp2graph && \
@@ -137,20 +153,7 @@ RUN \
   # distributions
   installGithub.r olmjo/RcppTN && \
   # my repositories
-  installGithub.r ErickChacon/day2day
-
-# sudo apt-get install -y r-cran-rjava
-# echo "install.packages(\"OpenStreetMap\")" > r-packages.R
-# R CMD BATCH r-packages.R
-
-# rclient for redis
-# echo "install.packages(\"rredis\")" > r-packages.R
-
-# # web and markdown
-# echo "install.packages(\"blogdown\")" > r-packages.R
-# echo "blogdown::install_hugo()" >> r-packages.R
-# echo "install.packages(\"formatR\")" >> r-packages.R
-# R CMD BATCH r-packages.R
+  installGithub.r ErickChacon/day2day ErickChacon/mbsi ErickChacon/datasim
 
 # Add my user {{{1
 
@@ -176,7 +179,7 @@ RUN nvim --headless +PlugInstall +UpdateRemotePlugins +qall
 
 # initiallize nvim-r for .cache folder
 RUN mkdir .cache && \
-  nvim plop.R --headless '+call StartR("R")' +qall
+  nvim plop.R '+call CheckNvimcomVersion()' +qall
 
 # Dotfiles {{{1
 
@@ -189,30 +192,3 @@ COPY --chown=rstudio R/Makevars $home_user1/.R/
 # Change to root for permissions {{{1
 
 USER root
-
-# debconf: delaying package configuration, since apt-utils is not installed
-# Latex packages {{{1
-
-RUN tlmgr update --self && \
-  # bibliography styles
-  tlmgr install cite chicago && \
-  # author
-  tlmgr install preprint && \
-  tlmgr update --self -all && \
-  tlmgr path add && \
-  fmtutil-sys -all
-
-RUN tlmgr update --self && \
-  # imprt
-  tlmgr install import && \
-  tlmgr update --self -all && \
-  tlmgr path add && \
-  fmtutil-sys -all
-
-# Additional R packages {{{1
-
-RUN \
-  # my repositories
-  installGithub.r ErickChacon/mbsi ErickChacon/datasim && \
-  # maps visualization
-  install2.r --error --deps TRUE OpenStreetMap osmdata osmplotr

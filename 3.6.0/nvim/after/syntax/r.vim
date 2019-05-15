@@ -23,50 +23,52 @@ hi! link rDescr VimCommentTitle
 " hi! link rDescr Todo
 
 " Custom color using gruvbox colorscheme
-if g:colors_name == 'gruvbox'
+if exists('g:colors_name')
+  if g:colors_name == 'gruvbox'
 
-  " Constants:  NULL, T, F, letters, pi
-  hi! link Constant GruvboxBlueBold
+    " Constants:  NULL, T, F, letters, pi
+    hi! link Constant GruvboxBlueBold
 
-  " String:
-  " call s:HL('String', s:green, s:none, s:italicize_strings)
+    " String:
+    " call s:HL('String', s:green, s:none, s:italicize_strings)
 
-  " Character: no characters defined in r
-  " Number:
-  hi! link Number GruvboxPurple
+    " Character: no characters defined in r
+    " Number:
+    hi! link Number GruvboxPurple
 
-  " Boolean:
-  hi! link Boolean GruvboxBlueBold
+    " Boolean:
+    hi! link Boolean GruvboxBlueBold
 
-  " Float:
-  hi! link Float GruvboxPurple
+    " Float:
+    hi! link Float GruvboxPurple
 
-  " Functions:
-  hi! link Function GruvboxAqua
+    " Functions:
+    hi! link Function GruvboxAqua
 
-  " Statements:"
-  hi! link Statement GruvboxRedBold
-  hi! link rStatement GruvboxYellow
+    " Statements:"
+    hi! link Statement GruvboxRedBold
+    hi! link rStatement GruvboxYellow
 
-  " Conditional: if else
-  hi! link Conditional GruvboxBlueBold
+    " Conditional: if else
+    hi! link Conditional GruvboxBlueBold
 
-  " Repeat: for in repeat while
-  hi! link Repeat GruvboxBlueBold
+    " Repeat: for in repeat while
+    hi! link Repeat GruvboxBlueBold
 
-  " Operator: &, -, \, +, %>%
-  hi! link Operator GruvboxRed
-  " hi! link rOperator GruvboxRed
+    " Operator: &, -, \, +, %>%
+    hi! link Operator GruvboxRed
+    " hi! link rOperator GruvboxRed
 
-  " PreProc: library require attach detach source
-  hi! link PreProc GruvboxAqua
+    " PreProc: library require attach detach source
+    hi! link PreProc GruvboxAqua
 
-  " Type: array category character complex double function integer list logical matrix numeric vector data.frame
-  hi! link Type GruvboxYellow
+    " Type: array category character complex double function integer list logical matrix numeric vector data.frame
+    hi! link Type GruvboxYellow
 
-  " Special:
-  hi! link Special GruvboxOrange
-  hi! link rDelimiter GruvboxRed
+    " Special:
+    hi! link Special GruvboxOrange
+    hi! link rDelimiter GruvboxRed
 
+  endif
 endif
 

@@ -17,16 +17,19 @@ I use this image for my research on developing statistical methods and analysis.
 
 
 - You can use it with Rstudio interface:
+
 ```bash
 docker run --rm -p 8787:8787 -e PASSWORD=yourpassword erickchacon/stat-toolbox:3.6.0
 ```
 
 - You can use with bash:
+
 ```bash
 docker run --rm --user rstudio -it erickchacon/stat-toolbox:3.6.0 bash
 ```
 
 - You can use with bash and x11 support:
+
 ```bash
   XSOCK=/tmp/.X11-unix && \
   XAUTH=/tmp/.docker.xauth && \
@@ -38,7 +41,8 @@ docker run --rm --user rstudio -it erickchacon/stat-toolbox:3.6.0 bash
 ```
 
 - Remember to load the desired volumes by adding
-```
+
+```bash
 -v $HOME/Documents/:/home/rstudio/Documents
 ```
 

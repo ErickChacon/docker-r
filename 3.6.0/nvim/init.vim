@@ -15,6 +15,8 @@ let maplocalleader = "\\"                    " map localleader as backslash
 set backspace=indent,eol,start               " use backspace to delete in insert mode
 
 " MODIFICATIONS
+set autoread                                 " read changes outside nvim
+au FocusGained * :checktime                  " read changes outside nvim
 set autowrite                                " save before running commands
 au FocusGained,BufEnter * :silent!           " update file when entering buffer
 set history=50                               " history of the last commands ':'

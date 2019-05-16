@@ -199,3 +199,8 @@ COPY --chown=rstudio R/Makevars $home_user1/.R/
 # Change to root for permissions {{{1
 
 USER root
+
+# Software for installation {{{1
+
+RUN apt-get install -y xclip xsel
+

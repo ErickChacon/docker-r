@@ -40,7 +40,7 @@ docker run --rm --user rstudio -it erickchacon/stat-toolbox:3.6.0 bash
   --rm -it erickchacon/stat-toolbox:3.6.0 bash
 ```
 
-- Remember to load the desired volumes by adding
+- Remember to load the desired volumes by adding something similar to
 
 ```bash
 -v $HOME/Documents/:/home/rstudio/Documents

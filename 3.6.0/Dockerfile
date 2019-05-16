@@ -191,7 +191,7 @@ RUN mkdir .cache && \
 # Dotfiles {{{1
 
 COPY --chown=rstudio custom.aliases.bash $home_user1/.bash_it/aliases/
-COPY --chown=rstudio .bashrc .bash_profile .tmux.conf $home_user1/
+# COPY --chown=rstudio .bashrc .bash_profile .tmux.conf $home_user1/
 COPY --chown=rstudio .Rprofile /home/$user1/
 COPY --chown=rstudio nvim $home_user1/.config/nvim/
 COPY --chown=rstudio R/Makevars $home_user1/.R/

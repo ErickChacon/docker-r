@@ -15,22 +15,31 @@ I use this image for my research on developing statistical methods and analysis.
 
 # How to use it
 
+
+- You can use it with Rstudio interface:
+```bash
+docker run --rm -p 8787:8787 -e PASSWORD=yourpassword erickchacon/stat-toolbox:3.6.0
+```
+
 - You can use with bash:
 ```bash
-docker run --rm --user rstudio -it erickchacon/stat-toolbox bash
+docker run --rm --user rstudio -it erickchacon/stat-toolbox:3.6.0 bash
 ```
+
 - You can use with bash and x11 support:
 ```bash
   XSOCK=/tmp/.X11-unix && \
   XAUTH=/tmp/.docker.xauth && \
   xauth nlist :0 | sed -e "s/^..../ffff/" | xauth -f $XAUTH nmerge - && \
-  docker run  --user rstudio  \
+  docker run --user rstudio  \
   -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH \
   -e XAUTHORITY=$XAUTH  -e DISPLAY=$DISPLAY -e "TERM=xterm-256color-italic" \
-  --rm -it erickchacon/stat-toolbox bash
+  --rm -it erickchacon/stat-toolbox:3.6.0 bash
 ```
 
-- You can use it with Rstudio interface:
-```bash
-docker run --rm -p 8787:8787 -e PASSWORD=yourpassword erickchacon/stat-toolbox
+- Remember to load the desired volumes by adding
 ```
+-v $HOME/Documents/:/home/rstudio/Documents
+```
+
+

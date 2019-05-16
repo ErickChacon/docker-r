@@ -78,5 +78,6 @@ set -o vi
 
 # Fuzzy search for terminal: fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-source ~/.shortcuts
-source /home/rstudio/.shortcuts
+
+# Directories shortcuts
+[ -f ~/.shortcuts ] && source ~/.shortcuts

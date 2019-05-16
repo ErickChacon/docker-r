@@ -39,6 +39,7 @@ let g:my_colors = [g:nvim_background, g:nvim_foreground, g:COLOR_01, g:COLOR_02,
 
 " Export palette colors
 let g:nvim_colors_file = '/tmp/local/.nvim_colors.vim'
-call system('touch ' . g:nvim_colors_file)
+" call system('touch ' . g:nvim_colors_file)
+call system('mkdir -p "$(dirname ' . g:nvim_colors_file . ')"')
 call writefile(g:my_colors, g:nvim_colors_file, 'b')
 

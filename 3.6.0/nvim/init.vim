@@ -107,8 +107,14 @@ nmap <silent> gl :wincmd l<CR>
 
 " Allow true colors and read palette name
 set termguicolors                                  " true colors
+set background=dark                                " dark background
 let g:path_palname = $HOME.'/.palette-name.vim'    " file to read palette name
-let g:scheme_name = substitute(readfile(g:path_palname, '', 1)[0], ".vim$", "", "")
+if filereadable("SpecificFile")
+  let g:scheme_name = substitute(readfile(g:path_palname, '', 1)[0], ".vim$", "", "")
+else
+  let g:scheme_name = "gruvbox"
+endif
+
 
 " Set selected colorscheme
 if g:scheme_name == "nord"
@@ -121,6 +127,7 @@ if g:scheme_name == "nord"
   hi Folded gui=none guibg=#3b4252 guifg=#7b88a1
   hi Title gui=bold guifg=#d8dee9
 elseif g:scheme_name == "gruvbox"
+  set background=dark
   let g:gruvbox_italic = 1
   let g:gruvbox_italicize_strings = 1
   let g:gruvbox_italicize_comments = 1
@@ -190,11 +197,6 @@ let g:COLOR_16 = synIDattr(synIDtrans(hlID('TypeDef')), 'fg', 'gui')
 let g:my_colors = [g:nvim_background, g:nvim_foreground, g:COLOR_01, g:COLOR_02, g:COLOR_03,
       \ g:COLOR_04, g:COLOR_05, g:COLOR_06, g:COLOR_07, g:COLOR_08, g:COLOR_09, g:COLOR_10,
       \ g:COLOR_11, g:COLOR_12, g:COLOR_13, g:COLOR_14, g:COLOR_15, g:COLOR_16]
-
-" Export palette colors
-let g:nvim_colors_file = '/tmp/local/.nvim_colors.vim'
-call system('touch ' . g:nvim_colors_file)
-call writefile(g:my_colors, g:nvim_colors_file, 'b')
 
 " Nvim terminal colors
 let g:terminal_color_1 = g:COLOR_02

@@ -5,6 +5,8 @@
 " PLUGINS {{{
 
 so ~/.config/nvim/plugins.vim
+" challenger_deep
+" deep-space
 
 " }}}
 " GENERAL SETTING {{{
@@ -107,98 +109,8 @@ nmap <silent> gl :wincmd l<CR>
 " }}}
 " COLORSCHEME {{{
 
-" Allow true colors and read palette name
-set termguicolors                                  " true colors
-set background=dark                                " dark background
-let g:path_palname = $HOME.'/.palette-name.vim'    " file to read palette name
-if filereadable(g:path_palname)
-  let g:scheme_name = substitute(readfile(g:path_palname, '', 1)[0], ".vim$", "", "")
-else
-  let g:scheme_name = "gruvbox"
-endif
-
-
-" Set selected colorscheme
-if g:scheme_name == "nord"
-  colorscheme nord
-  let g:nord_italic = 1
-  let g:nord_italic_comments = 1
-  let g:nord_comment_brightness = 20
-  let g:nord_statusline_uniform = 0
-  hi Conceal guibg=NONE guifg=#8be9fd gui=none
-  hi Folded gui=none guibg=#3b4252 guifg=#7b88a1
-  hi Title gui=bold guifg=#d8dee9
-elseif g:scheme_name == "gruvbox"
-  set background=dark
-  let g:gruvbox_italic = 1
-  let g:gruvbox_italicize_strings = 1
-  let g:gruvbox_italicize_comments = 1
-  let g:gruvbox_contrast_dark = "soft"
-  let g:gruvbox_contrast_light = "soft"
-  colorscheme gruvbox
-  hi link Function GruvboxAqua
-elseif g:scheme_name == "material-theme"
-  colorscheme material-theme
-  hi Conceal guibg=NONE guifg=#F77669 gui=none
-elseif g:scheme_name == "deus"
-  let g:deus_bold=0
-  let g:deus_italic=1
-  colorscheme deus
-  hi texBeginEnd gui=bold,italic guifg=#ffffff
-elseif g:scheme_name == "one"
-  let g:one_allow_italics = 1
-  colorscheme one
-  call one#highlight('Folded', '5c6370', '2c323c', 'italic')
-  " call one#highlight('Conceal', '5c6370', '2c323c')
-  hi Conceal guibg=NONE guifg=#e5c07b gui=none
-elseif g:scheme_name == "dracula"
-  colorscheme dracula
-  hi Conceal guibg=NONE guifg=#8be9fd gui=none
-  hi Folded guibg=#333333 guifg=#6272a4 gui=none
-elseif g:scheme_name == "neodark"
-  let g:neodark#use_256color = 1
-  let g:neodark#italics = 1
-  colorscheme neodark
-  hi SpellBad guibg=none guifg=none gui=underline
-  hi Folded guibg=#263a45 guifg=#658595
-elseif g:scheme_name == "space-vim-dark"
-  colorscheme space-vim-dark
-  hi Conceal guibg=none guifg=#2aa1ae
-  hi SpellBad guibg=none guifg=none gui=underline
-  hi Function gui=none
-  hi Folded gui=none
-  hi Comment gui=italic guifg=#2A6B74
-else
-  execute 'colorscheme ' . g:scheme_name
-" elseif g:random_number == 9
-  " colorscheme challenger_deep
-  " hi Conceal guibg=none guifg=#ff5458
-  " hi Folded gui=none guibg=#100e23 guifg=#767676
-  " hi SpellBad guibg=none guifg=none gui=underline
-endif
-
-" Create palette colors
-let g:nvim_background = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')
-let g:nvim_foreground = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')
-let g:COLOR_01 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
-let g:COLOR_02 = synIDattr(synIDtrans(hlID('String')), 'fg', 'gui')
-let g:COLOR_03 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui') " Precision
-let g:COLOR_04 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')
-let g:COLOR_05 = synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
-let g:COLOR_06 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')
-let g:COLOR_07 = synIDattr(synIDtrans(hlID('Function')), 'fg', 'gui')
-let g:COLOR_08 = synIDattr(synIDtrans(hlID('Special')), 'fg', 'gui')
-let g:COLOR_09 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
-let g:COLOR_10 = synIDattr(synIDtrans(hlID('Statement')), 'fg', 'gui')
-let g:COLOR_11 = synIDattr(synIDtrans(hlID('Define')), 'fg', 'gui') " chaconmo
-let g:COLOR_12 = synIDattr(synIDtrans(hlID('CursorLineNr')), 'fg', 'gui')
-let g:COLOR_13 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui')
-let g:COLOR_14 = synIDattr(synIDtrans(hlID('String')), 'fg', 'gui')
-let g:COLOR_15 = synIDattr(synIDtrans(hlID('Function')), 'fg', 'gui')
-let g:COLOR_16 = synIDattr(synIDtrans(hlID('TypeDef')), 'fg', 'gui')
-let g:my_colors = [g:nvim_background, g:nvim_foreground, g:COLOR_01, g:COLOR_02, g:COLOR_03,
-      \ g:COLOR_04, g:COLOR_05, g:COLOR_06, g:COLOR_07, g:COLOR_08, g:COLOR_09, g:COLOR_10,
-      \ g:COLOR_11, g:COLOR_12, g:COLOR_13, g:COLOR_14, g:COLOR_15, g:COLOR_16]
+" Select palette and create colors
+so ~/.config/nvim/init-select-pal.vim
 
 " Nvim terminal colors
 let g:terminal_color_1 = g:COLOR_02
@@ -320,17 +232,23 @@ let g:lightline.separator = { 'left': "\ue0b0", 'right': '' }
 let g:lightline.subseparator = { 'left': '|', 'right': '' }
 
 " Lightline colors
-let s:fg_focus = [ '#ffffff' , "NONE" ]
-let s:bg_focus = ["#665C54", "NONE"]
-let s:fg_hard = [ '#dfdbd2', "NONE"]
-let s:bg_hard = [ '#332927' , "NONE" ]
-let s:fg_soft = [ '#dfdbd2', "NONE"]
-let s:bg_soft = [ '#3c3836', "NONE"]
+let s:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+let s:bg_focus = [ tolower(synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')), "NONE" ]
+let s:fg_hard = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+let s:bg_hard = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE"]
+let s:fg_soft = [ tolower(synIDattr(synIDtrans(hlID('Folded')), 'fg', 'gui')), "NONE" ]
+let s:bg_soft = [ tolower(synIDattr(synIDtrans(hlID('Folded')), 'bg', 'gui')), "NONE"]
 let s:bg_visual = [ '#d08770' , "NONE" ]
 let s:bg_insert = [ '#BF616A' , "NONE" ]
 let s:fg_inactive = [ '#a89984' , "NONE" ]
 let s:none = [ 'NONE' , 'NONE' ]
 
+" bf_focus: comment
+" bg_hard:
+" bg_soft: fold
+
+
+" {{{
 if g:colors_name == 'gruvbox'
   let s:fg_focus = [ '#282828' , "NONE" ]
   let s:bg_focus = ["#a89984", "NONE"]
@@ -411,11 +329,11 @@ endif
 
 if g:colors_name == 'neodark'
   let s:fg_focus    = [ '#1F2F38' , "NONE" ]
-  let s:bg_focus    = [ "#AABBC4" , "NONE" ]
-  let s:fg_hard     = [ '#AABBC4' , "NONE" ]
-  let s:bg_hard     = [ '#475C69' , "NONE" ]
-  let s:fg_soft     = [ '#AABBC4' , "NONE" ]
-  let s:bg_soft     = [ '#263A45' , "NONE" ]
+  let s:bg_focus    = [ '#bcbcbc' , "NONE" ]
+  let s:fg_hard     = [ '#263A45' , "NONE" ]
+  let s:bg_hard     = [ '#8a8a8a' , "NONE" ]
+  let s:fg_soft     = [ 'NONE'    , "NONE" ]
+  let s:bg_soft     = [ '#3a3a3a' , "NONE" ]
   let s:bg_insert   = [ '#B888E2' , "NONE" ]
   let s:bg_visual   = [ '#E69CA0' , "NONE" ]
   let s:fg_inactive = [ '#658595' , "NONE" ]
@@ -447,6 +365,8 @@ if g:colors_name == 'challenger_deep'
   let s:fg_inactive = [ '#767676' , "NONE" ]
   let s:none        = [ 'NONE'    , 'NONE' ]
 endif
+" }}}
+
 
 " Define colorscheme
 let s:p = {'normal': {}, 'tabline': {}, 'insert':{}, 'visual':{}, 'inactive':{}}

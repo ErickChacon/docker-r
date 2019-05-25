@@ -60,6 +60,12 @@ elseif g:scheme_name == "space-vim-dark"
   hi Function gui=none
   hi Folded gui=none
   hi Comment gui=italic guifg=#2A6B74
+elseif g:scheme_name == "monokai"
+  colorscheme monokai
+  hi Conceal guibg=none guifg=LightGrey
+elseif g:scheme_name == "tender"
+  colorscheme tender
+  hi Conceal guibg=none guifg=LightGrey
 else
   execute 'colorscheme ' . g:scheme_name
 " elseif g:random_number == 9

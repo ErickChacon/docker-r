@@ -3,16 +3,15 @@
 setlocal spell
 
 " Mapping and nvim-r
-inoremap <buffer> >> <Esc>:normal! a%>%<CR>a
-inoremap <buffer> __ <Esc>:normal! a<-<CR>a
+inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
 inoremap <leader>, <C-x><C-o>
-nmap <LocalLeader>ll <Plug>RSendLine
 
 " folding
 setlocal foldmethod=expr
 setlocal foldlevel=0
 setlocal foldexpr=RFold()
 function! RFold() " {{{
+
   let this_line = getline(v:lnum)
 
   if match(this_line, '}') >= 0

@@ -535,7 +535,7 @@ endfunction
 let R_source = '~/.local/share/nvim/plugged/Nvim-R/R/tmux_split.vim'
 let R_tmux_title = "automatic"                              " tmux window names
 let R_objbr_place = "script,right"                          " object split
-let R_assign = 0                                            " remove chunck mapping
+let R_assign = 2                                            " __ as <-
 let R_rconsole_height = 10                                  " console height
 let R_args_in_stline = 1                                    " arguments on status line
 let R_openhtml = 1                                          " open in html
@@ -543,11 +543,13 @@ let R_pdfviewer = "evince"                                  " pdf viewer
 " let r_syntax_folding = 1
 
 " Rmd configuration
+let rmd_syn_hl_chunk = 1
 let g:rmd_syn_langs = ["r", "python", "c"] " engines for chunks
 let g:pandoc#syntax#codeblocks#embeds#langs = ["cpp", "r", "bash=sh", "python"]
 let g:pandoc#syntax#conceal#urls = 1
 let g:pandoc#syntax#conceal#use = 1 " pretty highlight
 let g:pandoc#hypertext#use_default_mappings = 0
+let g:pandoc#keyboard#use_default_mappings = 0 " remove all pandoc mappings
 
 " }}}
 " PROGRAMS: LATEX {{{
@@ -559,14 +561,6 @@ let g:vimtex_toc_secnumdepth=0
 " let g:vimtex_index_resize=1
 let g:vimtex_index_split_width=40
 let g:vimtex_index_split_pos = "vertical botright"
-" Latex shortcuts
-" nnoremap <localleader>lt :VimtexTocOpen<CR>
-nnoremap <localleader>lt :VimtexTocToggle<CR>
-nnoremap <localleader>lv :VimtexView<CR>
-nnoremap <localleader>ll :VimtexCompile<CR>
-nnoremap <localleader>lo :VimtexCompileSS<CR>
-nnoremap <localleader>le :VimtexErrors<CR>
-nnoremap <localleader>lc :VimtexClean<CR>
 let g:tex_conceal="abdmg"
 " let g:tex_conceal=""
 " let g:tex_fast= "bcmprsSvV"

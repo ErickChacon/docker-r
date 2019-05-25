@@ -540,6 +540,8 @@ let R_rconsole_height = 10                                  " console height
 let R_args_in_stline = 1                                    " arguments on status line
 let R_openhtml = 1                                          " open in html
 let R_pdfviewer = "evince"                                  " pdf viewer
+let R_editor_w = 90                                         " editor split width
+let R_editor_h = 60                                         " help split width
 " let r_syntax_folding = 1
 
 " Rmd configuration

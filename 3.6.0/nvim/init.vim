@@ -19,6 +19,7 @@ set backspace=indent,eol,start               " use backspace to delete in insert
 " MODIFICATIONS
 set autoread                                 " read changes outside nvim
 au FocusGained * :checktime                  " read changes outside nvim
+set backupcopy=yes                           " able to edit docker volumne file
 set autowrite                                " save before running commands
 au FocusGained,BufEnter * :silent!           " update file when entering buffer
 set history=50                               " history of the last commands ':'
@@ -136,11 +137,12 @@ let g:terminal_color_15 = g:COLOR_16
 function! MyFoldText() " {{{
   let line = getline(v:foldstart)
   let nucolwidth = &fdc + &number * &numberwidth
-   if g:gitgutter_enabled
-     let wider = 2
-   else
-     let wider = 0
-   endif
+   " if g:gitgutter_enabled
+   "   let wider = 2
+   " else
+   "   let wider = 0
+   " endif
+  let wider = 2
 
   let windowwidth = winwidth(0) - nucolwidth - 12 - wider
   let foldedlinecount = v:foldend - v:foldstart
@@ -231,139 +233,109 @@ let g:lightline.tab = {
 let g:lightline.separator = { 'left': "\ue0b0", 'right': '' }
 let g:lightline.subseparator = { 'left': '|', 'right': '' }
 
-" Lightline colors
-let s:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
-let s:bg_focus = [ tolower(synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')), "NONE" ]
-let s:fg_hard = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
-let s:bg_hard = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE"]
-let s:fg_soft = [ tolower(synIDattr(synIDtrans(hlID('Folded')), 'fg', 'gui')), "NONE" ]
-let s:bg_soft = [ tolower(synIDattr(synIDtrans(hlID('Folded')), 'bg', 'gui')), "NONE"]
-let s:bg_visual = [ '#d08770' , "NONE" ]
-let s:bg_insert = [ '#BF616A' , "NONE" ]
-let s:fg_inactive = [ '#a89984' , "NONE" ]
-let s:none = [ 'NONE' , 'NONE' ]
-
-" bf_focus: comment
-" bg_hard:
-" bg_soft: fold
-
-
-" {{{
-if g:colors_name == 'gruvbox'
-  let s:fg_focus = [ '#282828' , "NONE" ]
-  let s:bg_focus = ["#a89984", "NONE"]
-  let s:fg_hard = [ '#a89984', "NONE"]
-  let s:bg_hard = [ '#504945' , "NONE" ]
-  let s:fg_soft = [ '#a89984', "NONE"]
-  let s:bg_soft = [ '#3c3836', "NONE"]
-  let s:bg_visual = [ '#f79375' , "NONE" ]
-  let s:bg_insert = [ '#dfdbd2' , "NONE" ]
-  let s:fg_inactive = [ '#a89984' , "NONE" ]
-  let s:none = [ 'NONE' , 'NONE' ]
+" Lightline type: 1, 2 or 3
+if g:colors_name == 'crunchbang' || g:colors_name == 'onehalfdark' ||
+      \ g:colors_name == 'base16-flat' || g:colors_name == 'base16-phd'
+  let s:lightline_type = 3
+elseif g:colors_name == 'monokai' || g:colors_name == 'material-theme' ||
+      \ g:colors_name == 'dracula' || g:colors_name == 'deus' ||
+      \ g:colors_name == 'base16-default-dark' || g:colors_name == 'challenger_deep'
+  let s:lightline_type = 2
+else
+  let s:lightline_type = 1
 endif
 
-if g:colors_name == 'nord'
-  let s:fg_focus = [ '#eCEFF4' , "NONE" ]
-  let s:bg_focus = ["#5E81AC", "NONE"]
-  let s:fg_hard = [ '#d8DEE9', "NONE"]
-  let s:bg_hard = [ '#4C566A' , "NONE" ]
-  let s:fg_soft = [ '#d8DEE9', "NONE"]
-  let s:bg_soft = [ '#3B4252', "NONE"]
-  let s:bg_insert = [ '#BF616A' , "NONE" ]
-  let s:bg_visual = [ '#d08770' , "NONE" ]
-  let s:fg_inactive = [ '#5E81AC' , "NONE" ]
-  let s:none = [ 'NONE' , 'NONE' ]
+" Lightline default colors: soft, visual, insert, inactive
+let s:fg_soft     = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+let s:bg_soft     = [ tolower(synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')), "NONE"]
+let s:bg_visual   = [ tolower(synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')), "NONE"]
+let s:bg_insert   = [ tolower(synIDattr(synIDtrans(hlID('Define')), 'fg', 'gui')), "NONE"]
+let s:fg_inactive = [ tolower(synIDattr(synIDtrans(hlID('LineNr')), 'fg', 'gui')), "NONE"]
+
+" Lightline default colors: focus, hard
+if s:lightline_type == 1     " bg: normal fg - linenr fg - cursorline bg
+  let s:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
+  let s:bg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+  let s:fg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+  let s:bg_hard  = [ tolower(synIDattr(synIDtrans(hlID('LineNr')), 'fg', 'gui')), "NONE"]
+elseif s:lightline_type == 2 " bg: linenr fg - normal fg - cursorline bg
+  let s:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+  let s:bg_focus = [ tolower(synIDattr(synIDtrans(hlID('LineNr')), 'fg', 'gui')), "NONE"]
+  let s:fg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+  let s:bg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
+elseif s:lightline_type == 3 " bg: linenr fg - normal fg - cursorline bg
+  let s:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
+  let s:bg_focus = [ tolower(synIDattr(synIDtrans(hlID('LineNr')), 'fg', 'gui')), "NONE"]
+  let s:fg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
+  let s:bg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
 endif
 
-if g:colors_name == 'material-theme'
-  let s:fg_focus = [ '#ffffff' , "NONE" ]
-  let s:bg_focus = ["#5C7E8C", "NONE"]
-  let s:fg_hard = [ '#cDD3DE', "NONE"]
-  let s:bg_hard = [ '#4C566A' , "NONE" ]
-  let s:fg_soft = [ '#cDD3DE', "NONE"]
-  let s:bg_soft = [ '#37474F', "NONE"]
-  let s:bg_insert = [ '#BF616A' , "NONE" ]
-  let s:bg_visual = [ '#d08770' , "NONE" ]
-  let s:fg_inactive = [ '#7986CB' , "NONE" ]
-  let s:none = [ 'NONE' , 'NONE' ]
-endif
-
-if g:colors_name == 'deus'
-  let s:fg_focus = [ '#ebdbb2' , "NONE" ]
-  let s:bg_focus = ["#665c54", "NONE"]
-  let s:fg_hard = [ '#ebdbb2', "NONE"]
-  let s:bg_hard = [ '#3A3B3F' , "NONE" ]
-  let s:fg_soft = [ '#ebdbb2', "NONE"]
-  let s:bg_soft = [ '#292f37', "NONE"]
-  let s:bg_insert = [ '#BF616A' , "NONE" ]
-  let s:bg_visual = [ '#d08770' , "NONE" ]
-  let s:fg_inactive = [ '#928374' , "NONE" ]
-  let s:none = [ 'NONE' , 'NONE' ]
-endif
-
-if g:colors_name == 'one'
-  let s:fg_focus = [ '#abb2bf' , "NONE" ]
-  let s:bg_focus = ["#4b5263", "NONE"]
-  let s:fg_hard = [ '#abb2bf', "NONE"]
-  let s:bg_hard = [ '#3b4048' , "NONE" ]
-  let s:fg_soft = [ '#abb2bf', "NONE"]
-  let s:bg_soft = [ '#2c323c', "NONE"]
-  let s:bg_insert = [ '#5E81AC' , "NONE" ]
-  let s:bg_visual = [ '#528bff' , "NONE" ]
-  let s:fg_inactive = [ '#5c6370' , "NONE" ]
-  let s:none = [ 'NONE' , 'NONE' ]
-endif
-
-if g:colors_name == 'dracula'
-  let s:fg_focus = [ '#f8f8f2' , "NONE" ]
-  let s:bg_focus = ["#6272a4 ", "NONE"]
-  let s:fg_hard = [ '#f8f8f2', "NONE"]
-  let s:bg_hard = [ '#3b4048' , "NONE" ]
-  let s:fg_soft = [ '#abb2bf', "NONE"]
-  let s:bg_soft = [ '#333333', "NONE"]
-  let s:bg_insert = [ '#bd93f9' , "NONE" ]
-  let s:bg_visual = [ '#ff79c6' , "NONE" ]
-  let s:fg_inactive = [ '#5c6370' , "NONE" ]
-  let s:none = [ 'NONE' , 'NONE' ]
-endif
-
-if g:colors_name == 'neodark'
-  let s:fg_focus    = [ '#1F2F38' , "NONE" ]
-  let s:bg_focus    = [ '#bcbcbc' , "NONE" ]
-  let s:fg_hard     = [ '#263A45' , "NONE" ]
-  let s:bg_hard     = [ '#8a8a8a' , "NONE" ]
-  let s:fg_soft     = [ 'NONE'    , "NONE" ]
-  let s:bg_soft     = [ '#3a3a3a' , "NONE" ]
-  let s:bg_insert   = [ '#B888E2' , "NONE" ]
-  let s:bg_visual   = [ '#E69CA0' , "NONE" ]
-  let s:fg_inactive = [ '#658595' , "NONE" ]
-  let s:none        = [ 'NONE'    , 'NONE' ]
-endif
-
-if g:colors_name == 'space-vim-dark'
-  let s:fg_focus    = [ '#292b2e' , "NONE" ]
-  let s:bg_focus    = [ '#d4b261' , "NONE" ]
-  let s:fg_hard     = [ '#b2b2b2' , "NONE" ]
-  let s:bg_hard     = [ '#3B414E' , "NONE" ]
-  let s:fg_soft     = [ '#999999' , "NONE" ]
-  let s:bg_soft     = [ '#34323e' , "NONE" ]
-  let s:bg_insert   = [ '#b4d1b6' , "NONE" ]
-  let s:bg_visual   = [ '#FF73B9' , "NONE" ]
-  let s:fg_inactive = [ '#2aa1ae' , "NONE" ]
-  let s:none        = [ 'NONE'    , 'NONE' ]
-endif
-
-if g:colors_name == 'challenger_deep'
-  let s:fg_focus    = [ '#f3f3f3' , "NONE" ]
-  let s:bg_focus    = [ '#767676' , "NONE" ]
-  let s:fg_hard     = [ '#b2b2b2' , "NONE" ]
-  let s:bg_hard     = [ '#2C2A3A' , "NONE" ]
-  let s:fg_soft     = [ '#999999' , "NONE" ]
-  let s:bg_soft     = [ '#100e23' , "NONE" ]
-  let s:bg_insert   = [ '#c991e1' , "NONE" ]
-  let s:bg_visual   = [ '#62d196' , "NONE" ]
+" Lightline custom colors per palette
+if g:colors_name      == 'gruvbox'
+  let s:bg_focus      = [ '#a89984', 'NONE' ]
+  let s:fg_hard       = [ '#a89984', 'NONE' ]
+  let s:bg_hard       = [ '#504945', 'NONE' ]
+  let s:fg_soft       = [ '#a89984', 'NONE' ]
+elseif g:colors_name  == 'nord'
+  let s:fg_focus      = [ '#eCEFF4', 'NONE' ]
+  let s:bg_focus      = [ '#5E81AC', 'NONE' ]
+  let s:bg_insert     = [ '#BF616A', 'NONE' ]
+  let s:bg_visual     = [ '#d08770', 'NONE' ]
+  let s:fg_inactive   = [ '#79808F', 'NONE' ]
+elseif g:colors_name  == 'material-theme'
+  let s:fg_hard       = [ '#cDD3DE', 'NONE' ]
+  let s:bg_hard       = [ '#4C566A', 'NONE' ]
+  let s:fg_soft       = [ '#cDD3DE', 'NONE' ]
+elseif g:colors_name  == 'dracula'
+  let s:fg_hard       = [ '#abb2bf', 'NONE' ]
+  let s:bg_hard       = [ '#333333', 'NONE' ]
+  let s:fg_soft       = [ '#abb2bf', 'NONE' ]
+  let s:bg_insert     = [ '#bd93f9', 'NONE' ]
+  let s:bg_visual     = [ '#ff79c6', 'NONE' ]
+elseif g:colors_name  == 'space-vim-dark'
+  let s:fg_focus      = [ '#292b2e', 'NONE' ]
+  let s:bg_focus      = [ '#d4b261', 'NONE' ]
+  let s:bg_insert     = [ '#b4d1b6', 'NONE' ]
+  let s:bg_visual     = [ '#FF73B9', 'NONE' ]
+  let s:fg_inactive   = [ '#2aa1ae', 'NONE' ]
+elseif g:colors_name  == 'deus'
+  let s:bg_hard       = [ '#3A3B3F', 'NONE' ]
+elseif g:colors_name  == 'challenger_deep'
+  let s:bg_hard       = [ '#2A2942', 'NONE' ]
+  let s:bg_insert     = [ '#65b2ff', 'NONE' ]
+elseif g:colors_name  == 'monokai'
+  if s:lightline_type == 1
+    let s:bg_hard     = [ '#6D6D67', 'NONE' ]
+  elseif s:lightline_type == 2
+    let s:bg_hard     = [ '#5C5C53', 'NONE' ]
+  endif
+elseif g:colors_name  == 'NeoSolarized'
+  if s:lightline_type == 1
+    let s:bg_hard     = [ '#30555E', 'NONE' ]
+  elseif s:lightline_type == 3
+    let s:bg_hard     = [ '#254B55', 'NONE' ]
+  endif
+elseif g:colors_name == 'OceanicNext'
+  if s:lightline_type == 1
+    let s:bg_hard = [ '#575F68', "NONE" ]
+  endif
+elseif g:colors_name == 'neodark'
+  if s:lightline_type == 2
+    let s:bg_hard = [ '#4D4D4D', "NONE" ]
+  endif
+elseif g:colors_name == 'tender'
+  let s:bg_focus = [ '#b3deef', "NONE" ]
+  let s:bg_visual = [ '#eeeeee', "NONE" ]
   let s:fg_inactive = [ '#767676' , "NONE" ]
-  let s:none        = [ 'NONE'    , 'NONE' ]
+elseif g:colors_name == 'synthwave'
+  let s:fg_focus = [ '#bfb8cc', "NONE" ]
+  let s:bg_focus = [ '#736075', "NONE" ]
+elseif g:colors_name == 'alduin'
+  let s:bg_focus = [ '#87875f', "NONE" ]
+elseif g:colors_name == 'deep-space'
+  let s:fg_inactive = [ '#47505F', 'NONE' ]
+elseif g:colors_name == 'base16-atlas'
+  let s:bg_hard = [ '#2B5968', 'NONE' ]
 endif
 " }}}
 
@@ -447,6 +419,7 @@ set splitright
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeMapOpenInTab='T'
 let NERDTreeMapOpenInTabSilent='t'
+let NERDTreeWinSize = 32
 
 " }}}
 " IDE: DEOPLETE PLUGIN {{{
@@ -534,7 +507,10 @@ endfunction
 " R configuration
 let R_source = '~/.local/share/nvim/plugged/Nvim-R/R/tmux_split.vim'
 let R_tmux_title = "automatic"                              " tmux window names
-let R_objbr_place = "script,right"                          " object split
+let R_objbr_place = "script,left"                          " object split position
+" let R_objbr_place = "script,right"                          " object split position
+let R_objbr_w = 32                                          " object split with
+let R_objbr_opendf = 0                                      " close data.frames
 let R_assign = 2                                            " __ as <-
 let R_rconsole_height = 10                                  " console height
 let R_args_in_stline = 1                                    " arguments on status line

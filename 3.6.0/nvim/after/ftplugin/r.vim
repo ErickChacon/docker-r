@@ -2,14 +2,22 @@
 " local config
 setlocal spell
 
+" functions
+function! RObjBrowserNerd()
+  call RObjBrowser()
+  execute 'NERDTreeToggle'
+endfunction
+
 " Mapping and nvim-r
 inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
 inoremap <leader>, <C-x><C-o>
+nmap <buffer> <silent> <leader>ro :call RObjBrowserNerd()<CR>
 
 " folding
 setlocal foldmethod=expr
 setlocal foldlevel=0
 setlocal foldexpr=RFold()
+
 function! RFold() " {{{
 
   let this_line = getline(v:lnum)

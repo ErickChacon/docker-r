@@ -199,7 +199,7 @@ function! Sy_stats_wrapper() " {{{
   return hunkline
 endfunction " }}}
 
-" Lightline format
+" Lightline format {{{
 let g:lightline = {}
 let g:lightline.colorscheme = 'yourcolorscheme'
 let g:lightline.component = {
@@ -232,8 +232,9 @@ let g:lightline.tab = {
       \ }
 let g:lightline.separator = { 'left': "\ue0b0", 'right': '' }
 let g:lightline.subseparator = { 'left': '|', 'right': '' }
+" }}}
 
-" Lightline type: 1, 2 or 3
+" Lightline type: 1, 2 or 3 {{{
 if g:colors_name == 'crunchbang' || g:colors_name == 'onehalfdark' ||
       \ g:colors_name == 'base16-flat' || g:colors_name == 'base16-phd'
   let s:lightline_type = 3
@@ -244,15 +245,17 @@ elseif g:colors_name == 'monokai' || g:colors_name == 'material-theme' ||
 else
   let s:lightline_type = 1
 endif
+" }}}
 
-" Lightline default colors: soft, visual, insert, inactive
+" Lightline default colors: soft, visual, insert, inactive {{{
 let s:fg_soft     = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
 let s:bg_soft     = [ tolower(synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')), "NONE"]
 let s:bg_visual   = [ tolower(synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')), "NONE"]
 let s:bg_insert   = [ tolower(synIDattr(synIDtrans(hlID('Define')), 'fg', 'gui')), "NONE"]
 let s:fg_inactive = [ tolower(synIDattr(synIDtrans(hlID('LineNr')), 'fg', 'gui')), "NONE"]
+" }}}
 
-" Lightline default colors: focus, hard
+" Lightline default colors: focus, hard {{{
 if s:lightline_type == 1     " bg: normal fg - linenr fg - cursorline bg
   let s:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
   let s:bg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
@@ -269,8 +272,9 @@ elseif s:lightline_type == 3 " bg: linenr fg - normal fg - cursorline bg
   let s:fg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
   let s:bg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
 endif
+" }}}
 
-" Lightline custom colors per palette
+" Lightline custom colors per palette {{{
 if g:colors_name      == 'gruvbox'
   let s:bg_focus      = [ '#a89984', 'NONE' ]
   let s:fg_hard       = [ '#a89984', 'NONE' ]
@@ -304,43 +308,30 @@ elseif g:colors_name  == 'challenger_deep'
   let s:bg_hard       = [ '#2A2942', 'NONE' ]
   let s:bg_insert     = [ '#65b2ff', 'NONE' ]
 elseif g:colors_name  == 'monokai'
-  if s:lightline_type == 1
-    let s:bg_hard     = [ '#6D6D67', 'NONE' ]
-  elseif s:lightline_type == 2
-    let s:bg_hard     = [ '#5C5C53', 'NONE' ]
-  endif
+  let s:bg_hard       = [ '#5C5C53', 'NONE' ]
 elseif g:colors_name  == 'NeoSolarized'
-  if s:lightline_type == 1
-    let s:bg_hard     = [ '#30555E', 'NONE' ]
-  elseif s:lightline_type == 3
-    let s:bg_hard     = [ '#254B55', 'NONE' ]
-  endif
-elseif g:colors_name == 'OceanicNext'
-  if s:lightline_type == 1
-    let s:bg_hard = [ '#575F68', "NONE" ]
-  endif
-elseif g:colors_name == 'neodark'
-  if s:lightline_type == 2
-    let s:bg_hard = [ '#4D4D4D', "NONE" ]
-  endif
-elseif g:colors_name == 'tender'
-  let s:bg_focus = [ '#b3deef', "NONE" ]
-  let s:bg_visual = [ '#eeeeee', "NONE" ]
-  let s:fg_inactive = [ '#767676' , "NONE" ]
-elseif g:colors_name == 'synthwave'
-  let s:fg_focus = [ '#bfb8cc', "NONE" ]
-  let s:bg_focus = [ '#736075', "NONE" ]
-elseif g:colors_name == 'alduin'
-  let s:bg_focus = [ '#87875f', "NONE" ]
-elseif g:colors_name == 'deep-space'
-  let s:fg_inactive = [ '#47505F', 'NONE' ]
-elseif g:colors_name == 'base16-atlas'
-  let s:bg_hard = [ '#2B5968', 'NONE' ]
+  let s:bg_hard       = [ '#30555E', 'NONE' ]
+elseif g:colors_name  == 'OceanicNext'
+  let s:bg_hard       = [ '#575F68', "NONE" ]
+elseif g:colors_name  == 'neodark'
+  let s:bg_hard       = [ '#4D4D4D', "NONE" ]
+elseif g:colors_name  == 'tender'
+  let s:bg_focus      = [ '#b3deef', 'NONE' ]
+  let s:bg_visual     = [ '#eeeeee', 'NONE' ]
+  let s:fg_inactive   = [ '#767676', 'NONE' ]
+elseif g:colors_name  == 'synthwave'
+  let s:fg_focus      = [ '#bfb8cc', 'NONE' ]
+  let s:bg_focus      = [ '#736075', 'NONE' ]
+elseif g:colors_name  == 'alduin'
+  let s:bg_focus      = [ '#87875f', 'NONE' ]
+elseif g:colors_name  == 'deep-space'
+  let s:fg_inactive   = [ '#47505F', 'NONE' ]
+elseif g:colors_name  == 'base16-atlas'
+  let s:bg_hard       = [ '#2B5968', 'NONE' ]
 endif
 " }}}
 
-
-" Define colorscheme
+" Define colorscheme {{{
 let s:p = {'normal': {}, 'tabline': {}, 'insert':{}, 'visual':{}, 'inactive':{}}
 let s:p.normal.left = [
       \ [ s:fg_focus, s:bg_focus, 'bold' ],
@@ -374,6 +365,7 @@ let s:p.visual.right = [
 let s:p.inactive.left = [[ s:fg_inactive, s:bg_soft, 'italic' ], [ s:fg_inactive, s:bg_soft ]]
 let s:p.inactive.right = [ [ s:fg_inactive, s:bg_soft], [ s:fg_inactive, s:bg_soft ] ]
 let s:p.inactive.middle = [ [ s:fg_inactive, s:bg_soft ] ]
+" }}}
 
 " Lightline assign colorscheme
 let g:lightline#colorscheme#yourcolorscheme#palette = lightline#colorscheme#flatten(s:p)
@@ -417,9 +409,13 @@ endif
 
 set splitright
 map <leader>n :NERDTreeToggle<CR>
+let NERDTreeMapOpenSplit='v'
+let NERDTreeMapOpenVSplit=';'
 let NERDTreeMapOpenInTab='T'
 let NERDTreeMapOpenInTabSilent='t'
 let NERDTreeWinSize = 32
+let NERDTreeIgnore = ['\.aux$', '\.fdb_latexmk$', '\.fls', '\.log', '\.out',
+      \ '\.synctex.gz']
 
 " }}}
 " IDE: DEOPLETE PLUGIN {{{
@@ -506,13 +502,14 @@ endfunction
 
 " R configuration
 let R_source = '~/.local/share/nvim/plugged/Nvim-R/R/tmux_split.vim'
+let R_args = ['--no-save', '--quiet']                       " R arguments
 let R_tmux_title = "automatic"                              " tmux window names
-let R_objbr_place = "script,left"                          " object split position
+let R_objbr_place = "script,left"                           " object split position
 " let R_objbr_place = "script,right"                          " object split position
 let R_objbr_w = 32                                          " object split with
 let R_objbr_opendf = 0                                      " close data.frames
 let R_assign = 2                                            " __ as <-
-let R_rconsole_height = 10                                  " console height
+let R_rconsole_height = 5                                  " console height
 let R_args_in_stline = 1                                    " arguments on status line
 let R_openhtml = 1                                          " open in html
 let R_pdfviewer = "evince"                                  " pdf viewer

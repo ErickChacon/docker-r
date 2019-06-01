@@ -23,7 +23,7 @@ Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " status and tab
 Plug 'edkolev/tmuxline.vim'            , {'commit': '1142333'}  " tmux status and tab lines
 Plug 'ryanoasis/vim-devicons'          , {'commit': 'cdc08fd'}  " filetype icons
 Plug 'kshenoy/vim-signature'           , {'commit': '6bc3dd1'}  " display and navigate marks
-Plug 'mhinz/vim-signify'               , {'commit': 'f34fea0'}  " show differences
+Plug 'mhinz/vim-signify'               , {'commit': 'f34fea0'}  " show vcs differences
 Plug 'majutsushi/tagbar'               , {'commit': '387bbad'}  " display tags
 Plug 'ntpeters/vim-better-whitespace'  , {'commit': 'f5726c4'}  " whitespace
 Plug 'ap/vim-css-color'                , {'commit': '10eae53'}  " TODO: closes rmd chunk
@@ -36,7 +36,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': 'e557ade'}  " pandoc: syntax
 Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax highlight
 Plug 'jalvesaq/Nvim-R'                 , {'commit': 'e7f4df0'}  " R: support
 Plug 'tpope/vim-fugitive'              , {'commit': '5d99841'}  " git: wrapper
-Plug 'airblade/vim-gitgutter'          , {'commit': '7eeea63'}  " git: shows changes
+" Plug 'airblade/vim-gitgutter'          , {'commit': '7eeea63'}  " git: shows changes
 Plug 'vim-python/python-syntax'        , {'commit': '1df5e5a'}  " python: syntax
 Plug 'octol/vim-cpp-enhanced-highlight', {'commit': '3aa9562'}  " cpp: better syntax
 Plug 'JuliaEditorSupport/julia-vim'    , {'commit': '386371f'}  " julia: support

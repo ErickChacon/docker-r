@@ -207,7 +207,12 @@ RUN apt-get install -y xclip xsel
 # RUN apt-get install -y evince
 
 RUN \
+  # gui tools
+  install2.r --error --deps TRUE lwgeom
+
+RUN \
   # my repositories
   installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@a81fa6b \
-    ErickChacon/datasim@3ac9ced
+    ErickChacon/datasim@269946a
+
 

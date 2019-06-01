@@ -66,6 +66,34 @@ elseif g:scheme_name == "monokai"
 elseif g:scheme_name == "tender"
   colorscheme tender
   hi Conceal guibg=none guifg=LightGrey
+elseif g:scheme_name == "alduin"
+  colorscheme alduin
+  hi Conceal guibg=none
+elseif g:scheme_name == "crunchbang"
+  colorscheme crunchbang
+  hi Conceal guibg=none
+elseif g:scheme_name == "deep-space"
+  colorscheme deep-space
+  hi Folded guifg=#51617d guibg=#232936
+  hi Conceal guibg=none
+elseif g:scheme_name == "hybrid"
+  colorscheme hybrid
+  hi Folded guibg=#282a2e
+  hi SpellBad guibg=none guifg=#707880 gui=italic,underline
+  hi Conceal guibg=none
+elseif g:scheme_name == "lucid"
+  colorscheme lucid
+  hi CursorLine guifg=none
+  hi! link ColorColumn CursorLine
+elseif g:scheme_name == "two-firewatch"
+  colorscheme two-firewatch
+  hi Conceal guibg=none
+  hi! link Folded CursorLine
+  hi SpellBad guibg=none guifg=#5c6370 gui=italic,underline
+elseif g:scheme_name == "onehalfdark"
+  execute 'colorscheme ' . g:scheme_name
+  hi SpellBad guibg=none guifg=#5c6370 gui=italic,underline
+  hi! link Folded CursorLine
 else
   execute 'colorscheme ' . g:scheme_name
 " elseif g:random_number == 9

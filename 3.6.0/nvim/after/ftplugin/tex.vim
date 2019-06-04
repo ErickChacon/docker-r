@@ -5,12 +5,12 @@ setlocal formatoptions-=t " text wraping: it changes depending of the filetype
 
 " Latex shortcuts
 " nnoremap <localleader>lt :VimtexTocOpen<CR>
-nnoremap <localleader>lt :VimtexTocToggle<CR>
-nnoremap <localleader>lv :VimtexView<CR>
-nnoremap <localleader>ll :VimtexCompile<CR>
-nnoremap <localleader>lo :VimtexCompileSS<CR>
-nnoremap <localleader>le :VimtexErrors<CR>
-nnoremap <localleader>lc :VimtexClean<CR>
+nnoremap <buffer> <localleader>lt :VimtexTocToggle<CR>
+nnoremap <buffer> <localleader>lv :VimtexView<CR>
+nnoremap <buffer> <localleader>ll :VimtexCompile<CR>
+nnoremap <buffer> <localleader>lo :VimtexCompileSS<CR>
+nnoremap <buffer> <localleader>le :VimtexErrors<CR>
+nnoremap <buffer> <localleader>lc :VimtexClean<CR>
 
 " setlocal textwidth=0
 " ino $ $$<left>

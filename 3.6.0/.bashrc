@@ -60,6 +60,7 @@ export TERM=xterm-256color-italic
 
 # openblas set number of threads
 export OPENBLAS_NUM_THREADS=4
+# export OPENBLAS_NUM_THREADS=1
 
 # r headers
 export CPLUS_INCLUDE_PATH=/usr/share/R/include

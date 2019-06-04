@@ -16,9 +16,10 @@ if g:scheme_name == "nord"
   let g:nord_italic_comments = 1
   let g:nord_comment_brightness = 20
   let g:nord_statusline_uniform = 0
-  hi Conceal guibg=NONE guifg=#8be9fd gui=none
+  hi Conceal guibg=none guifg=#8be9fd gui=none
   hi Folded gui=none guibg=#3b4252 guifg=#7b88a1
   hi Title gui=bold guifg=#d8dee9
+  hi SpellBad guifg=none
 elseif g:scheme_name == "gruvbox"
   set background=dark
   let g:gruvbox_italic = 1

@@ -86,10 +86,10 @@ vnoremap jk <Esc>
 vnoremap <esc> <nop>
 tnoremap jk <C-\><C-n>
 
-" Mapping to close brackets
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
+" " Mapping to close brackets
+" inoremap ( ()<left>
+" inoremap [ []<left>
+" inoremap { {}<left>
 
 " Disable Arrow keys in nomal, visual, operator-pending and insert mode
 map <up> <nop>
@@ -168,7 +168,8 @@ hi! link FoldColumn Statement                " fold column color
 " Lightline custom functions
 
 function! MyFiletype() " {{{
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' : 'no ft') : ''
 endfunction " }}}
 function! MyFiletypeIcon(n) " {{{
   return winwidth(0) > 70 ? (strlen(&filetype) ?  WebDevIconsGetFileTypeSymbol() : '') : ''
@@ -423,22 +424,18 @@ let NERDTreeIgnore = ['\.aux$', '\.fdb_latexmk$', '\.fls', '\.log', '\.out',
 let g:deoplete#enable_at_startup = 1
 
 " }}}
-" IDE: ULTISNIPPETS PLUGIN {{{
+" IDE: NEOSNIPPETS PLUGIN {{{
 
-let g:UltiSnipsSnippetsDir=$HOME.'/Documents/Repositories/dotfiles-ubuntu-18/UltiSnips' "
-let g:UltiSnipsSnippetDirectories=["UltiSnips", $HOME.'/Documents/Repositories/dotfiles-ubuntu-18/UltiSnips']
-let g:UltiSnipsExpandTrigger="nop"
-let g:UltiSnipsEditSplit="context"
-function! s:expand_snippet_or_key(key) abort
-  let g:ulti_expand_or_jump_res = 0
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  return (g:ulti_expand_or_jump_res > 0) ? snippet : a:key
-endfunction
-inoremap <silent> <expr> <CR> pumvisible() ?
-      \ "<C-y><C-R>=UltiSnips#ExpandSnippet()<CR>" : "\<CR>"
-inoremap <silent> <expr> <TAB> pumvisible() ?
-      \ "\<C-n>" : "<C-R>=<SID>expand_snippet_or_key(\"\t\")<CR>"
-au FileType vimwiki :UltiSnipsAddFiletypes markdown
+let g:neosnippet#disable_runtime_snippets = {
+		\   '_' : 1,
+		\ }
+let g:neosnippet#snippets_directory=['~/.local/share/nvim/plugged/vim-snippets/snippets','~/Documents/Repositories/dotfiles-ubuntu-18/neosnippets']
+
+inoremap <silent><expr><C-J> "\<C-N>"
+inoremap <silent><expr><C-K> "\<C-P>"
+imap <C-L>     <Plug>(neosnippet_expand_or_jump)
+smap <C-L>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-L>     <Plug>(neosnippet_expand_target)
 
 " }}}
 " IDE: TAGS {{{

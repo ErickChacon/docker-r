@@ -10,7 +10,7 @@ Plug 'junegunn/fzf.vim'                , {'commit': 'ac4e7bf'}  " fuzzy matching
 " DEVELOPMENT ENVIRONMENT TOOLS
 Plug 'jalvesaq/vimcmdline'             , {'commit': '17275ab'}  " command line
 Plug 'hkupty/iron.nvim'                , {'commit': 'c3542c2'}  " repls over neovim
-Plug 'SirVer/ultisnips'                , {'commit': '1a99766'}  " snippets
+Plug 'Shougo/neosnippet.vim'           , {'commit': 'ed80ae8'}  " snippets
 Plug 'honza/vim-snippets'              , {'commit': '7ade68c'}  " snippets scripts
 Plug 'christoomey/vim-tmux-navigator'  , {'commit': '4e1a877'}  " tmux ctrl navigation
 Plug 'autozimu/LanguageClient-neovim'  , {'commit': '41c948e',
@@ -26,7 +26,7 @@ Plug 'kshenoy/vim-signature'           , {'commit': '6bc3dd1'}  " display and na
 Plug 'mhinz/vim-signify'               , {'commit': 'f34fea0'}  " show vcs differences
 Plug 'majutsushi/tagbar'               , {'commit': '387bbad'}  " display tags
 Plug 'ntpeters/vim-better-whitespace'  , {'commit': 'f5726c4'}  " whitespace
-Plug 'ap/vim-css-color'                , {'commit': '10eae53'}  " TODO: closes rmd chunk
+Plug 'ap/vim-css-color'                , {'commit': '5a31c72'}  " TODO: closes rmd chunk
 
 " PROGRAMS
 Plug 'vimwiki/vimwiki'                 , {'commit': 'be793e2'}  " vimwiki: notes and agenda
@@ -41,14 +41,14 @@ Plug 'vim-python/python-syntax'        , {'commit': '1df5e5a'}  " python: syntax
 Plug 'octol/vim-cpp-enhanced-highlight', {'commit': '3aa9562'}  " cpp: better syntax
 Plug 'JuliaEditorSupport/julia-vim'    , {'commit': '386371f'}  " julia: support
 
-" Motions
+" MOTIONS
 Plug 'tpope/vim-surround'              , {'commit': 'ca58a2d'}  " sorround
 Plug 'kana/vim-textobj-indent'         , {'commit': 'deb7686'}  " copy indented block
 Plug 'kana/vim-textobj-user'           , {'commit': '074ce25'}  " custom text object
 Plug 'tomtom/tcomment_vim'             , {'commit': '622cc05'}  " easy comment: nice for rmd
 Plug 'godlygeek/tabular'               , {'commit': '339091a'}  " format as table
 
-" Colorschemes
+" COLORSCHEMES
 Plug 'morhetz/gruvbox'                 , {'commit': 'cb4e7a5'}
 Plug 'sickill/vim-monokai'             , {'commit': 'ae77538'}
 Plug 'ajh17/Spacegray.vim'             , {'commit': '69e8fef'}

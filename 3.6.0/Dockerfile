@@ -157,6 +157,30 @@ RUN \
   installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@a81fa6b \
     ErickChacon/datasim@945e38a
 
+RUN \
+  # gui tools
+  install2.r --error --deps TRUE lwgeom
+
+RUN \
+  # my repositories
+  installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@a81fa6b \
+    ErickChacon/datasim@269946a
+
+# latex more {{{1
+RUN tlmgr update --self && \
+  # for double space
+  tlmgr install soul && \
+  tlmgr update --self -all && \
+  tlmgr path add && \
+  fmtutil-sys -all
+
+RUN tlmgr install censor pbox ifnextok && \
+  tlmgr path add
+
+# Neovim copy paste {{{1
+
+RUN apt-get install -y xclip xsel
+
 # Add my user {{{1
 
 ARG user1=rstudio
@@ -199,20 +223,3 @@ COPY --chown=rstudio R/Makevars $home_user1/.R/
 # Change to root for permissions {{{1
 
 USER root
-
-# Software for installation {{{1
-
-RUN apt-get install -y xclip xsel
-
-# RUN apt-get install -y evince
-
-RUN \
-  # gui tools
-  install2.r --error --deps TRUE lwgeom
-
-RUN \
-  # my repositories
-  installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@a81fa6b \
-    ErickChacon/datasim@269946a
-
-

@@ -1,5 +1,5 @@
 setlocal spell
-" setlocal background=light
+" setlocal formatoptions+=at                       " text wraping
 
 " to recognize equations in any filetype
 call textobj#user#plugin('equation', {

@@ -1,7 +1,8 @@
 if (interactive()) {
 
   # colors for themes
-  if (file.exists("~/.palette-name.vim")) {
+  # if (file.exists("~/.palette-name.vim")) {
+  if (FALSE) {
 
     # define colors
     .palname <- system("cat ~/.palette-name.vim", intern = TRUE)

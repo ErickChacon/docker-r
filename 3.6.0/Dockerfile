@@ -223,3 +223,11 @@ COPY --chown=rstudio R/Makevars $home_user1/.R/
 # Change to root for permissions {{{1
 
 USER root
+
+# latex {{{1
+RUN \
+  # researchnotes
+  tlmgr update --self && \
+  tlmgr install exam lastpage was ulem cleveref && \
+  tlmgr path add
+

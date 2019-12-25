@@ -5,8 +5,6 @@
 " PLUGINS {{{
 
 so ~/.config/nvim/plugins.vim
-" challenger_deep
-" deep-space
 
 " }}}
 " GENERAL SETTING {{{
@@ -36,8 +34,8 @@ set smartcase                                " override ignorecase when upper ch
 nnoremap <silent> <leader>, :noh<cr>         " stop highlight after searching
 
 " INDENTATION
-set shiftwidth=2                             " indentation size
-set softtabstop=2                            " number of spaces per tab
+set shiftwidth=4                             " indentation size
+set softtabstop=4                            " number of spaces per tab
 set expandtab                                " tabs are spaces
 
 " ROW NUMBERS FORMAT
@@ -625,3 +623,6 @@ let python_highlight_all = 1
 " PROGRAMS: JULIA {{{
 let g:default_julia_version = "current"
 " }}}
+"
+
+let g:pandoc#formatting#mode = "s"

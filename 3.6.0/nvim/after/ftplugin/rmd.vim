@@ -20,7 +20,7 @@ nmap <buffer> <LocalLeader>rgn :RSend dev.new()<CR>
 
 
 " Add snippets of rmd, r and tex
-UltiSnipsAddFiletypes rmd.r.tex
+" UltiSnipsAddFiletypes rmd.r.tex
 
 " " Recoganize equations
 " call textobj#user#plugin('equation', {

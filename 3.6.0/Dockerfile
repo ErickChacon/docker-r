@@ -231,3 +231,24 @@ RUN \
   tlmgr install exam lastpage was ulem cleveref && \
   tlmgr path add
 
+# R packages
+RUN \
+  # gui tools
+  install2.r --error --deps TRUE fst
+
+
+# R packages
+RUN \
+  # gui tools
+  install2.r --error --deps TRUE stars
+
+RUN \
+  # my repositories
+  installGithub.r ErickChacon/mbsi@669b5be
+
+RUN \
+  install2.r --error --deps TRUE GGally
+
+RUN \
+    # countour plot labels
+    install2.r --error --deps TRUE metR

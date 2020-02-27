@@ -107,16 +107,20 @@ endif
 " Create palette colors
 let g:nvim_background = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')
 let g:nvim_foreground = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')
-let g:COLOR_01 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
+" let g:COLOR_01 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
+let g:COLOR_01 = synIDattr(synIDtrans(hlID('CursorLineNr')), 'bg', 'gui')
 let g:COLOR_02 = synIDattr(synIDtrans(hlID('String')), 'fg', 'gui')
 let g:COLOR_03 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui') " Precision
+" let g:COLOR_03 = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui') " Precision, tab bg ranger
 let g:COLOR_04 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')
 let g:COLOR_05 = synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
 let g:COLOR_06 = synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'gui')
 let g:COLOR_07 = synIDattr(synIDtrans(hlID('Function')), 'fg', 'gui')
 let g:COLOR_08 = synIDattr(synIDtrans(hlID('Special')), 'fg', 'gui')
 let g:COLOR_09 = synIDattr(synIDtrans(hlID('Visual')), 'bg', 'gui')
-let g:COLOR_10 = synIDattr(synIDtrans(hlID('Statement')), 'fg', 'gui')
+" let g:COLOR_10 = synIDattr(synIDtrans(hlID('Statement')), 'fg', 'gui') " folder ranger
+" let g:COLOR_10 = synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui') " folder ranger
+let g:COLOR_10 = synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui') " folder ranger
 let g:COLOR_11 = synIDattr(synIDtrans(hlID('Define')), 'fg', 'gui') " chaconmo
 let g:COLOR_12 = synIDattr(synIDtrans(hlID('CursorLineNr')), 'fg', 'gui')
 let g:COLOR_13 = synIDattr(synIDtrans(hlID('Number')), 'fg', 'gui')

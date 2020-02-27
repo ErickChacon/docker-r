@@ -1,5 +1,6 @@
 
 " local config
+" setlocal formatoptions+=at                       " text wraping
 set foldcolumn=2                                   " fold column
 set foldlevel=1                                    " fold level
 set foldtext=MyFoldText()                          " custom fold text

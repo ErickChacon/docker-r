@@ -1,29 +1,28 @@
-# Download base image goespatial {{{1
+FROM rocker/geospatial:3.6.2
 
-FROM rocker/geospatial:3.6.0
-
-# Software for installation {{{1
+# Software for downloading and installation {{{1
 
 RUN apt-get install -y git curl wget
 
 # CPP tools {{{1
 
 # llvm-toolchain for c++ language server protocol
-ARG ll_v="6.0"
-RUN echo "\ndeb http://apt.llvm.org/stretch/ llvm-toolchain-stretch-${ll_v} main" | \
+ARG debver="buster"
+ARG ll_v="10"
+RUN echo "\ndeb http://apt.llvm.org/${debver}/ llvm-toolchain-${debver}-${ll_v} main" | \
   tee -a /etc/apt/sources.list && \
-  echo "deb-src http://apt.llvm.org/stretch/ llvm-toolchain-stretch-${ll_v} main" | \
+  echo "deb-src http://apt.llvm.org/${debver}/ llvm-toolchain-${debver}-${ll_v} main" | \
   tee -a /etc/apt/sources.list && \
   apt-get install -y gnupg && \
   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
   apt-get update && \
-  apt-get install -y clang-${ll_v} lldb-${ll_v} lld-${ll_v} clang-tools-${ll_v} && \
-  update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${ll_v} 200 && \
+  apt-get install -y clang-${ll_v} clangd-${ll_v} lldb-${ll_v} lld-${ll_v} clang-tools-${ll_v} && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${ll_v} 200 && \
   update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${ll_v} 200 && \
   update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-${ll_v} 200
 
 # armadillo c++ library
-ARG arma_version="armadillo-9.100.5"
+ARG arma_version="armadillo-9.850.1"
 RUN apt-get install -y cmake libopenblas-dev liblapack-dev libarpack2-dev && \
   wget http://sourceforge.net/projects/arma/files/${arma_version}.tar.xz && \
   tar -xvf ${arma_version}.tar.xz && \
@@ -38,7 +37,7 @@ RUN apt-get install -y cmake libopenblas-dev liblapack-dev libarpack2-dev && \
 # Tmux {{{1
 
 COPY xterm-256color-italic.terminfo .
-ARG tmux_v="2.7"
+ARG tmux_v="3.0a"
 RUN apt-get install -y \
   # dependencies
   libevent-dev libncurses-dev build-essential && \
@@ -58,7 +57,7 @@ RUN apt-get install -y \
 
 # Neovim {{{1
 
-ARG neovim_version=0.3.1
+ARG neovim_version=0.4.3
 RUN \
   # requirements
   apt-get install -y python-pip python3-pip && \
@@ -67,7 +66,7 @@ RUN \
   apt-get install -y ruby ruby-dev && \
   gem install neovim && \
   apt-get install -y exuberant-ctags && \
-  # apt-get -t stretch-backports -y install neovim
+  # apt-get -t ${debver}-backports -y install neovim
   # requirements to build from source
   apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake \
   g++ pkg-config  && \
@@ -119,6 +118,12 @@ RUN \
   tlmgr install preprint && \
   # import
   tlmgr install import && \
+  # double space
+  tlmgr install soul && \
+  # censoring
+  tlmgr install censor pbox ifnextok && \
+  # researchnotes
+  tlmgr install exam lastpage was ulem cleveref && \
   tlmgr path add
 
 # Additional R packages {{{1
@@ -132,15 +137,36 @@ RUN \
   # cpp and benchmark
   install2.r --error --deps TRUE RcppArmadillo rbenchmark && \
   # visualization
-  installGithub.r ggobi/ggally@v1.3.2 clauswilke/ggridges@0.5.0 \
+  installGithub.r clauswilke/ggridges@0.5.0 \
     thomasp85/patchwork@fd7958b && \
-  install2.r --error --deps TRUE ggrepel ggmap corrplot && \
+  install2.r --error --deps TRUE ggrepel ggmap corrplot GGally
+
+RUN \
+  # countour plot labels
+  install2.r --error --deps TRUE metR
+
+RUN \
   # visualization categorical data
-  install2.r --error --deps TRUE vcd && \
+  install2.r --error --deps TRUE vcd
+
+RUN \
+    R -e "BiocManager::install('graph', update=FALSE, ask=FALSE)"
+
+RUN \
   # visualization maps
-  install2.r --error --deps TRUE OpenStreetMap osmdata osmplotr && \
+  install2.r --error --deps TRUE ggm
+
+RUN \
+  # visualization maps
+  install2.r --error --deps TRUE OpenStreetMap osmdata
+
+RUN \
+  # visualization maps
+  install2.r --error --deps TRUE osmplotr
+
+RUN \
   # spatial
-  install2.r --error --deps TRUE pdist fields && \
+  install2.r --error --deps TRUE pdist fields stars && \
   # regression
   install2.r --error --deps TRUE lme4 gamlss R2BayesX coda MBA spam spBayes && \
   install2.r --error --deps TRUE --repos http://R-Forge.R-project.org bamlss && \
@@ -151,31 +177,15 @@ RUN \
   install2.r --error --deps TRUE shp2graph && \
   # diagnostics and summary
   install2.r --error --deps TRUE car && \
+  # fast read and write dataframes
+  install2.r --error --deps TRUE fst && \
   # distributions
-  installGithub.r olmjo/RcppTN@5cede52 && \
-  # my repositories
-  installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@a81fa6b \
-    ErickChacon/datasim@945e38a
-
-RUN \
-  # gui tools
-  install2.r --error --deps TRUE lwgeom
+  installGithub.r olmjo/RcppTN@5cede52
 
 RUN \
   # my repositories
-  installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@a81fa6b \
+  installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@669b5be \
     ErickChacon/datasim@269946a
-
-# latex more {{{1
-RUN tlmgr update --self && \
-  # for double space
-  tlmgr install soul && \
-  tlmgr update --self -all && \
-  tlmgr path add && \
-  fmtutil-sys -all
-
-RUN tlmgr install censor pbox ifnextok && \
-  tlmgr path add
 
 # Neovim copy paste {{{1
 
@@ -203,14 +213,14 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/${vimplug_v}/plug.vim
 
 # install plugins for neovim
-RUN mkdir $home_user1/.config
-COPY nvim/plugins.vim $home_user1/.config/nvim/init.vim
+# RUN mkdir $home_user1/.config
+COPY nvim/plugins-docker.vim $home_user1/.config/nvim/init.vim
 RUN nvim --headless +PlugInstall +UpdateRemotePlugins +qall > /dev/null
 
 # initiallize nvim-r for .cache folder
 RUN mkdir .cache && \
-  nvim plop.R '+call CheckNvimcomVersion()' +qall
-  # nvim plop.R --headless '+call StartR("R")' +qall
+  nvim --headless test.R '+call StartR("R")' +qall
+COPY nvimcom_info $home_user1/.cache/Nvim-R/nvimcom_info
 
 # Dotfiles {{{1
 
@@ -224,31 +234,3 @@ COPY --chown=rstudio R/Makevars $home_user1/.R/
 
 USER root
 
-# latex {{{1
-RUN \
-  # researchnotes
-  tlmgr update --self && \
-  tlmgr install exam lastpage was ulem cleveref && \
-  tlmgr path add
-
-# R packages
-RUN \
-  # gui tools
-  install2.r --error --deps TRUE fst
-
-
-# R packages
-RUN \
-  # gui tools
-  install2.r --error --deps TRUE stars
-
-RUN \
-  # my repositories
-  installGithub.r ErickChacon/mbsi@669b5be
-
-RUN \
-  install2.r --error --deps TRUE GGally
-
-RUN \
-    # countour plot labels
-    install2.r --error --deps TRUE metR

@@ -4,7 +4,7 @@
 "
 " PLUGINS {{{
 
-so ~/.config/nvim/plugins.vim
+so ~/.config/nvim/plugins-docker.vim
 
 " }}}
 " GENERAL SETTING {{{
@@ -46,8 +46,8 @@ set relativenumber                           " relative
 " TEXTWIDTH AND WRAPING
 set textwidth=85                             " textwidth
 set formatoptions=cqt                        " text wraping
-set colorcolumn=+1                           " color column after textwidth
-let &colorcolumn="".join(range(91,999),",")  " color column after textwidth
+" set colorcolumn=+1                           " color column after textwidth
+" let &colorcolumn="".join(range(91,999),",")  " color column after textwidth
 
 " VISUAL SETTINGS
 set title                                       " window title
@@ -420,6 +420,9 @@ let NERDTreeIgnore = ['\.aux$', '\.fdb_latexmk$', '\.fls', '\.log', '\.out',
 " IDE: DEOPLETE PLUGIN {{{
 
 let g:deoplete#enable_at_startup = 1
+inoremap <silent><expr><C-J> "\<C-N>"
+inoremap <silent><expr><C-K> "\<C-P>"
+inoremap <expr><C-h> deoplete#smart_close_popup()
 
 " }}}
 " IDE: NEOSNIPPETS PLUGIN {{{
@@ -427,13 +430,13 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#disable_runtime_snippets = {
 		\   '_' : 1,
 		\ }
-let g:neosnippet#snippets_directory=['~/.local/share/nvim/plugged/vim-snippets/snippets','~/Documents/Repositories/dotfiles-ubuntu-18/neosnippets']
+let g:neosnippet#snippets_directory=['~/.local/share/nvim/plugged/vim-snippets/snippets',
+            \ '~/Documents/Repositories/dotfiles-ubuntu-18/neosnippets']
 
-inoremap <silent><expr><C-J> "\<C-N>"
-inoremap <silent><expr><C-K> "\<C-P>"
 imap <C-L>     <Plug>(neosnippet_expand_or_jump)
 smap <C-L>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-L>     <Plug>(neosnippet_expand_target)
+
 
 " }}}
 " IDE: TAGS {{{
@@ -623,6 +626,4 @@ let python_highlight_all = 1
 " PROGRAMS: JULIA {{{
 let g:default_julia_version = "current"
 " }}}
-"
-
 let g:pandoc#formatting#mode = "s"

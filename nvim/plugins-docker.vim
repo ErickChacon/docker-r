@@ -15,7 +15,7 @@ Plug 'honza/vim-snippets'              , {'commit': '7ade68c'}  " snippets scrip
 Plug 'christoomey/vim-tmux-navigator'  , {'commit': '4e1a877'}  " tmux ctrl navigation
 Plug 'autozimu/LanguageClient-neovim'  , {'commit': '41c948e',
       \ 'branch': 'next', 'do': 'bash install.sh'}
-Plug 'Shougo/deoplete.nvim'            , {'commit': '3e3b762',
+Plug 'Shougo/deoplete.nvim'            , {'commit': '08582f7',
       \ 'do': ':UpdateRemotePlugins' }
 
 " VISUAL IMPROVEMENT
@@ -34,7 +34,7 @@ Plug 'lervag/vimtex'                   , {'commit': 'ef428bb'}  " latex: compile
 Plug 'vim-pandoc/vim-pandoc'           , {'commit': '2e342ac'}  " pandoc: integration
 Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': 'e557ade'}  " pandoc: syntax
 Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax highlight
-Plug 'jalvesaq/Nvim-R'                 , {'commit': 'e7f4df0'}  " R: support
+Plug 'jalvesaq/Nvim-R'                 , {'commit': '08b5f44'}  " R: support
 Plug 'tpope/vim-fugitive'              , {'commit': '5d99841'}  " git: wrapper
 " Plug 'airblade/vim-gitgutter'          , {'commit': '7eeea63'}  " git: shows changes
 Plug 'vim-python/python-syntax'        , {'commit': '1df5e5a'}  " python: syntax

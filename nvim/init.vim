@@ -380,23 +380,26 @@ let g:tmuxline_separators = {
     \ 'right_alt' : '',
     \ 'space' : ' '}
 let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'win'  : ['#I:#W'],
-      \'cwin' : ['#I:#W ✔'],
-      \'x'    : '',
-      \'y'    : '',
-      \'z'    : ['\uF080' . ' '],
-      \'options' : {'status-justify' : 'left'}}
+      \ 'a'    : '#S',
+      \ 'win'  : ['#I:#W'],
+      \ 'cwin' : ['#I:#W #[fg=cyan]✔'],
+      \ 'x'    : '',
+      \ 'y'    : '',
+      \ 'z'    : ['\uF080' . ' '],
+      \ 'options' : {'status-justify' : 'left'}
+      \ }
 let g:tmuxline_theme = {
       \'a'    : [ s:fg_focus[0], s:bg_focus[0], 'bold'],
       \'b'    : [ s:fg_soft[0], s:bg_soft[0] ],
-      \'bg'   : [ s:fg_soft[0], s:bg_soft[0] ],
       \'c'    : [ s:fg_soft[0], s:bg_soft[0] ],
+      \'bg'   : [ s:fg_soft[0], s:bg_soft[0] ],
       \'win'  : [ s:fg_soft[0], s:bg_soft[0] ],
       \'cwin' : [ s:fg_hard[0], s:bg_hard[0] ],
       \'x'   : [ s:fg_soft[0], s:bg_soft[0] ],
       \'y'   : [ s:fg_hard[0], s:bg_hard[0] ],
-      \'z'    : [ s:fg_focus[0], s:bg_focus[0], 'bold'] }
+      \'z'    : [ s:fg_focus[0], s:bg_focus[0], 'bold']
+      \}
+      " \'win'  : [ s:fg_soft[0], s:bg_soft[0] ],
 
 " Active tmuxline
 if exists('$TMUX')

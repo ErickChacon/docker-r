@@ -20,7 +20,7 @@ Plug 'Shougo/deoplete.nvim'            , {'commit': '3e3b762',
 
 " VISUAL IMPROVEMENT
 Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " status and tab lines
-Plug 'edkolev/tmuxline.vim'            , {'commit': '1142333'}  " tmux status and tab lines
+" Plug 'edkolev/tmuxline.vim'            , {'commit': '7001ab3'}  " tmux status and tab lines
 Plug 'ryanoasis/vim-devicons'          , {'commit': 'cdc08fd'}  " filetype icons
 Plug 'kshenoy/vim-signature'           , {'commit': '6bc3dd1'}  " display and navigate marks
 Plug 'mhinz/vim-signify'               , {'commit': 'f34fea0'}  " show vcs differences

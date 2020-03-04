@@ -46,4 +46,6 @@ docker run --rm --user rstudio -it erickchacon/stat-toolbox:3.6.0 bash
 -v $HOME/Documents/:/home/rstudio/Documents
 ```
 
+- You can also add the option `-d` after run to detach the container, an later interact with the container using `docker exec -it {container-name} bash` 
+
 

@@ -71,8 +71,8 @@ if (interactive()) {
 
   # openblas.set.num.threads <- inline::cfunction(signature(ipt = "integer"),
   #   body = "openblas_set_num_threads(*ipt);",
-  #   otherdefs = c ("extern void openblas_set_num_threads(int);"),
-  #   libargs = c ("-L/opt/openblas/lib -lopenblas"),
+  #   otherdefs = c("extern void openblas_set_num_threads(int);"),
+  #   libargs = c("-L/opt/openblas/lib -lopenblas"),
   #   language = "C",
   #   convention = ".C"
   #   )

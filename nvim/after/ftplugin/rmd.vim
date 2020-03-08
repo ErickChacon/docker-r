@@ -7,8 +7,14 @@ set foldtext=MyFoldText()                          " custom fold text
 
 " functions
 function! RObjBrowserNerd()
-  call RObjBrowser()
-  execute 'NERDTreeToggle'
+    if bufwinnr("^NERD_tree") < 0 && bufwinnr("Object_Browser") < 0
+        call RObjBrowser()
+    elseif bufwinnr("^NERD_tree") > 0 && bufwinnr("Object_Browser") > 0
+        execute "NERDTreeToggle"
+    else
+        call RObjBrowser()
+        execute "NERDTreeToggle"
+    endif
 endfunction
 
 " Mapping and nvim-r

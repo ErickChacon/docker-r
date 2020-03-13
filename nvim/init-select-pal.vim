@@ -5,8 +5,10 @@ set background=dark                                " dark background
 let g:path_palname = $HOME.'/.palette-name.vim'    " file to read palette name
 if filereadable(g:path_palname)
   let g:scheme_name = substitute(readfile(g:path_palname, '', 1)[0], ".vim$", "", "")
+  echo g:scheme_name
 else
   let g:scheme_name = "gruvbox"
+  echo "here we go: gruvbox"
 endif
 
 " Set selected colorscheme

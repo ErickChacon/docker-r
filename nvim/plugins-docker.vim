@@ -75,7 +75,7 @@ Plug 'jacoborus/tender.vim'            , {'commit': '6b0497a'}
 Plug 'rakr/vim-two-firewatch'          , {'commit': 'efa0689'}
 Plug 'ajmwagar/vim-deus'               , {'commit': 'c6200a1'}
 Plug 'sonph/onehalf'                   , {'commit': 'c0f08a2', 'rtp': 'vim/'}
-Plug 'chriskempson/base16-vim'         , {'commit': '2073e2d'}
+Plug 'chriskempson/base16-vim'         , {'commit': '6191622'}
 Plug 'chriskempson/tomorrow-theme'     , {'commit': '0e0d35a', 'rtp': 'vim/'}
 
 call plug#end()

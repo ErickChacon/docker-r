@@ -233,4 +233,5 @@ COPY --chown=rstudio R/Makevars $home_user1/.R/
 # Change to root for permissions {{{1
 
 USER root
-
+ARG uid=1000
+RUN usermod -u ${uid} rstudio

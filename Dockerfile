@@ -193,10 +193,18 @@ RUN apt-get install -y xclip xsel
 
 # Add my user {{{1
 
-ARG user1=rstudio
-ENV home_user1=/home/$user1
-USER $user1
-WORKDIR $home_user1
+## Set defaults for environmental variables in case they are undefined
+
+ARG USER=rstudio
+ARG USERID=1000
+ARG GROUPID=$USERID
+ENV HOME_USER=/home/$USER
+
+RUN usermod -u ${USERID} ${USER} && \
+    groupmod -g $GROUPID $(id $USER -g -n)
+
+USER $USER
+WORKDIR $HOME_USER
 
 # Software for terminal settings {{{1
 
@@ -213,25 +221,25 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/${vimplug_v}/plug.vim
 
 # install plugins for neovim
-# RUN mkdir $home_user1/.config
-COPY nvim/plugins-docker.vim $home_user1/.config/nvim/init.vim
+# RUN mkdir $HOME_USER/.config
+COPY nvim/plugins-docker.vim $HOME_USER/.config/nvim/init.vim
 RUN nvim --headless +PlugInstall +UpdateRemotePlugins +qall > /dev/null
 
 # initiallize nvim-r for .cache folder
 RUN mkdir .cache && \
   nvim --headless test.R '+call StartR("R")' +qall
-COPY nvimcom_info $home_user1/.cache/Nvim-R/nvimcom_info
+COPY nvimcom_info $HOME_USER/.cache/Nvim-R/nvimcom_info
 
 # Dotfiles {{{1
 
-# COPY --chown=rstudio custom.aliases.bash $home_user1/.bash_it/aliases/
-COPY --chown=rstudio .bashrc .bash_profile .tmux.conf $home_user1/
-COPY --chown=rstudio .Rprofile /home/$user1/
-COPY --chown=rstudio nvim $home_user1/.config/nvim/
-COPY --chown=rstudio R/Makevars $home_user1/.R/
+# COPY --chown=rstudio custom.aliases.bash $HOME_USER/.bash_it/aliases/
+COPY --chown=rstudio .bashrc .bash_profile .tmux.conf $HOME_USER/
+COPY --chown=rstudio .Rprofile /home/$USER/
+COPY --chown=rstudio nvim $HOME_USER/.config/nvim/
+COPY --chown=rstudio R/Makevars $HOME_USER/.R/
+COPY --chown=rstudio bash-enable.sh $HOME_USER/
 
 # Change to root for permissions {{{1
 
 USER root
-ARG uid=1000
-RUN usermod -u ${uid} rstudio
+

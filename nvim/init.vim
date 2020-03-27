@@ -527,6 +527,11 @@ let g:pandoc#syntax#conceal#use = 1 " pretty highlight
 let g:pandoc#hypertext#use_default_mappings = 0
 let g:pandoc#keyboard#use_default_mappings = 0 " remove all pandoc mappings
 
+let g:pandoc#formatting#mode = "hA" " hard and Automatic (do not break titles)
+" let g:pandoc#formatting#mode = "s"
+" let g:pandoc#formatting#mode = "h"
+let g:pandoc#formatting#textwidth = 85
+
 " }}}
 " PROGRAMS: LATEX {{{
 let g:airline#extensions#vimtex#enabled = 0 " unable extension because is failing
@@ -593,6 +598,19 @@ hi! link VimwikiHeader6 String
 " hi! link Title Define
 " hi Title gui=bold
 
+" Bullets.vim
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'pandoc',
+    \ 'rmd'
+    \]
+" autocmd BufRead,BufNewFile ~/Documents/Organizer/index.md setlocal formatoptions-=ta
+" autocmd BufRead,BufWinEnter  /home/rstudio/Documents/Organizer/index.md  setlocal formatoptions-=t
+" autocmd BufRead,BufWinEnter  /home/rstudio/Documents/Organizer/index.md echo "hola"
+" gf to create if file does not exits
+
+" nmap gf :e <cfile><CR>
+
 " hi! link VimwikiHeader1 GruvboxRedBold
 " hi! link VimwikiHeader2 GruvboxAquaBold
 " hi! link VimwikiHeader3 GruvboxPurpleBold
@@ -605,10 +623,10 @@ au BufNewFile,BufRead *.Rmarkdown set filetype=rmd
 " let g:markdown_composer_browser = "firefox"
 let g:markdown_composer_autostart = 0
 
-" markdown plasticboy
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_new_list_item_indent = 2
+" " markdown plasticboy
+" let g:vim_markdown_math = 1
+" let g:vim_markdown_frontmatter = 1
+" let g:vim_markdown_new_list_item_indent = 2
 " }}}
 " PROGRAMS: HTML {{{
 " html yaml syntax highlighting
@@ -629,4 +647,8 @@ let python_highlight_all = 1
 " PROGRAMS: JULIA {{{
 let g:default_julia_version = "current"
 " }}}
-let g:pandoc#formatting#mode = "s"
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)

@@ -1,7 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " EXPLORE FOLDER AND DOCUMENTS
-Plug 'ctrlpvim/ctrlp.vim'              , {'commit': '2e773fd'}  " find files
 Plug 'scrooloose/nerdtree'             , {'commit': '67fa9b3'}  " folder manager
 Plug 'junegunn/fzf'                    , {'commit': '430e819',
       \ 'dir': '~/.fzf', 'do': './install --all'}
@@ -14,9 +13,9 @@ Plug 'Shougo/neosnippet.vim'           , {'commit': 'ed80ae8'}  " snippets
 Plug 'honza/vim-snippets'              , {'commit': '7ade68c'}  " snippets scripts
 Plug 'christoomey/vim-tmux-navigator'  , {'commit': '4e1a877'}  " tmux ctrl navigation
 Plug 'autozimu/LanguageClient-neovim'  , {'commit': '41c948e',
-      \ 'branch': 'next', 'do': 'bash install.sh'}
-Plug 'Shougo/deoplete.nvim'            , {'commit': '08582f7',
-      \ 'do': ':UpdateRemotePlugins' }
+            \ 'branch': 'next', 'do': 'bash install.sh'}
+Plug 'Shougo/deoplete.nvim'            , {'commit': 'a76d2fb',
+            \ 'do': ':UpdateRemotePlugins' }
 
 " VISUAL IMPROVEMENT
 Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " status and tab lines
@@ -34,7 +33,7 @@ Plug 'lervag/vimtex'                   , {'commit': 'ef428bb'}  " latex: compile
 Plug 'vim-pandoc/vim-pandoc'           , {'commit': '2e342ac'}  " pandoc: integration
 Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': 'e557ade'}  " pandoc: syntax
 Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax highlight
-Plug 'jalvesaq/Nvim-R'                 , {'commit': '08b5f44'}  " R: support
+Plug 'jalvesaq/Nvim-R'                 , {'commit': '7a551bd'}  " R: support
 Plug 'tpope/vim-fugitive'              , {'commit': '5d99841'}  " git: wrapper
 " Plug 'airblade/vim-gitgutter'          , {'commit': '7eeea63'}  " git: shows changes
 Plug 'vim-python/python-syntax'        , {'commit': '1df5e5a'}  " python: syntax
@@ -47,6 +46,8 @@ Plug 'kana/vim-textobj-indent'         , {'commit': 'deb7686'}  " copy indented 
 Plug 'kana/vim-textobj-user'           , {'commit': '074ce25'}  " custom text object
 Plug 'tomtom/tcomment_vim'             , {'commit': '622cc05'}  " easy comment: nice for rmd
 Plug 'godlygeek/tabular'               , {'commit': '339091a'}  " format as table
+Plug 'erickchacon/bullets.vim'
+Plug 'junegunn/vim-easy-align'
 
 " COLORSCHEMES
 Plug 'morhetz/gruvbox'                 , {'commit': 'cb4e7a5'}

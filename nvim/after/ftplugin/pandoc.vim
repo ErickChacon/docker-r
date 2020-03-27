@@ -1,4 +1,5 @@
 "
+setlocal nofoldenable    " disable folding
 " setlocal formatoptions+=at                       " text wraping
 " " NOTE: This file should not be inside ftplugin because nvim-r needs in in its
 " " original form

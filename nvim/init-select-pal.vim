@@ -8,7 +8,6 @@ if filereadable(g:path_palname)
   echo g:scheme_name
 else
   let g:scheme_name = "gruvbox"
-  echo "here we go: gruvbox"
 endif
 
 " Set selected colorscheme

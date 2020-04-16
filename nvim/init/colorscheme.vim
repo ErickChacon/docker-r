@@ -132,3 +132,20 @@ let g:my_colors = [g:nvim_background, g:nvim_foreground, g:COLOR_01, g:COLOR_02,
       \ g:COLOR_04, g:COLOR_05, g:COLOR_06, g:COLOR_07, g:COLOR_08, g:COLOR_09, g:COLOR_10,
       \ g:COLOR_11, g:COLOR_12, g:COLOR_13, g:COLOR_14, g:COLOR_15, g:COLOR_16]
 
+" Nvim terminal colors
+let g:terminal_color_1 = g:COLOR_02
+let g:terminal_color_2 = g:COLOR_03
+let g:terminal_color_3 = g:COLOR_04
+let g:terminal_color_4 = g:COLOR_05
+let g:terminal_color_5 = g:COLOR_06
+let g:terminal_color_6 = g:COLOR_07
+let g:terminal_color_7 = g:COLOR_08
+let g:terminal_color_8 = g:COLOR_09
+let g:terminal_color_9 = g:COLOR_10
+let g:terminal_color_10 = g:COLOR_11
+let g:terminal_color_11 = g:COLOR_12
+let g:terminal_color_12 = g:COLOR_13
+let g:terminal_color_13 = g:COLOR_14
+let g:terminal_color_14 = g:COLOR_15
+let g:terminal_color_15 = g:COLOR_16
+

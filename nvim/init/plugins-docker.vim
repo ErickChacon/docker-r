@@ -33,8 +33,8 @@ Plug 'ap/vim-css-color'                , {'commit': '5a31c72'}  " TODO: closes r
 " Plug 'reedes/vim-pencil'
 " Plug 'plasticboy/vim-markdown'
 Plug 'vim-pandoc/vim-pandoc'           , {'commit': 'c473c29'}  " pandoc: integration
-Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': 'e557ade'}  " pandoc: syntax
-Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax highlight
+Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': '0d1129e'}  " pandoc: syntax
+" Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax highlight
 Plug 'jalvesaq/Nvim-R'                 , {'commit': '7a551bd'}  " R: support
 Plug 'tpope/vim-fugitive'              , {'commit': '5d99841'}  " git: wrapper
 " Plug 'airblade/vim-gitgutter'          , {'commit': '7eeea63'}  " git: shows changes
@@ -49,7 +49,7 @@ Plug 'kana/vim-textobj-user'           , {'commit': '074ce25'}  " custom text ob
 Plug 'tomtom/tcomment_vim'             , {'commit': '622cc05'}  " easy comment: nice for rmd
 Plug 'godlygeek/tabular'               , {'commit': '339091a'}  " format as table
 " Plug 'dkarter/bullets.vim'
-Plug 'kaymmm/bullets.vim', { 'branch': 'vimwiki-checkboxes' }
+" Plug 'kaymmm/bullets.vim', { 'branch': 'vimwiki-checkboxes' }
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/goyo.vim'
 " Plug 'dhruvasagar/vim-buffer-history'

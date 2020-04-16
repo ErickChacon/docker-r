@@ -243,3 +243,12 @@ COPY --chown=rstudio bash-enable.sh $HOME_USER/
 
 USER root
 
+RUN \
+  # visualization maps
+  install2.r --error --deps TRUE blogdown
+
+USER $USER
+RUN r -e 'blogdown::install_hugo()'
+USER root
+
+EXPOSE 1313

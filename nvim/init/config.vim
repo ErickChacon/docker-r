@@ -1,4 +1,3 @@
-" GENERAL SETTING {{{
 
 " MAPPING AND KEYBOARD
 let mapleader = "\\"                         " map leader as backslash (default)
@@ -9,7 +8,8 @@ set backspace=indent,eol,start               " use backspace to delete in insert
 set autoread                                 " read changes outside nvim
 au FocusGained * :checktime                  " read changes outside nvim
 set backupcopy=yes                           " able to edit docker volumne file
-set autowrite                                " save before running commands
+set autowrite                                " save when moving between buffers
+" set autowriteall                             " save when edit
 au FocusGained,BufEnter * :silent!           " update file when entering buffer
 set history=50                               " history of the last commands ':'
 
@@ -22,7 +22,8 @@ set hlsearch                                 " highlight searches
 set incsearch                                " search as characters are entered
 set ignorecase                               " case insensitive searching
 set smartcase                                " override ignorecase when upper characters
-nnoremap <silent> <leader>, :noh<cr>         " stop highlight after searching
+" stop highlight after searching
+nnoremap <silent> <leader>, :noh<cr>
 
 " INDENTATION
 set shiftwidth=4                             " indentation size
@@ -56,8 +57,7 @@ set lazyredraw                               " redraw only when we need to
 set visualbell                               " stop the annoying beeping
 
 
-" }}}
-" ADDITIONAL NVIM SETTING {{{
+" ADDITIONAL NVIM SETTING
 
 " Go to the last cursor location when a file is opened
 au BufReadPost *
@@ -96,4 +96,6 @@ nmap <silent> gj :wincmd j<CR>
 nmap <silent> gh :wincmd h<CR>
 nmap <silent> gl :wincmd l<CR>
 
-" }}}
+" initvim
+nnoremap <leader>ve :split $MYVIMRC<cr>
+nnoremap <leader>vs :source $MYVIMRC<cr>

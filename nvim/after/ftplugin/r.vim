@@ -9,7 +9,7 @@ function! RObjBrowserNerd()
 endfunction
 
 " Mapping and nvim-r
-inoremap <buffer> >> <Esc>:normal! a %>%<CR>a
+inoremap <buffer> >> <Esc>:normal! a%>%<CR>a
 inoremap <leader>, <C-x><C-o>
 nmap <buffer> <silent> <leader>ro :call RObjBrowserNerd()<CR>
 nmap <buffer> <LocalLeader>rgj :RSend dev.set(which = dev.next())<CR>

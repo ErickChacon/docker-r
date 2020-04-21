@@ -1,3 +1,7 @@
+if exists("g:loaded_notes")
+    finish
+endif
+let g:loaded_notes =1
 
 function Sanitize(path)
     let fullpath = a:path
@@ -21,7 +25,6 @@ endfunction
 function Makedir(path)
     let filepath = a:path
     let folder = fnamemodify(filepath, ':p:h')
-    echo folder
     if !isdirectory(folder)
         if input("Create directory: ".folder."\n [y]es/[N]o? ") !~? '^y'
             return 0
@@ -51,11 +54,15 @@ let g:org_personal = g:org_root . '/personal'
 let g:org_todo = g:org_root . '/todo'
 let g:org_daily_todo = g:org_todo . '/daily.md'
 
-nmap <silent> <leader>ww :call Organize(g:org_root) <CR>
+command! Organize
+      \ call Organize(g:org_root)
+
+nnoremap <unique><script> <Plug>Organizer :Organize<CR>
+nnoremap <unique><script> <Plug>gff :call Gofile() <CR>
+
+" nmap <silent> <Plug>Organizer :Organize <CR>
+nmap <silent> <leader>wo <Plug>Organizer
 nmap <silent> <leader>wa :call Organize(g:org_academic) <CR>
 nmap <silent> <leader>wp :call Organize(g:org_personal) <CR>
 nmap <silent> <leader>wt :call Organize(g:org_todo) <CR>
 nmap <silent> <leader>wd :call Organize(g:org_daily_todo) <CR>
-nmap <silent> gff :call Gofile() <CR>
-" Ctrl-O Ctrl-I: navigate between jumps
-

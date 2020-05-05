@@ -66,4 +66,5 @@ nmap <silent> <leader>wa :call Organize(g:org_academic)<CR>
 nmap <silent> <leader>wp :call Organize(g:org_personal)<CR>
 nmap <silent> <leader>wt :call Organize(g:org_todo)<CR>
 nmap <silent> <leader>wd :call Organize(g:org_todo, "daily.md")<CR>
+nmap <silent> <leader>wf :call Organize(g:org_todo, "daily.md")<CR>
 nmap <silent> fg :call Gofile() <CR>

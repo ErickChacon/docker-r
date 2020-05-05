@@ -1,4 +1,4 @@
-" VIM-PANDOC {{{1
+" Vim-pandoc {{{1
 
 " enable and disable modules
 let g:pandoc#modules#disabled = ["keyboard", "hypertext"]
@@ -15,12 +15,12 @@ let g:pandoc#hypertext#open_editable_alternates = 0
 let g:pandoc#keyboard#enabled_submodules = []
 let g:pandoc#keyboard#use_default_mappings = 0
 
-" VIM-PANDOC-SYNTAX {{{1
+" Vim-pandoc-syntax {{{1
 
 " conceal
 let g:pandoc#syntax#conceal#use = 1
 let g:pandoc#syntax#conceal#urls = 0
 
-" BULLETS {{{1
+" Bullets {{{1
 
 let g:bullets_enabled_file_types = ['pandoc']

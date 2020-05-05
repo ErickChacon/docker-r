@@ -1,5 +1,4 @@
-
-" IDE: LIGHTLINE PLUGIN STATUS AND TAB LINES {{{
+" Lightline {{{
 
 " Lightline custom functions
 
@@ -208,7 +207,7 @@ let s:p.inactive.middle = [ [ s:fg_inactive, g:bg_soft ] ]
 " Lightline assign colorscheme
 let g:lightline#colorscheme#yourcolorscheme#palette = lightline#colorscheme#flatten(s:p)
 
-" IDE: TMUXLINE {{{
+" Tmuxline {{{
 
 " Tmuxline presets
 let g:tmuxline_separators = {

@@ -1,4 +1,4 @@
-" NERDTREE {{{1
+" Nerdtree {{{1
 
 set splitright
 map <leader>n :NERDTreeToggle<CR>
@@ -16,7 +16,7 @@ exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' 
 exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-" VIM-BUFSURF {{{1
+" Vim-bufsurf {{{1
 
 nnoremap <silent> <BS> :BufSurfBack<CR>
 " nnoremap <silent> <Esc> :BufSurfForward<CR>

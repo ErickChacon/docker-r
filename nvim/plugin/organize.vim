@@ -41,12 +41,10 @@ function Gofile()
     end
 endfunction
 
-" function Getfile()
-"     let
-" endf
-
-function Organize(root_path)
-    let path = a:root_path . '/index.md'
+function Organize(root_path, ...)
+    let index_file = get(a:, 1, 'index.md')
+    let path = a:root_path . '/' . index_file
+    echo path
     if 1 == Makedir(path)
         :execute 'edit' path
     end
@@ -56,17 +54,16 @@ let g:org_root = '~/Documents/Organizer'
 let g:org_academic = g:org_root . '/academic'
 let g:org_personal = g:org_root . '/personal'
 let g:org_todo = g:org_root . '/todo'
-let g:org_daily_todo = g:org_todo . '/daily.md'
 
 command! Organize
       \ call Organize(g:org_root)
 
 nnoremap <unique><script> <Plug>Organizer :Organize<CR>
-nnoremap <unique><script> <Plug>gff :call Gofile() <CR>
+nnoremap <unique><script> <Plug>gff :call Gofile()<CR>
 
-" nmap <silent> <Plug>Organizer :Organize <CR>
 nmap <silent> <leader>wo <Plug>Organizer
-nmap <silent> <leader>wa :call Organize(g:org_academic) <CR>
-nmap <silent> <leader>wp :call Organize(g:org_personal) <CR>
-nmap <silent> <leader>wt :call Organize(g:org_todo) <CR>
-nmap <silent> <leader>wd :call Organize(g:org_daily_todo) <CR>
+nmap <silent> <leader>wa :call Organize(g:org_academic)<CR>
+nmap <silent> <leader>wp :call Organize(g:org_personal)<CR>
+nmap <silent> <leader>wt :call Organize(g:org_todo)<CR>
+nmap <silent> <leader>wd :call Organize(g:org_todo, "daily.md")<CR>
+nmap <silent> fg :call Gofile() <CR>

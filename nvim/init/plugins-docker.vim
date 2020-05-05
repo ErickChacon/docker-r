@@ -18,7 +18,6 @@ Plug 'Shougo/deoplete.nvim'            , {'commit': 'a76d2fb',
             \ 'do': ':UpdateRemotePlugins' }
 
 " " VISUAL IMPROVEMENT
-Plug 'lervag/wiki.vim'
 Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " status and tab lines
 Plug 'edkolev/tmuxline.vim'            , {'commit': '1142333'}  " tmux status and tab lines
 " Plug 'ryanoasis/vim-devicons'          , {'commit': 'cdc08fd'}  " filetype icons
@@ -33,7 +32,8 @@ Plug 'ntpeters/vim-better-whitespace'  , {'commit': 'f5726c4'}  " whitespace
 " Plug 'reedes/vim-pencil'
 " Plug 'plasticboy/vim-markdown'
 " Plug 'wiki./vimwiki'                 , {'commit': 'be793e2'}  " vimwiki: notes and agenda
-" Plug 'ton/vim-bufsurf' " web-like navigation
+Plug 'lervag/wiki.vim'
+Plug 'ton/vim-bufsurf' " web-like navigation
 " Plug 'fcpg/vim-waikiki' " simple notetaking
 Plug 'vim-pandoc/vim-pandoc'           , {'commit': 'c473c29'}  " pandoc: integration
 Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': '0d1129e'}  " pandoc: syntax

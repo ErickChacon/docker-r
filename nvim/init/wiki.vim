@@ -1,10 +1,17 @@
-" NAVIGATION
+let g:wiki_root = '~/Documents/Organizer'
+let g:wiki_filetypes = ['md', 'rmd', 'pandoc']
 
-" wiki.vim
-" let g:wiki_root = '~/Documents/Organizer'
-" let g:wiki_filetypes = ['md']
+let g:wiki_mappings_use_defaults = 'global'
+let g:wiki_mappings_local = {
+      \ '<plug>(wiki-link-next)' : '<tab>',
+      \ '<plug>(wiki-link-open)' : '<cr>',
+      \ '<plug>(wiki-link-open-split)' : '<c-cr>',
+      \}
 
-" waikiki
-let g:waikiki_roots = ['~/Documents/Organizer/']
-let g:waikiki_default_maps = 0
-let g:waikiki_noauto = 1
+let g:wiki_journal = {
+    \ 'name': 'journal',
+    \ 'frequency': 'monthly',
+    \ 'date_format': {
+    \   'monthly' : '%Y-%m',
+    \ },
+    \}

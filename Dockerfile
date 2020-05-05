@@ -251,4 +251,10 @@ USER $USER
 RUN r -e 'blogdown::install_hugo()'
 USER root
 
+RUN \
+  # air quality analysis
+  install2.r --error --deps TRUE rmweather openair
+
 EXPOSE 1313
+
+

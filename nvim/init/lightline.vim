@@ -10,9 +10,9 @@ function! MyFiletype() " {{{
   " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' : 'no ft') : ''
 endfunction " }}}
-function! MyFiletypeIcon(n) " {{{
-  return winwidth(0) > 70 ? (strlen(&filetype) ?  WebDevIconsGetFileTypeSymbol() : '') : ''
-endfunction " }}}
+" function! MyFiletypeIcon(n) " {{{
+"   return winwidth(0) > 70 ? (strlen(&filetype) ?  WebDevIconsGetFileTypeSymbol() : '') : ''
+" endfunction " }}}
 function! MyFileformat() " {{{
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
@@ -51,9 +51,9 @@ let g:lightline.component_function = {
       \ 'filetype': 'MyFiletype',
       \ 'fileformat': 'MyFileformat',
       \ }
-let g:lightline.tab_component_function = {
-      \ 'filetypeicon': 'MyFiletypeIcon',
-      \ }
+" let g:lightline.tab_component_function = {
+"       \ 'filetypeicon': 'MyFiletypeIcon',
+"       \ }
 let g:lightline.active = {
       \ 'left': [ [ 'mode', 'paste' ], ['gitbranch', 'gitstatus'],
       \           [ 'readonly', 'filename', 'modified' ] ],

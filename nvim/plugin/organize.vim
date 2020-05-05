@@ -41,6 +41,10 @@ function Gofile()
     end
 endfunction
 
+" function Getfile()
+"     let
+" endf
+
 function Organize(root_path)
     let path = a:root_path . '/index.md'
     if 1 == Makedir(path)

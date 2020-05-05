@@ -19,4 +19,4 @@ endfunction
 " VIM-BUFSURF {{{1
 
 nnoremap <silent> <BS> :BufSurfBack<CR>
-nnoremap <silent> <Esc> :BufSurfForward<CR>
+" nnoremap <silent> <Esc> :BufSurfForward<CR>

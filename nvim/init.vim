@@ -1,7 +1,9 @@
 " Neovim settings
-" Language:     Neovim
+"
+" Maintainer:	Erick Chacón
+" Last Change:	2020 May 6
 
-" basic settings
+" minimal
 so ~/.config/nvim/init/plugins.vim
 so ~/.config/nvim/init/config.vim
 so ~/.config/nvim/init/folding.vim

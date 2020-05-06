@@ -187,6 +187,11 @@ RUN \
   installGithub.r ErickChacon/day2day@138dcb9 ErickChacon/mbsi@669b5be \
     ErickChacon/datasim@269946a
 
+RUN \
+  install2.r --error --deps TRUE blogdown && \
+  # air quality analysis
+  install2.r --error --deps TRUE rmweather openair
+
 # Neovim copy paste {{{1
 
 RUN apt-get install -y xclip xsel
@@ -222,7 +227,7 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 # install plugins for neovim
 # RUN mkdir $HOME_USER/.config
-COPY nvim/plugins-docker.vim $HOME_USER/.config/nvim/init.vim
+COPY nvim/init/plugins-docker.vim $HOME_USER/.config/nvim/init.vim
 RUN nvim --headless +PlugInstall +UpdateRemotePlugins +qall > /dev/null
 
 # initiallize nvim-r for .cache folder
@@ -241,19 +246,9 @@ COPY --chown=rstudio bash-enable.sh $HOME_USER/
 
 # Change to root for permissions {{{1
 
-USER root
-
-RUN \
-  # visualization maps
-  install2.r --error --deps TRUE blogdown
-
-USER $USER
 RUN r -e 'blogdown::install_hugo()'
-USER root
 
-RUN \
-  # air quality analysis
-  install2.r --error --deps TRUE rmweather openair
+USER root
 
 EXPOSE 1313
 

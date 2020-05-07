@@ -9,4 +9,5 @@ let g:LanguageClient_serverCommands = {
     \ 'r': ['R', '--slave', '-e', 'languageserver::run()'],
     \ 'rmd': ['R', '--quiet', '--slave', '-e', 'languageserver::run()'],
     \ }
+
 let g:LanguageClient_autoStart = 1

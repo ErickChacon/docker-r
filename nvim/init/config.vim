@@ -44,6 +44,7 @@ set formatoptions=cqt                        " text wraping
 " VISUAL SETTINGS
 set title                                       " window title
 set showmatch                                   " show matching brackets for a moment
+" let loaded_matchparen = 1
 set cursorline                                  " highlight current line
 set fillchars+=vert:\│                          " split separator
 hi VertSplit guibg=NONE guifg=#1d2021 gui=none  " split separator color

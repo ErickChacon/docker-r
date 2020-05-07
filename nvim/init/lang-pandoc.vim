@@ -23,4 +23,4 @@ let g:pandoc#syntax#conceal#urls = 0
 
 " Bullets {{{1
 
-let g:bullets_enabled_file_types = ['pandoc']
+let g:bullets_enabled_file_types = ['pandoc', 'markdown']

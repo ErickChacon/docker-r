@@ -40,11 +40,12 @@ set textwidth=85                             " textwidth
 set formatoptions=cqt                        " text wraping
 " set colorcolumn=+1                           " color column after textwidth
 " let &colorcolumn="".join(range(91,999),",")  " color column after textwidth
+set nojoinspaces                             " join sentences with one space
 
 " VISUAL SETTINGS
 set title                                       " window title
-set showmatch                                   " show matching brackets for a moment
-" let loaded_matchparen = 1
+" set showmatch                                   " show matching brackets for a moment
+let loaded_matchparen = 1
 set cursorline                                  " highlight current line
 set fillchars+=vert:\│                          " split separator
 hi VertSplit guibg=NONE guifg=#1d2021 gui=none  " split separator color

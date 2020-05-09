@@ -18,6 +18,6 @@ let R_editor_h = 60                                         " help split width
 
 " Rmd configuration
 let rmd_syn_hl_chunk = 1
-let g:rmd_syn_langs = ["r", "python", "c"] " engines for chunks
+" let g:rmd_syn_langs = ["r", "python", "c"] " engines for chunks
 
 au BufNewFile,BufRead *.Rmarkdown set filetype=rmd

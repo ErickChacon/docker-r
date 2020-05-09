@@ -15,24 +15,26 @@ endfunction
 function! Lightlinegit()
     let l:branch = fugitive#head()
     return l:branch ==# '' ? '' : "\uE0A0" . " " . l:branch
-  endfunction " }}}
+    " return "eral"
+endfunction " }}}
 function! Sy_stats_wrapper() " {{{
-  let symbols = ['+', '-', '~']
-  let [added, modified, removed] = sy#repo#get_stats()
-  let stats = [added, removed, modified]  " reorder
-  let hunkline = ''
-
-  for i in range(3)
-    if stats[i] > 0
-      let hunkline .= printf('%s%s ', symbols[i], stats[i])
-    endif
-  endfor
-
-  if !empty(hunkline)
-    let hunkline = printf(' [%s]', hunkline[:-2])
-  endif
-
-  return hunkline
+    return "slow"
+  " let symbols = ['+', '-', '~']
+  " let [added, modified, removed] = sy#repo#get_stats()
+  " let stats = [added, removed, modified]  " reorder
+  " let hunkline = ''
+  "
+  " for i in range(3)
+  "   if stats[i] > 0
+  "     let hunkline .= printf('%s%s ', symbols[i], stats[i])
+  "   endif
+  " endfor
+  "
+  " if !empty(hunkline)
+  "   let hunkline = printf(' [%s]', hunkline[:-2])
+  " endif
+  "
+  " return hunkline
 endfunction " }}}
 
 " Lightline format {{{

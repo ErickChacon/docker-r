@@ -250,6 +250,9 @@ RUN r -e 'blogdown::install_hugo()'
 
 USER root
 
+# RUN \
+#   installGithub.r REditorSupport/languageserver@v0.3.4
+
 EXPOSE 1313
 
 

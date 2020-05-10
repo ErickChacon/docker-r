@@ -1,9 +1,26 @@
+setlocal foldmethod=expr
+setlocal foldexpr=GetPotionFold(v:lnum)
+setlocal foldlevel=0
+
+function! GetPotionFold(lnum)
+    if getline(a:lnum) =~? '\v^##'
+        return 'a1'
+    endif
+
+    if getline(a:lnum) =~? '\v^\s*$'
+        if getline(a:lnum + 1) =~? '\v^##'
+            return 's1'
+        endif
+    endif
+
+    return '='
+endfunction
 
 " local config
 " setlocal formatoptions+=at                       " text wraping
-set foldcolumn=2                                   " fold column
-set foldlevel=1                                    " fold level
-set foldtext=MyFoldText()                          " custom fold text
+" set foldcolumn=2                                   " fold column
+" set foldlevel=1                                    " fold level
+" set foldtext=MyFoldText()                          " custom fold text
 
 " functions
 function! RObjBrowserNerd()

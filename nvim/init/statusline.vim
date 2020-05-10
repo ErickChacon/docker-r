@@ -1,76 +1,3 @@
-" Lightline {{{
-
-" Lightline custom functions
-
-function! MyFiletype() " {{{
-  " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' : 'no ft') : ''
-endfunction " }}}
-" function! MyFiletypeIcon(n) " {{{
-"   return winwidth(0) > 70 ? (strlen(&filetype) ?  WebDevIconsGetFileTypeSymbol() : '') : ''
-" endfunction " }}}
-function! MyFileformat() " {{{
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-function! Lightlinegit()
-    let l:branch = fugitive#head()
-    return l:branch ==# '' ? '' : "\uE0A0" . " " . l:branch
-    " return "eral"
-endfunction " }}}
-function! Sy_stats_wrapper() " {{{
-    return "slow"
-  " let symbols = ['+', '-', '~']
-  " let [added, modified, removed] = sy#repo#get_stats()
-  " let stats = [added, removed, modified]  " reorder
-  " let hunkline = ''
-  "
-  " for i in range(3)
-  "   if stats[i] > 0
-  "     let hunkline .= printf('%s%s ', symbols[i], stats[i])
-  "   endif
-  " endfor
-  "
-  " if !empty(hunkline)
-  "   let hunkline = printf(' [%s]', hunkline[:-2])
-  " endif
-  "
-  " return hunkline
-endfunction " }}}
-
-" Lightline format {{{
-let g:lightline = {}
-let g:lightline.colorscheme = 'yourcolorscheme'
-let g:lightline.component = {
-      \ 'empty': '',
-      \ 'filepath': '%F'}
-let g:lightline.component_function = {
-      \ 'gitbranch': 'Lightlinegit',
-      \ 'gitstatus': 'Sy_stats_wrapper',
-      \ 'filetype': 'MyFiletype',
-      \ 'fileformat': 'MyFileformat',
-      \ }
-" let g:lightline.tab_component_function = {
-"       \ 'filetypeicon': 'MyFiletypeIcon',
-"       \ }
-let g:lightline.active = {
-      \ 'left': [ [ 'mode', 'paste' ], ['gitbranch', 'gitstatus'],
-      \           [ 'readonly', 'filename', 'modified' ] ],
-      \ 'right': [ [ 'percent' , 'lineinfo' ],
-      \            [ 'fileencoding'],
-      \           [ 'filetype'] ] }
-let g:lightline.inactive = {
-      \ 'left': [ [ 'filepath' ] ],
-      \ 'right': [ ['empty'] ] }
-let g:lightline.tabline = {
-      \ 'left': [ [ 'tabs' ] ],
-      \ 'right': [ [ 'close' ] ] }
-let g:lightline.tab = {
-      \ 'active': [ 'tabnum', 'filename', 'filetypeicon', 'modified' ],
-      \ 'inactive': [ 'tabnum', 'filename', 'modified' ]
-      \ }
-let g:lightline.separator = { 'left': "\ue0b0", 'right': '' }
-let g:lightline.subseparator = { 'left': '|', 'right': '' }
-" }}}
 
 " Lightline type: 1, 2 or 3 {{{
 if g:colors_name == 'crunchbang' || g:colors_name == 'onehalfdark' ||
@@ -84,7 +11,6 @@ else
   let s:lightline_type = 1
 endif
 " }}}
-
 " Lightline default colors: soft, visual, insert, inactive {{{
 let g:fg_soft     = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui')), "NONE" ]
 let g:bg_soft     = [ tolower(synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')), "NONE"]
@@ -92,7 +18,6 @@ let s:bg_visual   = [ tolower(synIDattr(synIDtrans(hlID('Identifier')), 'fg', 'g
 let s:bg_insert   = [ tolower(synIDattr(synIDtrans(hlID('Define')), 'fg', 'gui')), "NONE"]
 let s:fg_inactive = [ tolower(synIDattr(synIDtrans(hlID('LineNr')), 'fg', 'gui')), "NONE"]
 " }}}
-
 " Lightline default colors: focus, hard {{{
 if s:lightline_type == 1     " bg: normal fg - linenr fg - cursorline bg
   let g:fg_focus = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
@@ -111,7 +36,6 @@ elseif s:lightline_type == 3 " bg: linenr fg - normal fg - cursorline bg
   let g:bg_hard  = [ tolower(synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui')), "NONE" ]
 endif
 " }}}
-"
 " Lightline custom colors per palette {{{
 if g:colors_name      == 'gruvbox'
   let g:bg_focus      = [ '#a89984', 'NONE' ]
@@ -169,67 +93,159 @@ elseif g:colors_name  == 'base16-atlas'
 endif
 " }}}
 
-" Define colorscheme {{{
-let s:p = {'normal': {}, 'tabline': {}, 'insert':{}, 'visual':{}, 'inactive':{}}
-let s:p.normal.left = [
-      \ [ g:fg_focus, g:bg_focus, 'bold' ],
-      \ [ g:fg_hard, g:bg_hard ],
-      \]
-let s:p.normal.middle = [
-      \ [ g:fg_soft, g:bg_soft ] ]
-let s:p.normal.right = [
-      \ [ g:fg_focus, g:bg_focus, 'bold' ],
-      \ [ g:fg_hard, g:bg_hard ],
-      \ [ g:fg_soft, g:bg_soft ] ]
-let s:p.tabline.left = [ [ g:fg_hard, g:bg_hard ] ]
-let s:p.tabline.tabsel = [ [ g:fg_focus, g:bg_focus ] ]
-let s:p.tabline.middle = [ [ g:fg_soft, g:bg_soft ] ]
-let s:p.insert.left = [
-      \ [ g:fg_focus, s:bg_insert, 'bold' ],
-      \ [ g:fg_hard, g:bg_hard ]
-      \ ]
-let s:p.insert.right = [
-      \ [ g:fg_focus, s:bg_insert, 'bold' ],
-      \ [ g:fg_hard, g:bg_hard ]
-      \ ]
-let s:p.visual.left = [
-      \ [ g:fg_focus, s:bg_visual, 'bold' ],
-      \ [ g:fg_hard, g:bg_hard ]
-      \ ]
-let s:p.visual.right = [
-      \ [ g:fg_focus, s:bg_visual, 'bold' ],
-      \ [ g:fg_hard, g:bg_hard ]
-      \ ]
-let s:p.inactive.left = [[ s:fg_inactive, g:bg_soft, 'italic' ], [ s:fg_inactive, g:bg_soft ]]
-let s:p.inactive.right = [ [ s:fg_inactive, g:bg_soft], [ s:fg_inactive, g:bg_soft ] ]
-let s:p.inactive.middle = [ [ s:fg_inactive, g:bg_soft ] ]
-" }}}
+" Statusline {{{1
+
+function Gitbranch()
+    let l:branch = fugitive#head()
+    return l:branch ==# '' ? '' : "\uE0A0" . " " . l:branch
+endfunction
+
+function Gitstats()
+  let symbols = ['+', '-', '~']
+  let [added, modified, removed] = sy#repo#get_stats()
+  let stats = [added, removed, modified]  " reorder
+  let hunkline = ''
+
+  for i in range(3)
+    if stats[i] > 0
+      let hunkline .= printf('%s%s ', symbols[i], stats[i])
+    endif
+  endfor
+
+  if !empty(hunkline)
+    let hunkline = printf(' [%s]', hunkline[:-2])
+  endif
+
+  return hunkline
+endfunction
 
 
-" Lightline assign colorscheme
-let g:lightline#colorscheme#yourcolorscheme#palette = lightline#colorscheme#flatten(s:p)
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ "\<C-V>" : 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ '^S' : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'V·Replace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal'
+    \}
 
-" Tmuxline {{{
 
-" Tmuxline presets
+execute 'hi stl_focus guifg=' . g:fg_focus[0] . ' guibg=' . g:bg_focus[0] . ' gui=bold'
+execute 'hi stl_focus_alt guifg=' . g:bg_focus[0] . ' guibg=' . g:bg_hard[0] . ' gui=bold'
+execute 'hi stl_focus_alt2 guifg=' . g:bg_focus[0] . ' guibg=' . g:bg_soft[0] . ' gui=bold'
+execute 'hi stl_hard guifg=' . g:fg_hard[0] . ' guibg=' . g:bg_hard[0]
+execute 'hi stl_hard_alt guifg=' . g:bg_hard[0] . ' guibg=' . g:bg_soft[0]
+execute 'hi stl_soft guifg=' . g:fg_soft[0] . ' guibg=' . g:bg_soft[0]
+execute 'hi! TabLineSel guifg=' . g:fg_focus[0] . ' guibg=' . g:bg_focus[0]
+execute 'hi! Tabline guifg=' . g:fg_hard[0] . ' guibg=' . g:bg_hard[0] . ' gui=NONE'
+
+execute 'hi TabLineFill guifg=' . g:fg_soft[0] . ' guibg=' . g:bg_soft[0]
+
+function StatusActive()
+    setlocal statusline=
+    setlocal statusline+=%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ 
+    " set statusline+=%#stl_focus#\ %{mode()}\ 
+    " set statusline+=%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ 
+    setlocal statusline+=%#stl_focus_alt#⮀
+    " set statusline+=%#stl_hard#\ %{Gitbranch()}\ 
+    " set statusline+=%#stl_hard#\ %{Gitstats()}\ 
+    setlocal statusline+=%#stl_hard_alt#⮀
+    setlocal statusline+=%#stl_soft#
+    setlocal statusline+=\ %f\ %m%r
+    setlocal statusline+=%=
+    setlocal statusline+=%{&filetype}\ 
+    setlocal statusline+=%#stl_hard_alt#⮂
+    setlocal statusline+=%#stl_hard#\ %{&fileencoding?&fileencoding:&encoding}\ 
+    setlocal statusline+=%#stl_focus_alt#⮂
+    setlocal statusline+=%#stl_focus#\ %3p%%\ %3l:%2c\ 
+endf
+
+function StatusInactive()
+    setlocal statusline=
+    setlocal statusline+=%f
+    setlocal statusline+=%=
+    setlocal statusline+=\ %3p%%\ %3l:%2c\ 
+endf
+
+augroup CursorLineOnlyInActiveWindow
+  autocmd!
+  autocmd WinEnter,BufWinEnter * call StatusActive()
+  autocmd WinLeave * call StatusInactive()
+augroup END
+
+" Tabline {{{1
+
+function MyTabLine()
+
+  let s = ''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T ' . (i + 1)
+    " the label is made by MyTabLabel()
+    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  " let s .= '%#stl_focus_alt2#⮀'
+  let s .= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#stl_focus_alt2#⮂%#TabLineSel#%999X X '
+  endif
+
+  return s
+endfunction
+
+
+function MyTabLabel(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let l:filename = expand("#" . buflist[winnr - 1] . ":p:t")
+    return l:filename ==# '' ? '[No Name]' : l:filename
+endfunction
+
+set tabline=%!MyTabLine()
+
+" Tmuxline {{{1
+
 let g:tmuxline_separators = {
-    \ 'left' : '',
+    \ 'left' : '⮀',
     \ 'left_alt': '',
-    \ 'right' : '',
+    \ 'right' : '⮂',
     \ 'right_alt' : '',
     \ 'space' : ' '}
 let g:tmuxline_preset = {
       \ 'a'    : '#S',
+      \ 'b'    : ['\uE0A0 #(cd #{pane_current_path}; ' .
+      \ 'git rev-parse --abbrev-ref HEAD)' ],
+      \ 'c'    : ' ',
       \ 'win'  : ['#I:#W'],
       \ 'cwin' : ['#I:#W #[fg=cyan]✔'],
-      \ 'x'    : '',
-      \ 'y'    : '',
       \ 'z'    : ['\uF080' . ' '],
       \ 'options' : {'status-justify' : 'left'}
       \ }
 let g:tmuxline_theme = {
       \'a'    : [ g:fg_focus[0], g:bg_focus[0], 'bold'],
-      \'b'    : [ g:fg_soft[0], g:bg_soft[0] ],
+      \'b'    : [ g:fg_soft[0], g:bg_hard[0] ],
       \'c'    : [ g:fg_soft[0], g:bg_soft[0] ],
       \'bg'   : [ g:fg_soft[0], g:bg_soft[0] ],
       \'win'  : [ g:fg_soft[0], g:bg_soft[0] ],
@@ -239,7 +255,6 @@ let g:tmuxline_theme = {
       \'z'    : [ g:fg_focus[0], g:bg_focus[0], 'bold']
       \}
 
-" Active tmuxline
 if exists('$TMUX')
     autocmd VimEnter * call tmuxline#set_statusline()
 endif

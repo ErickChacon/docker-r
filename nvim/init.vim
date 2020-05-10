@@ -10,7 +10,7 @@ so ~/.config/nvim/init/folding.vim
 
 " aesthetics
 so ~/.config/nvim/init/colors.vim
-" so ~/.config/nvim/init/statusline.vim
+so ~/.config/nvim/init/statusline.vim
 
 " ide features
 so ~/.config/nvim/init/navigation.vim

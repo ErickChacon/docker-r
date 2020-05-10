@@ -1,5 +1,6 @@
+setlocal textwidth=80
+setlocal spell
 " autocmd BufNewFile,Bufread index.md setlocal nofoldenable
-" setlocal spell
 " setlocal formatoptions+=at                       " text wraping
 "
 " " " to recognize equations in any filetype

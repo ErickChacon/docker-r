@@ -1,5 +1,5 @@
 let g:wiki_root = '~/Documents/Organizer'
-let g:wiki_filetypes = ['md', 'rmd', 'pandoc']
+let g:wiki_filetypes = ['md', 'Rmd', 'Rmarkdown']
 
 let g:wiki_mappings_use_defaults = 'global'
 let g:wiki_mappings_local = {

@@ -95,6 +95,7 @@ endif
 
 " Statusline {{{1
 
+
 function Gitbranch()
     let l:branch = fugitive#head()
     return l:branch ==# '' ? '' : "\uE0A0" . " " . l:branch
@@ -150,39 +151,38 @@ execute 'hi stl_hard_alt guifg=' . g:bg_hard[0] . ' guibg=' . g:bg_soft[0]
 execute 'hi stl_soft guifg=' . g:fg_soft[0] . ' guibg=' . g:bg_soft[0]
 execute 'hi! TabLineSel guifg=' . g:fg_focus[0] . ' guibg=' . g:bg_focus[0]
 execute 'hi! Tabline guifg=' . g:fg_hard[0] . ' guibg=' . g:bg_hard[0] . ' gui=NONE'
-
 execute 'hi TabLineFill guifg=' . g:fg_soft[0] . ' guibg=' . g:bg_soft[0]
 
 function StatusActive()
-    setlocal statusline=
-    setlocal statusline+=%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ 
-    " set statusline+=%#stl_focus#\ %{mode()}\ 
-    " set statusline+=%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ 
-    setlocal statusline+=%#stl_focus_alt#⮀
-    " set statusline+=%#stl_hard#\ %{Gitbranch()}\ 
-    " set statusline+=%#stl_hard#\ %{Gitstats()}\ 
-    setlocal statusline+=%#stl_hard_alt#⮀
-    setlocal statusline+=%#stl_soft#
-    setlocal statusline+=\ %f\ %m%r
-    setlocal statusline+=%=
-    setlocal statusline+=%{&filetype}\ 
-    setlocal statusline+=%#stl_hard_alt#⮂
-    setlocal statusline+=%#stl_hard#\ %{&fileencoding?&fileencoding:&encoding}\ 
-    setlocal statusline+=%#stl_focus_alt#⮂
-    setlocal statusline+=%#stl_focus#\ %3p%%\ %3l:%2c\ 
+    let l:stl  = ""
+    let l:stl .= "%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ "
+    let l:stl .= "%#stl_focus_alt#⮀"
+    " let l:stl .= "%#stl_hard#\ %{Gitbranch()}\ "
+    " let l:stl  = "%#stl_hard#\ %{Gitstats()}\ "
+    let l:stl .= "%#stl_hard_alt#⮀"
+    let l:stl .= "%#stl_soft#"
+    let l:stl .= "\ %0.30f\ %m%r"
+    let l:stl .= "%="
+    let l:stl .= "%{&filetype}\ "
+    let l:stl .= "%#stl_hard_alt#⮂"
+    let l:stl .= "%#stl_hard#\ %{&fileencoding?&fileencoding:&encoding}\ "
+    let l:stl .= "%#stl_focus_alt#⮂"
+    let l:stl .= "%#stl_focus#\ %3p%%\ %3l:%2c\ "
+    return l:stl
 endf
 
 function StatusInactive()
-    setlocal statusline=
-    setlocal statusline+=%f
-    setlocal statusline+=%=
-    setlocal statusline+=\ %3p%%\ %3l:%2c\ 
+    let l:stl  = ""
+    let l:stl .= "%F"
+    let l:stl .= "%="
+    let l:stl .= "\ %3p%%\ %3l:%2c\ "
+    return l:stl
 endf
 
 augroup CursorLineOnlyInActiveWindow
   autocmd!
-  autocmd WinEnter,BufWinEnter * call StatusActive()
-  autocmd WinLeave * call StatusInactive()
+  autocmd WinEnter,BufWinEnter * setlocal statusline=%!StatusActive()
+  autocmd WinLeave * setlocal statusline=%!StatusInactive()
 augroup END
 
 " Tabline {{{1

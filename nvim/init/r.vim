@@ -18,6 +18,10 @@ let R_editor_h = 60                                         " help split width
 
 " Rmd configuration
 let rmd_syn_hl_chunk = 1
-" let g:rmd_syn_langs = ["r", "python", "c"] " engines for chunks
+" let g:rmd_syn_langs = ['r', "python", "c"] " engines for chunks
+let g:rmd_fenced_languages = ['r']
+" NOTE: In case g:rmd_fenced_languages is empty, rmd syntax will remove
+" g:markdown_fenced_languages, consequently fenced languages will be removed from
+" markdown focuments.
 
 au BufNewFile,BufRead *.Rmarkdown set filetype=rmd

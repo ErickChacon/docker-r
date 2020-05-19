@@ -1,3 +1,4 @@
+setlocal spell
 setlocal foldmethod=expr
 setlocal foldexpr=GetPotionFold(v:lnum)
 setlocal foldlevel=0

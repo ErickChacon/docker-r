@@ -1,5 +1,5 @@
 
-" " Allow true colors and read palette name
+" Allow true colors and read palette name
 set termguicolors                                  " true colors
 set background=dark                                " dark background
 let g:path_palname = $HOME.'/.palette-name.vim'    " file to read palette name

@@ -246,20 +246,19 @@ COPY --chown=rstudio bash-enable.sh $HOME_USER/
 
 # Change to root for permissions {{{1
 
-RUN r -e 'blogdown::install_hugo()'
+RUN mkdir -p ~/bin && \
+    r -e 'options(blogdown.hugo.dir = "~/bin"); blogdown::install_hugo()'
 
 USER root
 
 RUN \
   installGithub.r REditorSupport/languageserver@v0.3.4
 
-RUN \
-  installGithub.r r-spatial/stars
 
+RUN installGithub.r ErickChacon/stars  ErickChacon/blogdown
 
 # RUN \
 #   installGithub.r REditorSupport/languageserver@6fff92f
-
 
 EXPOSE 1313
 

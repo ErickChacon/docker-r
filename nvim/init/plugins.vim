@@ -1,7 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+
 " Aesthetics
-" Plug 'itchyny/lightline.vim'           , {'commit': 'bb0b401'}  " statusline
 Plug 'edkolev/tmuxline.vim'            , {'commit': '1142333'}  " tmux statusline
 Plug 'kshenoy/vim-signature'           , {'commit': '6bc3dd1'}  " display marks
 Plug 'mhinz/vim-signify'               , {'commit': 'f34fea0'}  " vcs differences
@@ -17,7 +17,7 @@ Plug 'christoomey/vim-tmux-navigator'  , {'commit': '4e1a877'}  " tmux-vim navig
 Plug 'junegunn/fzf'                    , {'commit': '430e819',
             \ 'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'                , {'commit': 'ac4e7bf'}  " fuzzy matching
-Plug 'autozimu/LanguageClient-neovim'  , {'commit': '18434f2',
+Plug 'autozimu/LanguageClient-neovim'  , {'commit': '4b35f5d',
             \ 'branch': 'next', 'do': 'bash install.sh'}        " language server
 Plug 'Shougo/deoplete.nvim'            , {'commit': 'a76d2fb',
             \ 'do': ':UpdateRemotePlugins' }                    " completion
@@ -33,6 +33,7 @@ Plug 'lervag/vimtex'                   , {'commit': 'ef428bb'}  " latex: compile
 " Plug 'vim-pandoc/vim-pandoc-syntax'    , {'commit': 'f7ea41a'}  " pandoc: syntax
 Plug 'cespare/vim-toml'                , {'commit': '2295e61'}  " toml: syntax
 Plug 'jalvesaq/Nvim-R'                 , {'commit': '7a551bd'}  " R: support
+" Plug 'jalvesaq/Nvim-R'                 , {'commit': 'd8d0d0a'}  " R: support
 Plug 'tpope/vim-fugitive'              , {'commit': '5d99841'}  " git: wrapper
 " Plug 'airblade/vim-gitgutter'                            " git: shows changes
 " Plug 'vim-python/python-syntax'                          " python: better syntax

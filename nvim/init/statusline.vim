@@ -142,7 +142,6 @@ let g:currentmode={
     \ 't'  : 'Terminal'
     \}
 
-
 execute 'hi stl_focus guifg=' . g:fg_focus[0] . ' guibg=' . g:bg_focus[0] . ' gui=bold'
 execute 'hi stl_focus_alt guifg=' . g:bg_focus[0] . ' guibg=' . g:bg_hard[0] . ' gui=bold'
 execute 'hi stl_focus_alt2 guifg=' . g:bg_focus[0] . ' guibg=' . g:bg_soft[0] . ' gui=bold'
@@ -153,36 +152,28 @@ execute 'hi! TabLineSel guifg=' . g:fg_focus[0] . ' guibg=' . g:bg_focus[0]
 execute 'hi! Tabline guifg=' . g:fg_hard[0] . ' guibg=' . g:bg_hard[0] . ' gui=NONE'
 execute 'hi TabLineFill guifg=' . g:fg_soft[0] . ' guibg=' . g:bg_soft[0]
 
-function StatusActive()
-    let l:stl  = ""
-    let l:stl .= "%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ "
-    let l:stl .= "%#stl_focus_alt#⮀"
-    " let l:stl .= "%#stl_hard#\ %{Gitbranch()}\ "
-    " let l:stl  = "%#stl_hard#\ %{Gitstats()}\ "
-    let l:stl .= "%#stl_hard_alt#⮀"
-    let l:stl .= "%#stl_soft#"
-    let l:stl .= "\ %0.30f\ %m%r"
-    let l:stl .= "%="
-    let l:stl .= "%{&filetype}\ "
-    let l:stl .= "%#stl_hard_alt#⮂"
-    let l:stl .= "%#stl_hard#\ %{&fileencoding?&fileencoding:&encoding}\ "
-    let l:stl .= "%#stl_focus_alt#⮂"
-    let l:stl .= "%#stl_focus#\ %3p%%\ %3l:%2c\ "
-    return l:stl
-endf
+let g:status_active = "%#stl_focus#\ %{toupper(g:currentmode[mode()])}\ "
+let g:status_active .= "%#stl_focus_alt#⮀"
+" let g:status_active .= "%#stl_hard#\ %{Gitbranch()}\ "
+" let g:status_active .= "%#stl_hard#\ %{Gitstats()}\ "
+let g:status_active .= "%#stl_hard_alt#⮀"
+let g:status_active .= "%#stl_soft#"
+let g:status_active .= "\ %0.30f\ %m%r"
+let g:status_active .= "%="
+let g:status_active .= "%{&filetype}\ "
+let g:status_active .= "%#stl_hard_alt#⮂"
+let g:status_active .= "%#stl_hard#\ %{&fileencoding?&fileencoding:&encoding}\ "
+let g:status_active .= "%#stl_focus_alt#⮂"
+let g:status_active .= "%#stl_focus#\ %3p%%\ %3l:%2c\ "
 
-function StatusInactive()
-    let l:stl  = ""
-    let l:stl .= "%F"
-    let l:stl .= "%="
-    let l:stl .= "\ %3p%%\ %3l:%2c\ "
-    return l:stl
-endf
+let g:status_inactive = "%F"
+let g:status_inactive .= "%="
+let g:status_inactive .= "\ %3p%%\ %3l:%2c\ "
 
-augroup CursorLineOnlyInActiveWindow
+augroup CustomStatusLine
   autocmd!
-  autocmd WinEnter,BufWinEnter * setlocal statusline=%!StatusActive()
-  autocmd WinLeave * setlocal statusline=%!StatusInactive()
+  autocmd WinEnter,BufWinEnter * setlocal statusline=%!g:status_active
+  autocmd WinLeave * setlocal statusline=%!g:status_inactive
 augroup END
 
 " Tabline {{{1

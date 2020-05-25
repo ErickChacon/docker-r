@@ -192,6 +192,9 @@ RUN \
   # air quality analysis
   install2.r --error --deps TRUE rmweather openair
 
+RUN \
+  installGithub.r REditorSupport/languageserver@v0.3.4
+
 # Neovim copy paste {{{1
 
 RUN apt-get install -y xclip xsel
@@ -251,14 +254,12 @@ RUN mkdir -p ~/bin && \
 
 USER root
 
-RUN \
-  installGithub.r REditorSupport/languageserver@v0.3.4
-
-
-RUN installGithub.r ErickChacon/stars  ErickChacon/blogdown
-
 # RUN \
-#   installGithub.r REditorSupport/languageserver@6fff92f
+#   installGithub.r REditorSupport/languageserver@dda8b9a
+
+RUN installGithub.r ErickChacon/blogdown
+RUN installGithub.r ErickChacon/stars@3686ebb
+RUN installGithub.r ErickChacon/reprodown
 
 EXPOSE 1313
 

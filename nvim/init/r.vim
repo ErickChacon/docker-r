@@ -29,3 +29,8 @@ let g:rmd_fenced_languages = ['r']
 " markdown focuments.
 
 au BufNewFile,BufRead *.Rmarkdown set filetype=rmd
+
+command! Reprodown
+      \ call system("r -e 'reprodown::makefile()'")
+
+

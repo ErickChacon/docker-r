@@ -10,12 +10,7 @@ endfunction
 
 " Mapping and nvim-r
 inoremap <buffer> >> <Esc>:normal! a%>%<CR>a
-inoremap <leader>, <C-x><C-o>
-nmap <buffer> <silent> <leader>ro :call RObjBrowserNerd()<CR>
-nmap <buffer> <LocalLeader>rgj :RSend dev.set(which = dev.next())<CR>
-nmap <buffer> <LocalLeader>rgk :RSend dev.set(which = dev.prev())<CR>
-nmap <buffer> <LocalLeader>rgn :RSend dev.new()<CR>
-
+" inoremap <leader>, <C-x><C-o>
 
 " folding
 setlocal foldmethod=expr

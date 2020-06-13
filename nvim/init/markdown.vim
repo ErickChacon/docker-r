@@ -6,4 +6,4 @@ let g:markdown_folding = 1
 
 " Bullets
 
-let g:bullets_enabled_file_types = ['pandoc', 'markdown', 'rmd']
+let g:bullets_enabled_file_types = ['pandoc', 'markdown']

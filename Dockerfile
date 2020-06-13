@@ -249,9 +249,6 @@ COPY --chown=rstudio bash-enable.sh $HOME_USER/
 
 # Change to root for permissions {{{1
 
-RUN mkdir -p ~/bin && \
-    r -e 'options(blogdown.hugo.dir = "~/bin"); blogdown::install_hugo()'
-
 USER root
 
 # RUN \
@@ -261,6 +258,19 @@ RUN installGithub.r ErickChacon/blogdown
 RUN installGithub.r ErickChacon/stars@3686ebb
 RUN installGithub.r ErickChacon/reprodown
 
+USER $USER
+
+RUN mkdir -p ~/bin && \
+    r -e 'options(blogdown.hugo.dir = "~/bin"); blogdown::install_hugo()'
+
+USER root
+
 EXPOSE 1313
+
+RUN wget http://download.osgeo.org/gdal/3.1.0/gdal-3.1.0.tar.gz && \
+    tar -xvzf gdal-3.1.0.tar.gz && \
+    cd gdal-3.1.0 && \
+    ./configure --prefix=/usr && \
+    make
 
 

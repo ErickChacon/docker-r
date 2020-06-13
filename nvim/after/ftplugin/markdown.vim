@@ -1,5 +1,7 @@
 setlocal textwidth=80
 setlocal spell
+setlocal nofoldenable
+
 " autocmd BufNewFile,Bufread index.md setlocal nofoldenable
 " setlocal formatoptions+=at                       " text wraping
 "

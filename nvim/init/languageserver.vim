@@ -11,7 +11,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rmd': ['R', '--quiet', '--slave', '-e', 'languageserver::run()'],
     \ }
 
-let g:LanguageClient_autoStart = 1
+let g:LanguageClient_autoStart = 0
 
 " let g:LanguageClient_serverCommands = {}
 " let g:LanguageClient_loggingFile = expand('/tmp/LanguageClient.log')

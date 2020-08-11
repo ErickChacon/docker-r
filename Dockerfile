@@ -251,6 +251,9 @@ COPY --chown=rstudio bash-enable.sh $HOME_USER/
 
 USER root
 
+RUN cp -r /usr/local/lib/R/site-library/nvimcom $HOME_USER/.nvimcom
+RUN cp -r $HOME_USER/.cache/Nvim-R $HOME_USER/.nvimr_cache
+
 # RUN \
 #   installGithub.r REditorSupport/languageserver@dda8b9a
 
@@ -267,10 +270,10 @@ USER root
 
 EXPOSE 1313
 
-RUN wget http://download.osgeo.org/gdal/3.1.0/gdal-3.1.0.tar.gz && \
-    tar -xvzf gdal-3.1.0.tar.gz && \
-    cd gdal-3.1.0 && \
-    ./configure --prefix=/usr && \
-    make
+# RUN wget http://download.osgeo.org/gdal/3.1.0/gdal-3.1.0.tar.gz && \
+#     tar -xvzf gdal-3.1.0.tar.gz && \
+#     cd gdal-3.1.0 && \
+#     ./configure --prefix=/usr && \
+#     make
 
 

@@ -30,7 +30,8 @@ let g:rmd_fenced_languages = ['r']
 
 au BufNewFile,BufRead *.Rmarkdown set filetype=rmd
 
-command! Reprodown
-      \ call system("r -e 'reprodown::makefile()'")
+" command! Reprodown
+"       \ call system("r -e 'reprodown::makefile()'")
+      " \ call system("r -e 'reprodown::makefile()'")
 
 

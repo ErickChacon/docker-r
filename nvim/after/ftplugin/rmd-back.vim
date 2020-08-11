@@ -49,7 +49,7 @@ so ~/.config/nvim/ftplugin/r_mappings.vim
 " Add snippets of rmd, r and tex
 " UltiSnipsAddFiletypes rmd.r.tex
 
-" " Recoganize equations
+" Recoganize equations
 " call textobj#user#plugin('equation', {
 " \  'dollar-math-a': {
 " \     '*pattern*': '[$][^$]*[$]',
@@ -60,3 +60,4 @@ so ~/.config/nvim/ftplugin/r_mappings.vim
 " \     'select': 'i$',
 " \ },
 " \ })
+

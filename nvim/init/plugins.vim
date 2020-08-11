@@ -34,12 +34,17 @@ Plug 'jalvesaq/Nvim-R'                 , {'commit': '9ab1ead'}  " R: support
 " Plug 'vim-python/python-syntax'                          " python: better syntax
 " Plug 'octol/vim-cpp-enhanced-highlight'                  " cpp: better syntax
 " Plug 'JuliaEditorSupport/julia-vim'                      " julia: support
+Plug 'vim-pandoc/vim-pandoc-syntax'
+" augroup pandoc_syntax
+"     " au! BufNewFile,BufFilePre,BufRead *.Rmd set filetype=markdown.pandoc
+"     au! BufNewFile,BufFilePre,BufRead *.Rmd set filetype=pandoc
+" augroup END
 
 " Motions
 Plug 'junegunn/vim-easy-align'         , {'commit': '12dd631'}  " align
 Plug 'tpope/vim-surround'              , {'commit': 'ca58a2d'}  " sorround
 " Plug 'kana/vim-textobj-indent'         , {'commit': 'deb7686'}  " copy indented block
-" Plug 'kana/vim-textobj-user'           , {'commit': '074ce25'}  " custom text object
+Plug 'kana/vim-textobj-user'           , {'commit': '074ce25'}  " custom text object
 
 " Note taking
 Plug 'lervag/wiki.vim'                 , {'commit': '92734dc'}  " make notes

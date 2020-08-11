@@ -1,4 +1,5 @@
 if (interactive()) {
+options(nvimcom.verbose=4)
 
   # colors for themes
   # if (file.exists("~/.palette-name.vim")) {

@@ -258,6 +258,7 @@ RUN cp -r $HOME_USER/.cache/Nvim-R $HOME_USER/.nvimr_cache
 #   installGithub.r REditorSupport/languageserver@dda8b9a
 
 RUN installGithub.r ErickChacon/blogdown
+RUN installGithub.r r-spatial/sf
 RUN installGithub.r ErickChacon/stars@3686ebb
 RUN installGithub.r ErickChacon/reprodown
 
@@ -267,6 +268,11 @@ RUN mkdir -p ~/bin && \
     r -e 'options(blogdown.hugo.dir = "~/bin"); blogdown::install_hugo()'
 
 USER root
+
+ARG uid=1000
+ARG gid=1000
+RUN groupmod -g ${gid} rstudio
+RUN usermod -u ${uid} rstudio
 
 EXPOSE 1313
 

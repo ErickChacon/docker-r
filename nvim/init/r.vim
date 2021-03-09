@@ -32,6 +32,6 @@ au BufNewFile,BufRead *.Rmarkdown set filetype=rmd
 
 " command! Reprodown
 "       \ call system("r -e 'reprodown::makefile()'")
-      " \ call system("r -e 'reprodown::makefile()'")
+"       \ call system("r -e 'reprodown::makefile()'")
 
 
